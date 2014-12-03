@@ -1,0 +1,8 @@
+<h4>Upload Students List Vis CSV File</h4>
+<u><strong>First row should be : id, name, branch, grade, amount </strong></u>
+
+
+<%= form_tag import_students_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", :class => 'btn' %>
+<% end %>

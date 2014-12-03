@@ -1,0 +1,47 @@
+
+<h2>Students</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Garde</th>
+          <th>Amount</th>
+          <th>Paid</th>
+          <th>Remaining</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.try(:each) do |student| %>
+          <tr>
+            <td>
+              <%= student.id %>
+            </td>
+            <td>
+              <%= student.name %>
+            </td>
+            <td>
+              <%= student.branch %>
+            </td>
+            <td>
+              <%= student.grade %>
+            </td>
+            <td>
+              <%= student.amount %>
+            </td>
+            <td>
+              <%= student.paid %>
+            </td>
+            <td>
+              <%= student.amount-student.paid %>
+            </td>
+            <td>
+              <%= student.date %>
+            </td>
+            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
