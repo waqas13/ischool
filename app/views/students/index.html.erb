@@ -1,6 +1,32 @@
+<script type="text/javascript">
+  var d = document.getElementById("std");
+d.className = d.className + " active";
+  $(document).ready(function() {
+  
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+
+        }
+    });
+  });
+
+</script>
 
 <h2>Students</h2>
-    <table class="table table-striped">
+    <table id="example" class="display">
       <thead>
         <tr>
           <th>ID</th>

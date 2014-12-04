@@ -2,14 +2,21 @@
 <html>
 <head>
   <title>Scholastic</title>
-  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/jqueryui/dataTables.jqueryui.js"></script>
+<script src="//cdn.datatables.net/tabletools/2.2.0/js/dataTables.tableTools.min.js"></script>
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
- 
- 
 
+  <%= csrf_meta_tags %>
+  <link href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+  <link href="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/jqueryui/dataTables.jqueryui.css" rel="stylesheet" />
+  <link href="//cdn.datatables.net/tabletools/2.2.0/css/dataTables.tableTools.min.css" rel="stylesheet" />
+ 
+  
 </head>
 <body style=" background-color:#eee">
 
@@ -30,14 +37,21 @@
 
 				<ul class="nav pull-right" style="top:15px;">
 					
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<!-- <li class="dropdown">
+						<a href="<%#= edit_user_registration_path %>" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="icon-user"></i> 
-							<%= current_user.email%>
+							
 						</a>
 						
+					</li> -->
+
+					<li class="dropdown">
+						<%= link_to edit_user_registration_path do %>
+							<i class="icon-user"></i> <%= current_user.email%>
+						<% end %>
+						
 					</li>
-					
+
 					<li class="dropdown">
 						<%= link_to destroy_user_session_path, method: :delete do %>
 							<i class="icon-off"></i> Logout
@@ -66,14 +80,14 @@
 
 				<ul class="mainnav">
 				
-					<li class=""><!-- class->active -->
+					<li class="" id="home"><!-- class->active -->
 						<a href="<%= authenticated_root_path %>">
 							<i class="icon-home"></i>
 							<span>Home</span>
 						</a>	    				
 					</li>
 					<% if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
-					<li class="">
+					<li class="" id="csv">
 						<a href="<%= students_upload_path %>">
 							<i class="icon-plus"></i>
 							<span>Upload a CSV File</span>
@@ -82,7 +96,7 @@
 					<%end%>
 					
 					<% if current_user && current_user.user_type == 1 || current_user.user_type == 0 %>
-					<li class="">
+					<li class="" id="std">
 						<a href="<%= students_path %>">
 							<i class="icon-user"></i>
 							<span>Students</span>
@@ -92,7 +106,7 @@
 					
 					
 					<% if current_user && current_user.user_type == 3 || current_user.user_type == 0 %>
-					<li class="">
+					<li class="" id="pay">
 						<a href="<%= students_payment_path %>">
 							<i class="icon-plus"></i>
 							<span>Pay Fees</span>
@@ -114,6 +128,7 @@
 	<%= render partial: "partials/flash_message" %>
 	<%= yield %>
 </div>
+<div style="margin:30px;"></div>
 
 
 

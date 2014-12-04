@@ -1,1 +1,72 @@
-<h1>Payment</h1>
+<script type="text/javascript">
+  var d = document.getElementById("pay");
+d.className = d.className + " active";
+
+  $(document).ready(function() {
+  
+
+    $('#stdata').dataTable();
+  });
+
+</script>
+
+<h2>Students</h2>
+    <table id="stdata" class="display">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Branch</th>
+          <th>Garde</th>
+          <th>Amount</th>
+          <th>Paid</th>
+          <th>Remaining</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.try(:each) do |student| %>
+          <tr>
+            <td>
+              <%= student.id %>
+            </td>
+            <td>
+              <%= student.name %>
+            </td>
+            <td>
+              <%= student.branch %>
+            </td>
+            <td>
+              <%= student.grade %>
+            </td>
+            <td>
+              <%= student.amount %>
+            </td>
+            <td>
+              <%= student.paid %>
+            </td>
+            <td>
+              <%= student.amount-student.paid %>
+            </td>
+            <td>
+              <%= student.date %>
+            </td>
+            <td>
+            	<div class="input-group" style="width:150px;">
+			      <%= form_for @std ,:url => pay_students_path, method: :post do |f| %>
+				      <%= f.text_field :paid, :class => 'form-control', :style => 'height:26px;width:100px;', :value => student.amount-student.paid %>
+				      <%= f.hidden_field :date, :value => DateTime.now %>
+				      <%= f.hidden_field :id, :value => student.id %>
+				      <!-- <input type="text" class="form-control" style="height:26px;"> -->
+				      <span class="input-group-btn">
+				        <button type="submit" class="btn btn-small btn-warning" type="button">Pay!</button>
+				      </span>
+				     <% end %>
+			    </div><!-- /input-group -->
+            </td>
+            
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

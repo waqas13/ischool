@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   resources :students do
     collection { post :import }
+    collection do
+      post "pay"
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
