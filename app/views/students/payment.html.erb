@@ -55,7 +55,7 @@ d.className = d.className + " active";
             <td>
             	<div class="input-group" style="width:150px;">
 			      <%= form_for @std ,:url => pay_students_path, method: :post do |f| %>
-				      <%= f.text_field :paid, :class => 'form-control', :style => 'height:26px;width:100px;', :value => student.amount-student.paid %>
+				      <%= f.number_field :paid, :class => 'form-control', :style => 'height:26px;width:100px;', :value => student.amount-student.paid,  in: 0..1000000 %>
 				      <%= f.hidden_field :date, :value => DateTime.now %>
 				      <%= f.hidden_field :id, :value => student.id %>
 				      <!-- <input type="text" class="form-control" style="height:26px;"> -->
