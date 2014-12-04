@@ -30,7 +30,7 @@ class StudentsController < ApplicationController
   end
 
   def payment
-  	if current_user && current_user.user_type == 3 || current_user.user_type == 0
+  	if current_user && current_user.user_type == 3
       @students = Student.all
       @std = Student.new
   	else
