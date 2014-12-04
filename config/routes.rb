@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :students, path: '', path_names: {index: "students"} do
+  resources :students do
     collection { post :import }
   end
 
