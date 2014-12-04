@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
   def pay
     @std = Student.find(params[:student][:id])
     # return render json: @std
-    @std.paid = @std.paid + params[:student][:paid]
+    @std.paid = @std.paid.to_i + params[:student][:paid].to_i
     @std.date = params[:student][:date]
     @std.save!
     redirect_to students_payment_path, :success => 'Payment Updated!'
