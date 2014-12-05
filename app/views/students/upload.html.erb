@@ -7,6 +7,6 @@ d.className = d.className + " active";
 
 
 <%= form_tag import_students_path, multipart: true do %>
-  <%= file_field_tag :file, :accept => 'csv' %>
+  <%= file_field_tag :file, :accept => 'text/csv' %>
   <%= submit_tag "Import", :class => 'btn' %>
 <% end %>
