@@ -11,7 +11,7 @@ class Student < ActiveRecord::Base
 		  end
 		rescue => e
 	        # Rails.logger.error { "Encountered an error" }
-      		"ERROR UPLOADING CSV"
+      		"notok"
       	end
 	end
 end

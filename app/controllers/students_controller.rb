@@ -26,8 +26,12 @@ class StudentsController < ApplicationController
 
   def import
     if current_user && current_user.user_type == 2 || current_user.user_type == 0
-  	 Student.import(params[:file])
-  	 redirect_to students_upload_path, :notice => "Students imported."
+  	 result = Student.import(params[:file])
+     if result=="notok"
+        redirect_to students_upload_path, :alert => "Error in file."
+     else
+  	   redirect_to students_upload_path, :notice => "Students imported."
+     end
     else
       redirect_to authenticated_root_path, :alert => 'Access Denied!'
     end
