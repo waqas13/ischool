@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
 	before_action :authenticate_user!
+
+  ####### System admin is 0
+  ####### School admin is 1
+  ####### School account is 2
+  ####### Bank is 3
   def index
   	if current_user && current_user.user_type == 1 || current_user.user_type == 0
   		@students = Student.all
@@ -26,12 +31,12 @@ class StudentsController < ApplicationController
 
   def import
     if current_user && current_user.user_type == 2 || current_user.user_type == 0
-  	 result = Student.import(params[:file])
-     if result=="notok"
+  	  result = Student.import(params[:file])
+      if result=="notok"
         redirect_to students_upload_path, :alert => "Error in file."
-     else
-  	   redirect_to students_upload_path, :notice => "Students imported."
-     end
+      else
+  	    redirect_to students_upload_path, :notice => "Students imported."
+      end
     else
       redirect_to authenticated_root_path, :alert => 'Access Denied!'
     end
