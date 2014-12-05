@@ -25,8 +25,12 @@ class StudentsController < ApplicationController
   end
 
   def import
-  	Student.import(params[:file])
-  	redirect_to students_upload_path, :notice => "Students imported."
+    if current_user && current_user.user_type == 2 || current_user.user_type == 0
+  	 Student.import(params[:file])
+  	 redirect_to students_upload_path, :notice => "Students imported."
+    else
+      redirect_to authenticated_root_path, :alert => 'Access Denied!'
+    end
   end
 
   def payment
@@ -39,11 +43,15 @@ class StudentsController < ApplicationController
   end
 
   def pay
-    @std = Student.find(params[:student][:id])
-    # return render json: @std
-    @std.paid = @std.paid.to_i + params[:student][:paid].to_i
-    @std.date = params[:student][:date]
-    @std.save!
-    redirect_to students_payment_path, :success => 'Payment Updated!'
+    if current_user && current_user.user_type == 3
+      @std = Student.find(params[:student][:id])
+      # return render json: @std
+      @std.paid = @std.paid.to_i + params[:student][:paid].to_i
+      @std.date = params[:student][:date]
+      @std.save!
+      redirect_to students_payment_path, :success => 'Payment Updated!'
+    else
+      redirect_to authenticated_root_path, :alert => 'Access Denied!'
+    end
   end
 end

@@ -10,7 +10,7 @@ class Student < ActiveRecord::Base
 		    student.save!
 		  end
 		rescue => e
-	        Rails.logger.error { "Encountered an error" }
+	        # Rails.logger.error { "Encountered an error" }
       		"ERROR UPLOADING CSV"
       	end
 	end
