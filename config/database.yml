@@ -86,4 +86,4 @@ production:
   <<: *default
   database: scholastic_production
   username: postgres
-  password: 'postgres'
+  password: ''
