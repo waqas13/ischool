@@ -25,13 +25,14 @@ d.className = d.className + " active";
 
 </script>
 
-<h2>Students</h2>
+<h2>Students<a href="<%= new_student_path %>" class="btn btn-info pull-right" style="width:200px;">Admit a new Student</a></h2>
     <table id="example" class="display">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Roll Number</th>
           <th>Name</th>
-          <th>Branch</th>
+          <th>Father Name</th>
+          <th>Email</th>
           <th>Garde</th>
           <th>Amount</th>
           <th>Paid</th>
@@ -43,16 +44,19 @@ d.className = d.className + " active";
         <% @students.try(:each) do |student| %>
           <tr>
             <td>
-              <%= student.id %>
+              <%= student.rollnum %>
             </td>
             <td>
-              <%= student.name %>
+              <%= link_to student.name, student_path(student.id) %>
             </td>
             <td>
-              <%= student.branch %>
+              <%= student.sirname %>
             </td>
             <td>
-              <%= student.grade %>
+              <%= student.email %>
+            </td>
+            <td>
+              <%= Grade.find(student.grade_id).title %>
             </td>
             <td>
               <%= student.amount %>

@@ -1,2 +1,47 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+
+<div class="table-responsive" style="background-color:white;padding:15px;border-radius:5px;">
+	<h2><%= @student.name%></h2>
+	</br>
+
+	<table class="table table-striped">
+		<tr>
+			<td>Name</td> <td><%= @student.name%></td>
+		</tr>
+		
+		<tr>
+			<td>Roll Number</td> <td><%= @student.rollnum%></td>
+		</tr>
+
+		<tr>
+			<td>Father Name</td> <td><%= @student.sirname%></td>
+		</tr>
+
+		<tr>
+			<td>Grade</td> <td><%= Grade.find(@student.grade_id).title %></td>
+		</tr>
+
+		<tr>
+			<td>Gender</td> <td><%=@student.gender%></td>
+		</tr>
+
+		<tr>
+			<td>Date Of Birth</td> <td><%= @student.dob%></td>
+		</tr>
+
+		<tr>
+			<td>email</td> <td><%= @student.email%></td>
+		</tr>
+
+		<tr>
+			<td>Contact</td> <td><%= @student.contact%></td>
+		</tr>
+
+		<tr>
+			<td>Address</td> <td><%= @student.address%></td>
+		</tr>
+		<tr>
+			<td></td><td> <%= link_to 'Back', students_path, class: 'btn btn-default' %> <%= link_to 'Edit', edit_student_path(@student.id), class: 'btn btn-primary' %> <%= link_to 'Delete', student_path(@student.id), method: :delete, data: { confirm: 'Are you sure to delete this student?' }, class: 'btn btn-danger' %> </td>
+		</tr>
+		
+	</table>
+</div>

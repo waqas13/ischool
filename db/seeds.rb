@@ -7,7 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-User.create!(email: "admin@scholastic.com", password: "120120", user_type: 0, password_confirmation: "120120")
-User.create!(email: "schooladmin@scholastic.com", password: "scholastic", user_type: 1, password_confirmation: "scholastic")
-User.create!(email: "schoolaccount@scholastic.com", password: "scholastic", user_type: 2, password_confirmation: "scholastic")
-User.create!(email: "bank@scholastic.com", password: "scholastic", user_type: 3, password_confirmation: "scholastic")
+User.create!(email: "admin@school.com", password: "120120", user_type: 0, password_confirmation: "120120")
+User.create!(email: "schooladmin@school.com", password: "school", user_type: 1, password_confirmation: "school")
+User.create!(email: "exams@school.com", password: "school", user_type: 2, password_confirmation: "school")
+User.create!(email: "accounts@school.com", password: "school", user_type: 3, password_confirmation: "school")
+
+
+

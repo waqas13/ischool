@@ -1,0 +1,104 @@
+<h2>Admit a New Student</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @student do |std| %>
+		<div class="form-group">
+			<%= std.label :name %>
+			<%= std.text_field :name , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :father_name %>
+			<%= std.text_field :sirname , :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :grade %>
+		    <%= std.collection_select :grade_id, Grade.order(:title),:id,:title , {}, {class: "form-control", style: 'width:70%;', :id => 'grade'} %>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :roll_Number %>
+		    <%= std.text_field :rollnum , :id => 'roll_Number' ,:style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+
+		    <div class = "hide" id= "error_div_rollnum">
+				<span style = "color:red;" id="error_text_rollnum">  </span>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<%= std.label :contact %>
+			<%= std.text_field :contact , :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :date_of_Birth %>
+			<%= std.text_field :dob , :id => 'datepicker', :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class = 'form-group'>
+		    <%= std.label :gender %>
+			<%= std.select :gender, options_for_select(%w[MALE FEMALE]),{}, {class: "form-control", style: 'width:70%;'} %>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :email %>
+			<%= std.email_field :email , :id => 'email_field' , :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+			<div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :address %>
+			<%= std.text_area :address , :style => 'width:70%;', rows: 3, class: 'form-control' %>
+		</div>
+		</br>
+		<div class="form-group">
+			<%= std.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+		
+	<% end %>
+</div>
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+    $("#email_field").blur(function(){
+	  	$.get('/students/validate_model', {email: this.value})
+  		.done(function(data){
+	  		if (data)
+	  		{
+	  			$("#error_div").removeClass('hide');
+	  			$("#error_text").html($("#email_field").val() + " email already registered!");
+	  			$("#email_field").val('');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div").addClass('hide');
+	  		}
+	  	})
+	});
+
+  	$("#roll_Number").blur(function(){
+  		var grade = $("#grade").val();
+	  	$.get('/students/validate_rollnum', {roll_Number: this.value, grade: grade})
+  		.done(function(data){
+	  		if (data)
+	  		{
+	  			$("#error_div_rollnum").removeClass('hide');
+	  			$("#error_text_rollnum").html($("#roll_Number").val() + " roll number already registered!");
+	  			$("#roll_Number").val('');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div_rollnum").addClass('hide');
+	  		}
+	  	});
+	});
+	$("#grade").change(function(){
+  		$("#roll_Number").val('');
+	});
+</script>

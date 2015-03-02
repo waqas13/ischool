@@ -14,9 +14,9 @@ d.className = d.className + " active";
     <table id="stdata" class="display">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>Roll Number</th>
           <th>Name</th>
-          <th>Branch</th>
+          <th>Father Name</th>
           <th>Garde</th>
           <th>Amount</th>
           <th>Paid</th>
@@ -29,16 +29,16 @@ d.className = d.className + " active";
         <% @students.try(:each) do |student| %>
           <tr>
             <td>
-              <%= student.id %>
+              <%= student.rollnum %>
             </td>
             <td>
               <%= student.name %>
             </td>
             <td>
-              <%= student.branch %>
+              <%= student.sirname %>
             </td>
             <td>
-              <%= student.grade %>
+              <%= Grade.find(student.grade_id).title %>
             </td>
             <td>
               <%= student.amount %>

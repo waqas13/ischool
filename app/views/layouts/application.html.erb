@@ -29,10 +29,11 @@
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<i class="icon-cog"></i>
 			</a>
-			<img src="<%= asset_path "img/logo/scs-logo.png"%>" style="width:80px; height:80px;" />
-			
-			<span style="font-size:28px; font-weight:bold">Scholastic</span>
-			
+			<a href="/">
+				<img src="<%= asset_path "img/logo/scs-logo.png"%>" style="width:12%;opacity:0.8;float:left" />
+			</a>
+			<span style="float:left;padding-top:2.5%;font-size:30px; font-weight:bold">iSchool</span>
+	
 			<% if current_user %>
 
 				<ul class="nav pull-right" style="top:15px;">
@@ -87,19 +88,55 @@
 						</a>	    				
 					</li>
 					<% if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
-					<li class="" id="csv">
-						<a href="<%= students_upload_path %>">
+					<li class="" id="uploadcsv">
+						<a href="javascript:void(0);">
 							<i class="icon-plus"></i>
-							<span>Upload a CSV File</span>
+							<span>Upload Marks Sheet</span>
+						</a>	    				
+					</li>
+					<li class="" id="viewstd">
+						<a href="javascript:void(0);">
+							<i class="icon-book"></i>
+							<span>View Marks Sheets</span>
 						</a>	    				
 					</li>
 					<%end%>
 					
 					<% if current_user && current_user.user_type == 1 || current_user.user_type == 0 %>
+					<!-- <li class="" id="csv">
+						<a href="<%#= students_upload_path %>">
+							<i class="icon-plus"></i>
+							<span>Upload a Students List</span>
+						</a>	    				
+					</li> -->
 					<li class="" id="std">
 						<a href="<%= students_path %>">
 							<i class="icon-user"></i>
 							<span>Students</span>
+						</a>	    				
+					</li>
+					<li class="" id="notif">
+						<a href="javascript:void(0);">
+							<i class="icon-bullhorn"></i>
+							<span>Notify Parents</span>
+						</a>	    				
+					</li>
+					<li class="" id="teacher">
+						<a href="javascript:void(0);">
+							<i class="fa fa-users"></i>
+							<span>Teachers</span>
+						</a>	    				
+					</li>
+					<li class="" id="teacherAdd">
+						<a href="javascript:void(0);">
+							<i class="fa fa-sign-in"></i>
+							<span>Hire a Teacher</span>
+						</a>	    				
+					</li>
+					<li class="" id="gradeShow">
+						<a href="javascript:void(0);">
+							<i class="fa fa-file-text-o"></i>
+							<span>Classes</span>
 						</a>	    				
 					</li>
 					<% end %>
@@ -110,6 +147,15 @@
 						<a href="<%= students_payment_path %>">
 							<i class="icon-plus"></i>
 							<span>Pay Fees</span>
+						</a>	    				
+					</li>
+					<% end %>
+
+					<% if current_user && current_user.user_type == 4 %>
+					<li class="" id="marksheet">
+						<a href="javascript:void(0);">
+							<i class="icon-plus"></i>
+							<span>Marks Sheet</span>
 						</a>	    				
 					</li>
 					<% end %>

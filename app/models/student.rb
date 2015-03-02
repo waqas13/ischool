@@ -1,5 +1,8 @@
 class Student < ActiveRecord::Base
 	
+	validates_uniqueness_of :email
+	belongs_to :grade	
+	
 	def self.import(file)
 		begin
 		  CSV.foreach(file.path, headers: true) do |row|

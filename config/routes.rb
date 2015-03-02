@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'students/payment'
 
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
 
   devise_scope :user do
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
     collection { post :import }
     collection do
       post "pay"
+      get "validate_model"
+      get "validate_rollnum"
     end
   end
 
