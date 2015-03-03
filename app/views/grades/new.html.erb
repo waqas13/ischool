@@ -1,0 +1,47 @@
+<script type="text/javascript">
+	var d = document.getElementById("gradeShow");
+d.className = d.className + " active";
+</script>
+
+<h2>Add a Class</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @grade do |std| %>
+		<div class="form-group">
+			<%= std.label :title %>
+			<%= std.text_field :title , :id => 'title_field', :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+			<div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= std.label :fee %>
+			<%= std.text_field :fee , :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+		</div>
+
+		<div class="form-group">
+			<%= std.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>
+
+<script>
+    $("#title_field").blur(function(){
+	  	$.get('/grades/validateClassTitle', {title: this.value})
+  		.done(function(data){
+	  		if (data)
+	  		{
+	  			$("#error_div").removeClass('hide');
+	  			$("#error_text").html($("#title_field").val() + " title already present!");
+	  			$("#email_field").val('');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div").addClass('hide');
+	  		}
+	  	})
+	});
+</script>

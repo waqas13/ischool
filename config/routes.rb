@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
- 
-
-
- 
 
   get 'students/upload'
 
   get 'students/payment'
-
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
 
@@ -27,6 +22,15 @@ Rails.application.routes.draw do
       post "pay"
       get "validate_model"
       get "validate_rollnum"
+    end
+  end
+
+  resources :grades do
+    member do
+      get "addFeeToClass"
+    end
+    collection do
+      get "validateClassTitle"
     end
   end
 

@@ -1,0 +1,60 @@
+<script type="text/javascript">
+  var d = document.getElementById("gradeShow");
+d.className = d.className + " active";
+  $(document).ready(function() {
+  
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+
+        }
+    });
+  });
+
+</script>
+
+<h2>Classes<a href="<%= new_grade_path %>" class="btn btn-info pull-right" style="width:200px;">Add a Class</a></h2>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Fee</th>
+          <th>Students Count</th>
+          <th>Supervisor/Incharge</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @grades.try(:each) do |grade| %>
+          <tr>
+            <td>
+              <%= link_to 'Class '+grade.title, grade_path(grade.id) %>
+            </td>
+            <td>
+              <%= grade.fee %>
+            </td>
+            <td>
+              <%= grade.students.where('staus !=?','delete').count %>
+            </td>
+            <td>
+              <span style="color:red;">Not allocated to anyone yet</span>
+            </td>
+            <td>
+            	<%= link_to 'Edit Class Fee', edit_grade_path(grade.id), class: 'btn btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	var d = document.getElementById("gradeShow");
+d.className = d.className + " active";
+	$(document).ready(function() {
+  
+
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+
+        }
+    });
+  });
+</script>
+
+<div class="table-responsive" style="background-color:white;padding:15px;border-radius:5px;">
+	<h2>Class <%= @grade.title %><%= link_to 'Notify this class for the Fee', addFeeToClass_grade_path(@grade.id), data: { confirm: 'This is a confirmation for the notification to be sent. Are you sure to send notification?' }, class: 'btn btn-warning pull-right' %></h2>
+	<h5><u>Class Incharge:</u>&nbsp;&nbsp;&nbsp;<span style="color:red;">Not yet allocated</span></h5>
+	</br>
+
+	<table id="example" class="table table-striped">
+		<thead>
+			<th>Student Name</th>
+			<th>Father Name</th>
+			<th>Roll Number</th>
+			<th>Fee Paid</th>
+			<th>Fee Remaining</th>
+		</thead>
+		<tbody>
+			<% @students.try(:each) do |std|%>
+				<tr>
+					<td><%= link_to std.name, student_path(std.id) %></td>
+					<td><%= std.sirname %></td>
+					<td><%= std.rollnum %></td>
+					<td><%= std.paid %></td>
+					<td><%= std.amount-std.paid %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

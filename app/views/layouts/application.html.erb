@@ -134,7 +134,7 @@
 						</a>	    				
 					</li>
 					<li class="" id="gradeShow">
-						<a href="javascript:void(0);">
+						<a href="<%= grades_path %>">
 							<i class="fa fa-file-text-o"></i>
 							<span>Classes</span>
 						</a>	    				
@@ -156,6 +156,21 @@
 						<a href="javascript:void(0);">
 							<i class="icon-plus"></i>
 							<span>Marks Sheet</span>
+						</a>	    				
+					</li>
+					<li class="" id="marksheet">
+						<a href="javascript:void(0);">
+							<i class="icon-bullhorn"></i>
+							<span>Notifications</span>
+						</a>	    				
+					</li>
+					<% end %>
+
+					<% if current_user && current_user.user_type == 5 %>
+					<li class="" id="attend">
+						<a href="javascript:void(0);">
+							<i class="icon-plus"></i>
+							<span>Attendence</span>
 						</a>	    				
 					</li>
 					<% end %>
