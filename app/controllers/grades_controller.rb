@@ -48,10 +48,10 @@ class GradesController < ApplicationController
   def addFeeToClass
   	# return render json: params.inspect
   	grade = Grade.find(params[:id])
-  	grade.students.try(:each) do |std|
-  		std.amount = std.amount+grade.fee 
-  		std.save!
-  	end
+  	# grade.students.try(:each) do |std|
+  	# 	std.amount = std.amount+grade.fee 
+  	# 	std.save!
+  	# end
   	redirect_to grade_path(grade.id), :notice => 'Successfully notified and fee updated!'
   end
 
