@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>iSchool</title>
+  <title>Optics POS</title>
   
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -30,9 +30,9 @@
 				<i class="icon-cog"></i>
 			</a>
 			<a href="/">
-				<img src="<%= asset_path "img/logo/logo.png"%>" style="width:12%;opacity:0.8;float:left" />
+				<img src="<%= asset_path "img/logo/1.png"%>" style="width:12%;opacity:0.8;float:left;margin-top:2%;" />
 			</a>
-			<span style="float:left;padding-top:2.5%;font-size:30px; font-weight:bold">iSchool</span>
+			<span style="float:left;padding-top:2.5%;font-size:30px; font-weight:bold">Optics POS</span>
 	
 			<% if current_user %>
 
@@ -87,7 +87,7 @@
 							<span>Home</span>
 						</a>	    				
 					</li>
-					<% if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
+<!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
 					<li class="" id="uploadcsv">
 						<a href="javascript:void(0);">
 							<i class="icon-plus"></i>
@@ -100,17 +100,17 @@
 							<span>View Marks Sheets</span>
 						</a>	    				
 					</li>
-					<%end%>
+					<%# end %>
 					
-					<% if current_user && current_user.user_type == 1 || current_user.user_type == 0 %>
-					<!-- <li class="" id="csv">
+					<%# if current_user && current_user.user_type == 1 || current_user.user_type == 0 %>
+					<li class="" id="csv">
 						<a href="<%#= students_upload_path %>">
 							<i class="icon-plus"></i>
 							<span>Upload a Students List</span>
 						</a>	    				
-					</li> -->
+					</li>
 					<li class="" id="std">
-						<a href="<%= students_path %>">
+						<a href="<%#= students_path %>">
 							<i class="icon-user"></i>
 							<span>Students</span>
 						</a>	    				
@@ -134,24 +134,24 @@
 						</a>	    				
 					</li>
 					<li class="" id="gradeShow">
-						<a href="<%= grades_path %>">
+						<a href="<%#= grades_path %>">
 							<i class="fa fa-file-text-o"></i>
 							<span>Classes</span>
 						</a>	    				
 					</li>
-					<% end %>
+					<%# end %>
 					
 					
-					<% if current_user && current_user.user_type == 3 %>
+					<%# if current_user && current_user.user_type == 3 %>
 					<li class="" id="pay">
-						<a href="<%= students_payment_path %>">
+						<a href="<%#= students_payment_path %>">
 							<i class="icon-plus"></i>
 							<span>Pay Fees</span>
 						</a>	    				
 					</li>
-					<% end %>
+					<%# end %>
 
-					<% if current_user && current_user.user_type == 4 %>
+					<%# if current_user && current_user.user_type == 4 %>
 					<li class="" id="marksheet">
 						<a href="javascript:void(0);">
 							<i class="icon-plus"></i>
@@ -164,16 +164,16 @@
 							<span>Notifications</span>
 						</a>	    				
 					</li>
-					<% end %>
+					<%# end %>
 
-					<% if current_user && current_user.user_type == 5 %>
+					<%# if current_user && current_user.user_type == 5 %>
 					<li class="" id="attend">
 						<a href="javascript:void(0);">
 							<i class="icon-plus"></i>
 							<span>Attendence</span>
 						</a>	    				
 					</li>
-					<% end %>
+					<%# end %> -->
 					
 				</ul>
 		
