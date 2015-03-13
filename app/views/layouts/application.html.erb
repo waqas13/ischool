@@ -8,6 +8,7 @@
 <script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/jqueryui/dataTables.jqueryui.js"></script>
 <script src="//cdn.datatables.net/tabletools/2.2.0/js/dataTables.tableTools.min.js"></script>
+
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
@@ -87,6 +88,30 @@
 							<span>Home</span>
 						</a>	    				
 					</li>
+
+					<% if current_user && current_user.user_type == 0 %>
+						<li class="" id="items">
+							<a href="<%= items_path %>">
+								<i class="fa fa-file-text-o"></i>
+								<span>Items</span>
+							</a>	    				
+						</li>
+					<% end %>
+
+					<% if current_user && current_user.user_type == 1 %>
+						<li class="" id="itemsAdd">
+							<a href="<%= items_new_path %>">
+								<i class="fa fa-file-text-o"></i>
+								<span>Add Items</span>
+							</a>	    				
+						</li>
+						<li class="" id="invoiceAdd">
+							<a href="<%= invoices_new_path %>">
+								<i class="fa fa-file-text-o"></i>
+								<span>Invoice</span>
+							</a>	    				
+						</li>
+					<% end %>
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
 					<li class="" id="uploadcsv">
 						<a href="javascript:void(0);">

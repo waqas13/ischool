@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  get 'invoices/new'
+
+  get 'invoices/index'
+
+  get 'items/index'
+
+  get 'items/new'
+
   get 'students/upload'
 
   get 'students/payment'
@@ -31,6 +39,19 @@ Rails.application.routes.draw do
     end
     collection do
       get "validateClassTitle"
+    end
+  end
+
+  resources :items do
+    collection do
+      get 'validateItemCode'
+    end
+  end
+
+  resources :invoices
+  resources :bills do
+    collection do
+      post 'createBill'
     end
   end
 

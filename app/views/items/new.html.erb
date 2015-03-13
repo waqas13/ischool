@@ -1,0 +1,58 @@
+<script type="text/javascript">
+  var d = document.getElementById("itemsAdd");
+d.className = d.className + " active";
+</script>
+
+<h2>Add an Item</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @item do |item| %>
+		<div class="form-group">
+			<%= item.label :title %>
+			<%= item.text_field :title , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
+			<%= item.label :product_code %>
+			<%= item.text_field :code , :id => 'title_field', :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+			<div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= item.label :detail %>
+			<%= item.text_field :detail, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+
+		<div class="form-group">
+			<%= item.label :quantity %>
+			<%= item.text_field :left, :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+		</div>
+
+		<div class="form-group">
+			<%= item.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>
+
+<script>
+    $("#title_field").blur(function(){
+	  	$.get('/items/validateItemCode', {code: this.value})
+  		.done(function(data){
+	  		if (data)
+	  		{
+	  			$("#error_div").removeClass('hide');
+	  			$("#error_text").html($("#title_field").val() + " Code already present!");
+	  			$("#title_field").val('');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div").addClass('hide');
+	  		}
+	  	})
+	});
+</script>

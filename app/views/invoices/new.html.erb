@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  var d = document.getElementById("invoiceAdd");
+d.className = d.className + " active";
+</script>
+
+
+<%= form_for @invoice do |inv| %>
+	<h2>Invoice</h2><%= inv.submit :class => 'btn btn-success pull-right', :style => 'width: 15%;position:absolute;margin-left: 43.3%;margin-top: -4%;height: 6%;' %>
+	<div class="col-md-6">
+		<div class="form-group">
+			<%= inv.label :invoice_ID %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<%= inv.label :bookNum %>
+			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
+			<!-- <div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div> -->
+		</div>
+
+		<div class="form-group">
+			<%= inv.label :Customer_Contact %>
+			<%= inv.text_field :customerMobile, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+		
+		<div class="form-group">
+			<%= inv.label :date %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		</div>
+		
+		<div class="form-group">
+			<%= inv.label :Customer_Name %>
+			<%= inv.text_field :customerName, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<span style = "float:left;font-size:14px;margin-right:13%;">Size:</span>
+			<span style = "float:left;padding-top:0.3%;">
+				<label>
+					Right: <%= inv.text_field :right, :style => 'width:20%;height:34px;', class: '' %>
+					Left: <%= inv.text_field :left, :style => 'width:20%;height:34px;', class: '' %>
+				</label>
+			</span>
+		</div>
+		<!-- <div class="form-group">
+			<%#= inv.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div> -->
+	</div>
+<% end %>
+<div class = "col-md-12" style="background-color:black;">	
+</div>
+
+<!-- /////////////////////items form for//////////////////////////// -->
+<%= form_for @bill, url: createBill_bills_path, methoed: :post do |bill| %>
+	<div class="form-group">
+		<%= bill.label :code %>
+		<%= bill.text_field :code, :style => 'width:70%;height:34px;', class: 'form-control' %>
+	</div>
+
+	<div class="form-group">
+		<%= bill.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%', remote: true %>
+	</div>
+
+<% end %>
+
+
