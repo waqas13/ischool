@@ -1,2 +1,72 @@
-<h1>Invoices#index</h1>
-<p>Find me in app/views/invoices/index.html.erb</p>
+<script type="text/javascript">
+  var d = document.getElementById("invShow");
+d.className = d.className + " active";
+  $(document).ready(function() {
+  
+
+    $('#example').dataTable({
+        "order": [[1, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        }
+    });
+  });
+
+</script>
+
+<h2>Invoices</h2>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>ID</th>
+          <th>Book Number</th>
+          <th>Customer Name</th>
+          <th>Customer Mobile</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Credit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoices.try(:each) do |inv| %>
+          <tr style="<%= %>">
+            <td>
+              <%= inv.created_at.strftime('%a, %B %e, %Y') %>
+            </td>
+            <td>
+              <%= inv.id %>
+            </td>
+            <td>
+              <%= inv.bookNum %>
+            </td>
+            <td>
+              <%= inv.customerName %>
+            </td>
+            <td>
+              <%= inv.customerMobile %>
+            </td>
+            <td>
+              <%= inv.bills.sum("quantity * price") %>
+            </td>
+            <td>
+              <%= inv.try(:paid) %>
+            </td>
+            <td>
+              <%= inv.bills.sum("quantity * price").to_f - inv.try(:paid).to_f %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   resources :bills do
     collection do
       post 'createBill'
+      get 'getbills'
+      get 'removebills'
+      get 'validateCode'
     end
   end
 

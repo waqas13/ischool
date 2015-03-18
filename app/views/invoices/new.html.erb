@@ -5,7 +5,7 @@ d.className = d.className + " active";
 
 
 <%= form_for @invoice do |inv| %>
-	<h2>Invoice</h2><%= inv.submit :class => 'btn btn-success pull-right', :style => 'width: 15%;position:absolute;margin-left: 43.3%;margin-top: -4%;height: 6%;' %>
+	<h2>Invoice</h2>
 	<div class="col-md-6">
 		<div class="form-group">
 			<%= inv.label :invoice_ID %>
@@ -25,8 +25,14 @@ d.className = d.className + " active";
 			<%= inv.text_field :customerMobile, :style => 'width:70%;height:34px;', class: 'form-control' %>
 		</div>
 
+		<div class="form-group">
+			<%= inv.label :total %>
+			<input style = 'width:70%;height:34px;' id = "totalfield" class = 'form-control' placeholder = '0' disabled>
+		</div>
+
 	</div>
 	<div class="col-md-6">
+
 		
 		<div class="form-group">
 			<%= inv.label :date %>
@@ -38,34 +44,194 @@ d.className = d.className + " active";
 			<%= inv.text_field :customerName, :style => 'width:70%;height:34px;', class: 'form-control' %>
 		</div>
 
-		<div class="form-group">
+		
+		<div class="size-bock">
+			<span>Size</span>
+			<div class="row size-bock-row">
+				<div class="col-xs-6 col-md-6">
+				 	<div class="form-group">
+						<%= inv.label :right %>
+						<div class="col-sm-9">
+							<%= inv.text_field :right, class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			  	<div class="col-xs-6 col-md-6">
+			  		<div class="form-group">
+						<%= inv.label :left %>
+						<div class="col-sm-9">
+							<%= inv.text_field :left, class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+			  	<div class="col-xs-6 col-md-6"><div class="form-group">
+						<%= inv.label :paid %>
+						<div class="col-sm-9">
+							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			  	<div class="col-xs-6 col-md-6">
+					<div class="form-group">
+						<%= inv.label :credit %>
+						<div class="col-sm-9">
+							<input  id = "credit" class = "form-control" placeholder = 0 disabled >
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<%= inv.submit "Create Invoice", :class => 'btn-create btn btn-success' %>
+		</div>
+
+		
+		
+		
+		<!-- <div class="form-group">
 			<span style = "float:left;font-size:14px;margin-right:13%;">Size:</span>
 			<span style = "float:left;padding-top:0.3%;">
 				<label>
-					Right: <%= inv.text_field :right, :style => 'width:20%;height:34px;', class: '' %>
-					Left: <%= inv.text_field :left, :style => 'width:20%;height:34px;', class: '' %>
+					Right: <%#= inv.text_field :right, :style => 'width:20%;height:34px;', class: '' %>
+					Left: <%#= inv.text_field :left, :style => 'width:20%;height:34px;', class: '' %>
 				</label>
 			</span>
-		</div>
+		</div> -->
+		<!-- <div class="form-group">
+			<span style = "float:left;padding-top:0.3%;">
+				<label>
+					Paid: <%#= inv.text_field :paid, :style => 'width:30%;height:34px;', :id =>'paidamount', class: '' %>
+					Credit: <input style = 'width:30%;height:34px;' id = "credit" class = "form-control" placeholder = 0 disabled >
+				</label>
+			</span>
+		</div> -->
 		<!-- <div class="form-group">
 			<%#= inv.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
 		</div> -->
 	</div>
 <% end %>
-<div class = "col-md-12" style="background-color:black;">	
+<div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
 </div>
-
 <!-- /////////////////////items form for//////////////////////////// -->
-<%= form_for @bill, url: createBill_bills_path, methoed: :post do |bill| %>
-	<div class="form-group">
-		<%= bill.label :code %>
-		<%= bill.text_field :code, :style => 'width:70%;height:34px;', class: 'form-control' %>
-	</div>
+<%= form_for @bill, url: createBill_bills_path, methoed: :post,remote: true do |bill| %>
+	<div class="row">
+    	<div class="col-md-4">
+    		<div class="form-group">
+				<%= bill.label :code %>
+				<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+			</div>
+			<div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div>
+    	</div>
 
+   		<div class="col-md-4">
+   			<div class="form-group">
+				<%= bill.label :quantity %>
+				<%= bill.text_field :quantity, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+			</div>
+		</div>
+
+    	<div class="col-md-4">
+    		<div class="form-group">
+				<%= bill.label :unit_price %>
+				<%= bill.text_field :price, :id => 'price', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+			</div>
+
+		</div>
+	</div>
+	
 	<div class="form-group">
-		<%= bill.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%', remote: true %>
+		<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-success form-control', :style => 'width:31%; float:right;' %></span>
 	</div>
 
 <% end %>
 
+<div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px;">
+	<table class="table">
+		<thead>
+			<th>Item Title</th>
+			<th>Quantity</th>
+			<th>Unit Price</th>
+			<th>Total Price</th>
+			<th>Actions</th>
+		</thead>
+		<tbody id = 'billtable'>
+			
+		</tbody>
 
+	</table>
+</div>
+ 
+<script type="text/javascript">
+	function abc(){
+		setTimeout(
+			function(){
+				$.get('/bills/getbills', {id: $('#item_code').val()})
+	       			.done(function(data){
+	       				$('#billtable').html('');
+	       				console.log(data[0].total);
+	       				$('#totalfield').val(data[0].totalSum);
+	       				data[0].b.forEach(function(bill){
+	       					var elem = document.createElement("input");
+	       					elem.type = "button";
+	       					elem.value = "Remove";
+	       					elem.className = 'btn btn-danger';
+	       					elem.setAttribute("id", bill.id);
+	       					elem.onclick = function(){
+	       						$.get('/bills/removebills', {id: this.id})
+	       							.done(function(data){
+	       								console.log(data[0].id);
+	       								$('.'+data[0].id).remove();
+	       								// var el = document.getElementByClassName(data[0].id);
+	       								// el.parentNode.removeChild(el);
+	       							})
+	       					};
+	       					var tr = document.createElement("tr");
+	       					tr.className = ''+bill.id;
+	       					var td1 = document.createElement("td");
+	       					var td2 = document.createElement("td");
+	       					var td3 = document.createElement("td");
+	       					var td4 = document.createElement("td");
+	       					var td5 = document.createElement("td");
+	       					td1.innerHTML = bill.item_title;
+	       					td2.innerHTML = bill.quantity;
+	       					td3.innerHTML = bill.price;
+	       					td4.innerHTML = bill.quantity*bill.price;
+	       					td5.appendChild(elem);
+	       					tr.appendChild(td1);
+	       					tr.appendChild(td2);
+	       					tr.appendChild(td3);
+	       					tr.appendChild(td4);
+	       					tr.appendChild(td5);
+	       					$('#billtable').append(tr);
+	       					// $('#billtable').append('<tr><td>'+ bill.item_title +'</td><td>'+bill.quantity+'</td><td>'+bill.price+'</td><td>'+bill.quantity*bill.price+'</td> <td>'+elem+'</td></tr>');
+	       				});
+	       			})
+				$('#new_bill').closest('form').find("input[type=text], textarea").val("");
+			}
+		,1000);	
+	}
+
+	$("#item_code").blur(function(){
+	  	$.get('/bills/validateCode', {code: this.value})
+  		.done(function(data){
+	  		if (data)
+	  		{
+	  			$("#error_div").addClass('hide');
+	  		}
+	  		else
+	  		{
+	  			$("#error_div").removeClass('hide');
+	  			$("#error_text").html("No Item found with "+$("#item_code").val()+" code!");
+	  			$("#item_code").val('');
+	  		}
+	  	})
+	});
+
+	$("#paidamount").on('keyup',function(){
+		$('#credit').val($('#totalfield').val() - $('#paidamount').val()); 
+	});
+
+</script>
