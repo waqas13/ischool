@@ -30,7 +30,7 @@ d.className = d.className + " active";
       <thead>
         <tr>
           <th>Date</th>
-          <th>ID</th>
+          <th>Invoice #</th>
           <th>Book Number</th>
           <th>Customer Name</th>
           <th>Customer Mobile</th>
@@ -46,7 +46,7 @@ d.className = d.className + " active";
               <%= inv.created_at.strftime('%a, %B %e, %Y') %>
             </td>
             <td>
-              <%= inv.id %>
+              <%= link_to inv.id, credit_invoice_path(inv.id) %>
             </td>
             <td>
               <%= inv.bookNum %>

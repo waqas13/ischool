@@ -30,6 +30,19 @@ class ItemsController < ApplicationController
     end
   end
 
+  def addStock
+    @item = Item.new
+  end
+
+  def adding
+    
+    item = Item.find_by_code(params[:item][:code])
+    item.left = item.left + params[:item][:left].to_i
+    if item.save
+      redirect_to addStock_items_path, :notice => 'Stock Added!'
+    end
+  end
+
   private
   	def create_params
       params.require(:item).permit(:code, :title, :detail, :sold, :left)     

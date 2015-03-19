@@ -45,10 +45,16 @@ Rails.application.routes.draw do
   resources :items do
     collection do
       get 'validateItemCode'
+      post 'adding'
+      get 'addStock'
     end
   end
 
-  resources :invoices
+  resources :invoices do
+    member do
+      get 'credit'
+    end
+  end
   resources :bills do
     collection do
       post 'createBill'
@@ -56,6 +62,7 @@ Rails.application.routes.draw do
       get 'removebills'
       get 'validateCode'
     end
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

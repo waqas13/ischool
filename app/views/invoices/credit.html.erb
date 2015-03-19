@@ -1,0 +1,145 @@
+<script type="text/javascript">
+//   var d = document.getElementById("invoiceAdd");
+// d.className = d.className + " active";
+</script>
+
+
+<%= form_for @invoice do |inv| %>
+	<h2>Invoice</h2>
+	<div class="col-md-6">
+		<div class="form-group">
+			<%= inv.label :invoice_ID %>
+			<%= inv.text_field :id , :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
+		</div>
+
+		<div class="form-group">
+			<%= inv.label :book_Number %>
+			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control', disabled: true%>
+			<!-- <div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div> -->
+		</div>
+
+		<div class="form-group">
+			<%= inv.label :Customer_Contact %>
+			<%= inv.text_field :customerMobile, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<%= inv.label :total %>
+			<input style = 'width:70%;height:34px;' id = "totalfield" class = 'form-control' value = '<%= @invoice.bills.sum("quantity * price") %>' disabled>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+
+		
+		<div class="form-group">
+			<%= inv.label :date %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		</div>
+		
+		<div class="form-group">
+			<%= inv.label :Customer_Name %>
+			<%= inv.text_field :customerName, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
+		</div>
+
+		
+		<div class="size-bock">
+			<span>Size</span>
+			<div class="row size-bock-row">
+				<div class="col-xs-6 col-md-6">
+				 	<div class="form-group">
+						<%= inv.label :right %>
+						<div class="col-sm-9">
+							<%= inv.text_field :right, class: 'form-control' , disabled: true%>
+						</div>
+					</div>
+				</div>
+			  	<div class="col-xs-6 col-md-6">
+			  		<div class="form-group">
+						<%= inv.label :left %>
+						<div class="col-sm-9">
+							<%= inv.text_field :left, class: 'form-control' , disabled: true%>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row ">
+			  	<div class="col-xs-6 col-md-6"><div class="form-group">
+						<%= inv.label :paid %>
+						<div class="col-sm-9">
+							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			  	<div class="col-xs-6 col-md-6">
+					<div class="form-group">
+						<%= inv.label :credit %>
+						<div class="col-sm-9">
+							<input  id = "credit" class = "form-control" placeholder = 0 disabled >
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<%= inv.submit "Update Invoice", :class => 'btn-create btn btn-success' %>
+		</div>
+
+		
+		
+		
+		<!-- <div class="form-group">
+			<span style = "float:left;font-size:14px;margin-right:13%;">Size:</span>
+			<span style = "float:left;padding-top:0.3%;">
+				<label>
+					Right: <%#= inv.text_field :right, :style => 'width:20%;height:34px;', class: '' %>
+					Left: <%#= inv.text_field :left, :style => 'width:20%;height:34px;', class: '' %>
+				</label>
+			</span>
+		</div> -->
+		<!-- <div class="form-group">
+			<span style = "float:left;padding-top:0.3%;">
+				<label>
+					Paid: <%#= inv.text_field :paid, :style => 'width:30%;height:34px;', :id =>'paidamount', class: '' %>
+					Credit: <input style = 'width:30%;height:34px;' id = "credit" class = "form-control" placeholder = 0 disabled >
+				</label>
+			</span>
+		</div> -->
+		<!-- <div class="form-group">
+			<%#= inv.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div> -->
+	</div>
+<% end %>
+<div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
+</div>
+<!-- /////////////////////items form for//////////////////////////// -->
+<div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px; overflow:hidden;">
+	<table class="table">
+		<thead>
+			<th>Item Title</th>
+			<th>Quantity</th>
+			<th>Unit Price</th>
+			<th>Total Price</th>
+		</thead>
+		<tbody id = 'billtable'>
+			<% @bills.each do |bill| %>
+			<tr>
+				<td> <%= Item.find(bill.item_id).title %></td>
+				<td><%= bill.quantity %></td>
+				<td><%= bill.price %></td>
+				<td><%= bill.quantity * bill.price %></td>
+			</tr>
+			<% end %>
+		</tbody>
+
+	</table>
+</div>
+ 
+<script type="text/javascript">
+	$("#paidamount").on('keyup',function(){
+		console.log($('#totalfield').val());
+		$('#credit').val($('#totalfield').val() - $('#paidamount').val()); 
+	});
+
+</script>

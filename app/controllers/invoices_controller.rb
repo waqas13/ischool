@@ -23,8 +23,14 @@ class InvoicesController < ApplicationController
   	@invoices = Invoice.where.not(bookNum: nil)
   end
 
+  def credit
+  	@invoice = Invoice.find(params[:id])
+  	@bills = @invoice.bills
+  	
+  end
+
   private
     def update_params
-      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left)      
+      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
     end
 end

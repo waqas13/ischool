@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    var d = document.getElementById("addStock");
+	d.className = d.className + " active";
+</script>
+
+<h2>Add Stock</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for :item, url: adding_items_path do |item| %>
+
+		<div class="form-group">
+			<%= item.label :product_code %>
+			<%= item.text_field :code , :id => 'title_field', :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+			<div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= item.label :quantity %>
+			<%= item.text_field :left, :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+		</div>
+
+		<div class="form-group">
+			<%= item.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>

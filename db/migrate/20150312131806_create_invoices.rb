@@ -9,5 +9,6 @@ class CreateInvoices < ActiveRecord::Migration
 
       t.timestamps
     end
+    execute "SELECT setval('invoice_id_seq', 1000);"
   end
 end
