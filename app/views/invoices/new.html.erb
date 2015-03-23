@@ -8,12 +8,12 @@ d.className = d.className + " active";
 	<h2>Invoice</h2>
 	<div class="col-md-6">
 		<div class="form-group">
-			<%= inv.label :invoice_ID %>
+			<label>invoice ID/رقم الفاتورة</label>
 			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
 		</div>
 
 		<div class="form-group">
-			<%= inv.label :book_Number %>
+			<label>Book NO / رقم كتاب</label>
 			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
 			<!-- <div class = "hide" id= "error_div">
 				<span style = "color:red;" id="error_text">  </span>
@@ -21,12 +21,12 @@ d.className = d.className + " active";
 		</div>
 
 		<div class="form-group">
-			<%= inv.label :Customer_Contact %>
+			<label>Contact # / رقم الاتصال</label>
 			<%= inv.text_field :customerMobile, :style => 'width:70%;height:34px;', class: 'form-control' %>
 		</div>
 
 		<div class="form-group">
-			<%= inv.label :total %>
+			<label>Total Amount / إجمالي مبلغ</label>
 			<input style = 'width:70%;height:34px;' id = "totalfield" class = 'form-control' placeholder = '0' disabled>
 		</div>
 
@@ -35,22 +35,22 @@ d.className = d.className + " active";
 
 		
 		<div class="form-group">
-			<%= inv.label :date %>
+			<label>Date / تاريخ</label>
 			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
 		</div>
 		
 		<div class="form-group">
-			<%= inv.label :Customer_Name %>
+			<label>Customer Name / اسم العملاء</label>
 			<%= inv.text_field :customerName, :style => 'width:70%;height:34px;', class: 'form-control' %>
 		</div>
 
 		
 		<div class="size-bock">
-			<span>Size</span>
+			<span>Size / حجم 	</span>
 			<div class="row size-bock-row">
 				<div class="col-xs-6 col-md-6">
 				 	<div class="form-group">
-						<%= inv.label :right %>
+						<label>Right / اليمين</label>
 						<div class="col-sm-9">
 							<%= inv.text_field :right, class: 'form-control' %>
 						</div>
@@ -58,7 +58,7 @@ d.className = d.className + " active";
 				</div>
 			  	<div class="col-xs-6 col-md-6">
 			  		<div class="form-group">
-						<%= inv.label :left %>
+						<label>Left / اليسار</label>
 						<div class="col-sm-9">
 							<%= inv.text_field :left, class: 'form-control' %>
 						</div>
@@ -67,7 +67,7 @@ d.className = d.className + " active";
 			</div>
 			<div class="row ">
 			  	<div class="col-xs-6 col-md-6"><div class="form-group">
-						<%= inv.label :paid %>
+						<label>Cash / النقد</label>
 						<div class="col-sm-9">
 							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
 						</div>
@@ -75,7 +75,7 @@ d.className = d.className + " active";
 				</div>
 			  	<div class="col-xs-6 col-md-6">
 					<div class="form-group">
-						<%= inv.label :credit %>
+						<label>Credit / القروض</label>
 						<div class="col-sm-9">
 							<input  id = "credit" class = "form-control" placeholder = 0 disabled >
 						</div>
@@ -113,49 +113,51 @@ d.className = d.className + " active";
 <% end %>
 <div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
 </div>
+<div class = "billform">
 <!-- /////////////////////items form for//////////////////////////// -->
-<%= form_for @bill, url: createBill_bills_path, methoed: :post,remote: true do |bill| %>
-	<div class="row">
-    	<div class="col-md-4">
-    		<div class="form-group">
-				<%= bill.label :code %>
-				<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
-			</div>
-			<div class = "hide" id= "error_div">
-				<span style = "color:red;" id="error_text">  </span>
-			</div>
-    	</div>
+	<%= form_for @bill, url: createBill_bills_path, methoed: :post,remote: true do |bill| %>
+		<div class="row">
+	    	<div class="col-md-4">
+	    		<div class="form-group">
+					<label>Product Code / رقم المنتج</label>
+					<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+				<div class = "hide" id= "error_div">
+					<span style = "color:red;" id="error_text">  </span>
+				</div>
+	    	</div>
 
-   		<div class="col-md-4">
-   			<div class="form-group">
-				<%= bill.label :quantity %>
-				<%= bill.text_field :quantity, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+	   		<div class="col-md-4">
+	   			<div class="form-group">
+					<label>Quantity / كمية</label>
+					<%= bill.text_field :quantity, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+
+	    	<div class="col-md-4">
+	    		<div class="form-group">
+					<label>Unit Price / سعر الوحدة</label>
+					<%= bill.text_field :price, :id => 'price', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+
 			</div>
 		</div>
-
-    	<div class="col-md-4">
-    		<div class="form-group">
-				<%= bill.label :unit_price %>
-				<%= bill.text_field :price, :id => 'price', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
-			</div>
-
+		
+		<div class="form-group">
+			<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-success form-control', :style => 'width:31%; float:right;' %></span>
 		</div>
-	</div>
-	
-	<div class="form-group">
-		<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-success form-control', :style => 'width:31%; float:right;' %></span>
-	</div>
 
-<% end %>
+	<% end %>
+</div>
 
 <div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px;">
 	<table class="table">
 		<thead>
-			<th>Item Title</th>
-			<th>Quantity</th>
-			<th>Unit Price</th>
-			<th>Total Price</th>
-			<th>Actions</th>
+			<th>Product Detail / تفاصيل المنتج	</th>
+			<th>Quantity / كمية</th>
+			<th>Unit Price / سعر الوحدة</th>
+			<th>Total Amount / إجمالي مبلغ</th>
+			<th></th>
 		</thead>
 		<tbody id = 'billtable'>
 			

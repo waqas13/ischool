@@ -53,6 +53,10 @@ Rails.application.routes.draw do
   resources :invoices do
     member do
       get 'credit'
+      get 'cancel'
+    end
+    collection do
+      get 'canceled'
     end
   end
   resources :bills do

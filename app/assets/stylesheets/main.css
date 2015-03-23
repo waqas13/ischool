@@ -33,3 +33,9 @@
 	height: 34px;
 	margin-top: 10px;
 }
+
+@media print{
+	div.subnavbar-inner, div.billform, .btn{
+		display: none;
+	}
+}

@@ -2,9 +2,8 @@
   var d = document.getElementById("invShow");
 d.className = d.className + " active";
   $(document).ready(function() {
-  
 
-    $('#example').dataTable({
+    var table = $('#example').dataTable({
         "order": [[1, "desc"]],
         dom: 'T<"clear">lfrtip',
         tableTools: {
@@ -19,13 +18,98 @@ d.className = d.className + " active";
                     "sButtonText": "Save to CSV"
                 }
             ]
-        }
+        },
+        /////////////////////////////////////////////
+        <% if @invoices.count > 0 %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+   
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+   
+              // Total over all pages
+              total = api
+                  .column( 5 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalamount').text('Total Cash: '+total);
+
+              //total paid
+              paid = api
+                  .column( 6 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalCash').text('Total Paid: '+paid);
+
+
+              // Total Credit
+
+              credit = api
+                  .column( 7 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalCredit').text('Total Credit: '+credit);
+
+              // Total over this page
+              pageTotal = api
+                  .column( 5, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgamount').text('Total: '+ pageTotal);
+
+              // Total Credit over this page
+              pgCash = api
+                  .column( 6, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgCash').text('Cash: '+ pgCash);
+
+              //Total Credit on page
+
+              pgCredit = api
+                  .column( 7, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgCredit').text('Credit: '+ pgCredit);
+          }
+        <% end %>
+
+    /////////////////////////////////////////
     });
   });
 
 </script>
 
-<h2>Invoices</h2>
+<h2>Invoices
+<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
+  <strong> <span id = 'totalCash' style = "color: green; margin-right : 40px;"> Paid : 0 </span> </strong>
+  <strong> <span id = 'totalCredit' style = "color: red; margin-right: 20px;"> Credit : 0 </span></strong>
+</div>
+</h2>
     <table id="example" class="display">
       <thead>
         <tr>
@@ -37,11 +121,13 @@ d.className = d.className + " active";
           <th>Total</th>
           <th>Paid</th>
           <th>Credit</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @invoices.try(:each) do |inv| %>
-          <tr style="<%= %>">
+          <tr class ="<%= inv.id %>">
             <td>
               <%= inv.created_at.strftime('%a, %B %e, %Y') %>
             </td>
@@ -66,7 +152,24 @@ d.className = d.className + " active";
             <td>
               <%= inv.bills.sum("quantity * price").to_f - inv.try(:paid).to_f %>
             </td>
+            <td>
+              <%= inv.status %>
+            </td>
+            <td>
+              <%= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <div style = "float:right; font-size: 14px">
+      <strong> <span id = 'pgamount' > </span></strong><br>
+      <strong> <span id = 'pgCash' > </span></strong><br>
+      <strong> <span id = 'pgCredit' > </span></strong>
+    </div>
+<script>
+  $('#cancelbtn').on('click',function(){
+    $('.'+$(this).attr("name")).remove() ;
+  });
+
+</script>

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   def new
-  	if current_user && current_user.user_type == 1
+  	if current_user
 	  	@invoice = Invoice.create
 	  	@autogen = Invoice.last.id
 	  	@bill = @invoice.bills.new
@@ -12,6 +12,7 @@ class InvoicesController < ApplicationController
 
   def update
   	invoice = Invoice.find(params[:id])
+    invoice.status = 'active'
     if invoice.update(update_params)
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
     else
@@ -21,12 +22,31 @@ class InvoicesController < ApplicationController
 
   def index
   	@invoices = Invoice.where.not(bookNum: nil)
+    @invoices = @invoices.where.not(status: 'cancelled')
+    # @total = Bill.where.not(invoice_id: nil).sum('quantity * pirice')
   end
 
   def credit
   	@invoice = Invoice.find(params[:id])
   	@bills = @invoice.bills
   	
+  end
+
+  def cancel
+    invoice = Invoice.find(params[:id])
+    invoice.status = 'cancelled'
+    bills = invoice.bills
+    bills.each do |bill|
+      item = Item.find(bill.item_id)
+      item.left = item.left + bill.quantity
+      item.sold = item.sold - bill.quantity
+      item.save!
+    end
+    invoice.save!
+  end
+
+  def canceled
+    @invoices = Invoice.where.not(bookNum: nil , status: nil)
   end
 
   private
