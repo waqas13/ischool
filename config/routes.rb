@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'salaries/index'
+
+  get 'salaries/new'
+
   get 'expenses/index'
 
   get 'expenses/new'
