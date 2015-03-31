@@ -1,0 +1,116 @@
+<script type="text/javascript">
+  var d = document.getElementById("employees");
+d.className = d.className + " active";
+  $(document).ready(function() {
+
+    var table = $('#example').dataTable({
+        "order": [[1, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        },
+        /////////////////////////////////////////////
+        <% if @employees.count > 0 %>
+            "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+   
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+   
+              // Total over all pages
+              total = api
+                  .column( 5 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalamount').text('Total Cash: '+total);
+
+              // Total over this page
+              pageTotal = api
+                  .column( 5, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgamount').text('Total: '+ pageTotal);
+          }
+        <% end %>
+    });
+  });
+
+</script>
+
+<h2>Employees
+<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Salaries : 0 </span></strong>
+  <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Employees : <%= @employees.count %> </span></strong>
+</div>
+<div style="float:right">
+  <a href="<%= new_employee_path %>" class="btn btn-info pull-right" style="width:200px;"> Add an Employee</a>
+</div>
+</h2>
+<table id="example" class="display">
+  <thead>
+    <tr>
+      <th>Employee Name</th>
+      <th>Mobile Number</th>
+      <th>Address Pakistan</th>
+      <th>Iqama Number</th>
+      <th>Iqama Expiry</th>
+      <th>Salary</th>
+      <th>Salary Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.try(:each) do |emp| %>
+      <tr class ="<%= emp.id %>">
+        <td>
+          <%= link_to emp.name, employee_path(emp.id) %>
+        </td>
+        <td>
+          <%= emp.contact %>
+        </td>
+        <td>
+          <%= emp.address_home %>
+        </td>
+        <td>
+          <%= emp.iqama %>
+        </td>
+        <td>
+          <%= emp.expire_iqama %>
+        </td>
+        <td>
+          <%= emp.salary %>
+        </td>
+        <td>
+          <%= emp.salary_type %>
+        </td>
+        <td>
+          <%#= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div style = "float:right; font-size: 14px">
+  <strong> <span id = 'pgamount' > </span></strong><br>
+</div>

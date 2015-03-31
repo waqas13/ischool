@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323114242) do
+ActiveRecord::Schema.define(version: 20150330192704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,38 @@ ActiveRecord::Schema.define(version: 20150323114242) do
     t.datetime "updated_at"
     t.string   "code"
     t.string   "item_title"
+  end
+
+  create_table "customers", force: true do |t|
+    t.string   "name"
+    t.string   "contact"
+    t.integer  "credit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "paid"
+    t.integer  "total"
+  end
+
+  create_table "employees", force: true do |t|
+    t.string   "name"
+    t.string   "salary_type"
+    t.integer  "loan"
+    t.integer  "salary"
+    t.string   "contact"
+    t.string   "iqama"
+    t.string   "expire_iqama"
+    t.string   "address_home"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status"
+  end
+
+  create_table "expenses", force: true do |t|
+    t.string   "description"
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "grades", force: true do |t|
@@ -54,6 +86,16 @@ ActiveRecord::Schema.define(version: 20150323114242) do
     t.integer  "left"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.integer  "customer_id"
+    t.integer  "advance"
+    t.integer  "paid"
+    t.integer  "total"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remarks"
   end
 
   create_table "students", force: true do |t|

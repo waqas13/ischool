@@ -1,0 +1,32 @@
+
+<script type="text/javascript">
+  var d = document.getElementById("expense");
+	d.className = d.className + " active";
+  $(document).ready(function() {
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip'
+    });
+  });
+</script>
+
+<h2>Expenses<a href="<%= new_expense_path %>" class="btn btn-info pull-right" style="width:200px;">Add an Expense</a></h2>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @expenses.try(:each) do |exp| %>
+	        <tr>
+              <td>
+                <%= exp.description %>
+              </td>
+	            <td>
+	              <%= exp.amount %>
+	            </td>
+        	</tr>
+        <% end %>
+      </tbody>
+    </table>

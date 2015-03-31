@@ -1,0 +1,76 @@
+<script type="text/javascript">
+  var d = document.getElementById("employees");
+d.className = d.className + " active";
+</script>
+
+
+<%= form_for @employee do |emp| %>
+	<h2>Add Employee</h2>
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label>Full Name</label>
+			<%= emp.text_field :name , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
+			<!-- <div class = "hide" id= "error_div">
+				<span style = "color:red;" id="error_text">  </span>
+			</div> -->
+		</div>
+
+		<div class="form-group">
+			<label>Iqama Number</label>
+			<%= emp.text_field :iqama, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<label>Iqama Expiration Date</label>
+			<%= emp.text_field :expire_iqama, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<label>Contact</label>
+			<%= emp.text_field :contact, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+
+		
+		<div class="form-group">
+			<label>Date</label>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		</div>
+		
+		<div class="form-group">
+			<label>Salary</label>
+			<%= emp.text_field :salary, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<label>Address(Home Country)</label>
+			<%= emp.text_field :address_home, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+		
+		<div class="size-bock">
+			<span>Salary Type 	</span>
+			<div class="row size-bock-row">
+				<div class="col-xs-6 col-md-6">
+				 	<div class="form-group">
+						<label>Monthly</label>
+						<div class="col-sm-9">
+							<%= emp.text_field :salary_type, class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			  	<div class="col-xs-6 col-md-6">
+			  		<div class="form-group">
+						<label>Weekly</label>
+						<div class="col-sm-9">
+							<%= emp.text_field :salary_type, class: 'form-control' %>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%= emp.submit "Add Employee", :class => 'btn-create btn btn-success' %>
+		</div>
+	</div>
+<% end %>

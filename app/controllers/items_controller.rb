@@ -13,38 +13,14 @@ class ItemsController < ApplicationController
 
   def create
   	@item = Item.new(create_params)
-  	item = Item.find_by_code(params[:code])
-  	if item.present?
-  		redirect_to :back, :alert => 'Code already exist!'
-  	elsif @item.save!
-	  	redirect_to items_new_path, :notice => 'Item added successfully!'
-  	end
-  end
-
-  def validateItemCode
-
-  	item = Item.find_by_code(params[:code])
-    value = item.present?
-    respond_to do |format|
-      format.json {render json: value}
-    end
-  end
-
-  def addStock
-    @item = Item.new
-  end
-
-  def adding
-    
-    item = Item.find_by_code(params[:item][:code])
-    item.left = item.left + params[:item][:left].to_i
-    if item.save
-      redirect_to addStock_items_path, :notice => 'Stock Added!'
-    end
+    @item.left = 0
+    if @item.save
+      redirect_to new_item_path :notice => "Item Added Successfully!!"
+    end 	
   end
 
   private
   	def create_params
-      params.require(:item).permit(:code, :title, :detail, :sold, :left)     
+      params.require(:item).permit(:title)     
     end
 end

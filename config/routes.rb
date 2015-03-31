@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'expenses/index'
+
+  get 'expenses/new'
+
+  get 'payments/new'
+
+  get 'payments/index'
+
+  get 'customers/new'
+
+  get 'customers/index'
+
+  get 'new/index'
+
   get 'invoices/new'
 
   get 'invoices/index'
@@ -59,6 +73,7 @@ Rails.application.routes.draw do
       get 'canceled'
     end
   end
+  
   resources :bills do
     collection do
       post 'createBill'
@@ -66,8 +81,12 @@ Rails.application.routes.draw do
       get 'removebills'
       get 'validateCode'
     end
-
   end
+
+  resources :customers
+  resources :payments
+  resources :expenses
+  resources :employees
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

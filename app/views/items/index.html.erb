@@ -2,24 +2,21 @@
   var d = document.getElementById("items");
 d.className = d.className + " active";
   $(document).ready(function() {
-  
-
     $('#example').dataTable({
-        dom: 'T<"clear">lfrtip',
-        tableTools: {
-            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
-            "aButtons": [
-                {
-                    "sExtends": "copy",
-                    "sButtonText": "Copy to clipboard"
-                },
-                {
-                    "sExtends": "csv",
-                    "sButtonText": "Save to CSV"
-                }
-            ]
-
-        }
+      dom: 'T<"clear">lfrtip',
+      tableTools: {
+        "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+        "aButtons": [
+          {
+            "sExtends": "copy",
+            "sButtonText": "Copy to clipboard"
+          },
+          {
+            "sExtends": "csv",
+            "sButtonText": "Save to CSV"
+          }
+        ]
+      }
     });
   });
 
@@ -29,10 +26,8 @@ d.className = d.className + " active";
     <table id="example" class="display">
       <thead>
         <tr>
-          <th>Product Title</th>
-          <th>Product Code</th>
-          <th>Sold</th>
-          <th>Left</th>
+          <th>Quality Title</th>
+          <th>Stock Present (Kg)</th>
         </tr>
       </thead>
       <tbody>
@@ -42,17 +37,9 @@ d.className = d.className + " active";
               <%= item.title %>
             </td>
             <td>
-              <%= item.code %>
-            </td>
-            <td>
-              <%= item.sold %>
-            </td>
-            <td>
-            	<%= item.left %>
+              <%= item.left %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
-
-	<strong><span style="float:right;margin-right: 45px;margin-top: 10px;line-height: 2em;">Total Sold: <%= @items.sum(:sold) %></br>Total Left: <%= @items.sum(:left) %></span></strong>

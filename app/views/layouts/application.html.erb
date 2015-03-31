@@ -100,10 +100,10 @@
 					<% end %>
 
 					<% if current_user  %>
-						<li class="" id="itemsAdd">
-							<a href="<%= items_new_path %>">
+						<li class="" id="customers">
+							<a href="<%= customers_path %>">
 								<i class="fa fa-file-text-o"></i>
-								<span>Add Items</span>
+								<span>Customers</span>
 							</a>	    				
 						</li>
 						<li class="" id="invoiceAdd">
@@ -113,23 +113,23 @@
 							</a>	    				
 						</li>
 					<% end %>
-					<li class="" id="invShow">
-						<a href="<%= invoices_path %>">
+					<li class="" id="payments">
+						<a href="<%= payments_path %>">
 							<i class="fa fa-money"></i>
-							<span>Sales</span>
+							<span>Payments</span>
 						</a>	    				
 					</li>
-					<li class="" id="cancelled">
-						<a href="<%= canceled_invoices_path %>">
+					<li class="" id="expense">
+						<a href="<%= expenses_path %>">
 							<i class="fa fa-minus-circle"></i>
-							<span>Cancelled Invoices</span>
+							<span>Expenses</span>
 						</a>	    				
 					</li>
 					
-					<li class="" id="addStock"><!-- class->active -->
-						<a href="<%= addStock_items_path %>">
+					<li class="" id="employees"><!-- class->active -->
+						<a href="<%= employees_path %>">
 							<i class="fa fa-rss"></i>
-							<span>Add Stock</span>
+							<span>Employees</span>
 						</a>	    				
 					</li>
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>

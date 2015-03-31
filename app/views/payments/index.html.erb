@@ -1,0 +1,90 @@
+<script type="text/javascript">
+  var d = document.getElementById("payments");
+  d.className = d.className + " active";
+  $(document).ready(function() {
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+          "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+          "aButtons": [
+            {
+              "sExtends": "copy",
+              "sButtonText": "Copy to clipboard"
+            },
+            {
+              "sExtends": "csv",
+              "sButtonText": "Save to CSV"
+            }
+          ]
+        },
+        <% if @payments.count > 0 %>
+            "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+   
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+   
+              // Total over all pages
+              total = api
+                  .column( 2 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalpaid').text('Total Payments: '+total+ ' SAR');
+              // Total over this page
+              pageTotal = api
+                  .column( 2, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgamount').text('Total: '+ pageTotal);
+          }
+        <% end %>
+    });
+  });
+
+</script>
+
+<h2>Payments<a href="<%= payments_new_path %>" class="btn btn-info pull-right" style="width:200px;"> Pay Cash</a></h2>
+<span id="totalpaid" style="background : #0040FF; border-radius: 10px;padding: 10px;color: white;margin-left: 35%;">Total Paid: 0 SAR</span>
+<table id="example" class="display">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Company/Party</th>
+      <th>Amount</th>
+      <th>Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.try(:each) do |pay| %>
+      <tr>
+        <td>
+          <%= pay.created_at %>
+        </td>
+        <td>
+          <%= Customer.find(pay.customer_id).name %>
+        </td>
+        <td>
+        	<%= pay.total %>
+        </td>
+        <td>
+          <%= pay.remarks %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div style = "float:right; font-size: 14px">
+  <strong> <span id = 'pgamount' > </span></strong><br>
+</div>
+
