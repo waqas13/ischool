@@ -86,7 +86,7 @@
 					<li class="" id="home"><!-- class->active -->
 						<a href="<%= authenticated_root_path %>">
 							<i class="icon-home"></i>
-							<span>Home</span>
+							<span>Home / منزل</span>
 						</a>	    				
 					</li>
 
@@ -94,42 +94,43 @@
 						<li class="" id="items">
 							<a href="<%= items_path %>">
 								<i class="fa fa-th-large"></i>
-								<span>Items</span>
+								<span>Items / البنود</span>
 							</a>	    				
 						</li>
+						<li class="" id="cancelled">
+						<a href="<%= canceled_invoices_path %>">
+							<i class="fa fa-minus-circle"></i>
+							<span>Cancelled Invoices / ألغي الفواتير</span>
+						</a>	    				
+					</li>
 					<% end %>
 
 					<% if current_user  %>
 						<li class="" id="itemsAdd">
 							<a href="<%= items_new_path %>">
 								<i class="fa fa-file-text-o"></i>
-								<span>Add Items</span>
+								<span>Add Items / إضافة عناصر</span>
 							</a>	    				
 						</li>
 						<li class="" id="invoiceAdd">
 							<a href="<%= invoices_new_path %>">
 								<i class="fa fa-indent"></i>
-								<span>Invoice</span>
+								<span>Invoice / فاتورة</span>
 							</a>	    				
 						</li>
 					<% end %>
 					<li class="" id="invShow">
 						<a href="<%= invoices_path %>">
 							<i class="fa fa-money"></i>
-							<span>Sales</span>
+							<span>Sales / مبيعات</span>
 						</a>	    				
 					</li>
-					<li class="" id="cancelled">
-						<a href="<%= canceled_invoices_path %>">
-							<i class="fa fa-minus-circle"></i>
-							<span>Cancelled Invoices</span>
-						</a>	    				
-					</li>
+					
 					
 					<li class="" id="addStock"><!-- class->active -->
 						<a href="<%= addStock_items_path %>">
 							<i class="fa fa-rss"></i>
-							<span>Add Stock</span>
+							<span>Add Stock / إضافة أسهم</span>
 						</a>	    				
 					</li>
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>

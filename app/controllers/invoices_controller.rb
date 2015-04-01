@@ -1,17 +1,17 @@
 class InvoicesController < ApplicationController
   def new
-  	if current_user
-	  	@invoice = Invoice.new
-	  	@autogen = Invoice.last.id + 1
-	  	@bill = Bill.new
-      @bill.quantity = 1
-	else
-		redirect_to authenticated_root_path, :alert => 'Access Denied!'
-	end
+    if current_user
+      @invoice = Invoice.create
+      @autogen = Invoice.last.id
+      @bill = @invoice.bills.new
+      @bills = @invoice.bills
+  else
+    redirect_to authenticated_root_path, :alert => 'Access Denied!'
+  end
   end
 
   def update
-  	invoice = Invoice.find(params[:id])
+    invoice = Invoice.find(params[:id])
     invoice.status = 'active'
     if invoice.update(update_params)
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
@@ -21,15 +21,15 @@ class InvoicesController < ApplicationController
   end
 
   def index
-  	@invoices = Invoice.where.not(bookNum: nil)
+    @invoices = Invoice.where.not(bookNum: nil)
     @invoices = @invoices.where.not(status: 'cancelled')
     # @total = Bill.where.not(invoice_id: nil).sum('quantity * pirice')
   end
 
   def credit
-  	@invoice = Invoice.find(params[:id])
-  	@bills = @invoice.bills
-  	
+    @invoice = Invoice.find(params[:id])
+    @bills = @invoice.bills
+    
   end
 
   def cancel
@@ -51,6 +51,6 @@ class InvoicesController < ApplicationController
 
   private
     def update_params
-      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid, :code)      
+      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
     end
 end

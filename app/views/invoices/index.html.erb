@@ -104,11 +104,19 @@ d.className = d.className + " active";
 </script>
 
 <h2>Invoices
-<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
-  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
-  <strong> <span id = 'totalCash' style = "color: green; margin-right : 40px;"> Paid : 0 </span> </strong>
-  <strong> <span id = 'totalCredit' style = "color: red; margin-right: 20px;"> Credit : 0 </span></strong>
-</div>
+<% if current_user && current_user.user_type == 0 %>
+  <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+    <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
+    <strong> <span id = 'totalCash' style = "color: green; margin-right : 40px;"> Paid : 0 </span> </strong>
+    <strong> <span id = 'totalCredit' style = "color: red; margin-right: 20px;"> Credit : 0 </span></strong>
+  </div>
+<% else %>
+  <div style = "display:none; float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+    <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
+    <strong> <span id = 'totalCash' style = "color: green; margin-right : 40px;"> Paid : 0 </span> </strong>
+    <strong> <span id = 'totalCredit' style = "color: red; margin-right: 20px;"> Credit : 0 </span></strong>
+  </div>
+<% end %>
 </h2>
     <table id="example" class="display">
       <thead>
@@ -162,11 +170,19 @@ d.className = d.className + " active";
         <% end %>
       </tbody>
     </table>
-    <div style = "float:right; font-size: 14px">
-      <strong> <span id = 'pgamount' > </span></strong><br>
-      <strong> <span id = 'pgCash' > </span></strong><br>
-      <strong> <span id = 'pgCredit' > </span></strong>
-    </div>
+    <% if current_user && current_user.user_type == 0%>
+      <div style = "float:right; font-size: 14px">
+        <strong> <span id = 'pgamount' > </span></strong><br>
+        <strong> <span id = 'pgCash' > </span></strong><br>
+        <strong> <span id = 'pgCredit' > </span></strong>
+      </div>
+    <% else %>
+      <div style = "display:none;float:right; font-size: 14px">
+        <strong> <span id = 'pgamount' > </span></strong><br>
+        <strong> <span id = 'pgCash' > </span></strong><br>
+        <strong> <span id = 'pgCredit' > </span></strong>
+      </div>
+    <% end %>
 <script>
   $('#cancelbtn').on('click',function(){
     $('.'+$(this).attr("name")).remove() ;

@@ -120,10 +120,6 @@ d.className = d.className + " active";
 	    	<div class="col-md-4">
 
 	    		<div class="form-group">
-					<%= bill.hidden_field :invoice_id, :id => 'item_code', :value => @autogen, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
-				</div>
-
-	    		<div class="form-group">
 					<label>Product Code / رقم المنتج</label>
 					<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
 				</div>
