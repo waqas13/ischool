@@ -115,7 +115,7 @@ d.className = d.className + " active";
 </div>
 <div class = "billform">
 <!-- /////////////////////items form for//////////////////////////// -->
-	<%= form_for @bill, url: createBill_bills_path, methoed: :post,remote: true do |bill| %>
+	<%= form_for @bill, url: createBill_bills_path(@autogen), methoed: :post,remote: true do |bill| %>
 		<div class="row">
 	    	<div class="col-md-4">
 	    		<div class="form-group">

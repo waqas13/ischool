@@ -33,11 +33,12 @@ d.className = d.className + " active";
           <th>Product Code</th>
           <th>Sold</th>
           <th>Left</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @items.try(:each) do |item| %>
-          <tr>
+          <tr class ="<%= item.id %>">
             <td>
               <%= item.title %>
             </td>
@@ -50,9 +51,19 @@ d.className = d.className + " active";
             <td>
             	<%= item.left %>
             </td>
+            <td>
+              <%= link_to 'Edit Item', edit_item_path(item.id), class: 'btn btn-info' %>
+              <%= link_to 'Delete Item', item_path(item.id), method: 'delete', remote: true , class: 'btn btn-info', :id => 'deletebtn', :name => item.id %>
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
 
 	<strong><span style="float:right;margin-right: 45px;margin-top: 10px;line-height: 2em;">Total Sold: <%= @items.sum(:sold) %></br>Total Left: <%= @items.sum(:left) %></span></strong>
+
+<script>
+  $('#deletebtn').on('click',function(){
+    $('.'+$(this).attr("name")).remove() ;
+  });
+</script>

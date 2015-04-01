@@ -15,7 +15,7 @@ d.className = d.className + " active";
 
 		<div class="form-group">
 			<%= item.label :product_code %>
-			<%= item.text_field :code , :id => 'title_field', :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+			<%= item.text_field :code , :id => 'title_field', :style => 'width:70%;height:34px;', class: 'form-control', required: true, disabled: true %>
 			<div class = "hide" id= "error_div">
 				<span style = "color:red;" id="error_text">  </span>
 			</div>

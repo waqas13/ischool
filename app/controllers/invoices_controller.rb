@@ -1,17 +1,17 @@
 class InvoicesController < ApplicationController
   def new
   	if current_user
-	  	@invoice = Invoice.create
-	  	@autogen = Invoice.last.id
-	  	@bill = @invoice.bills.new
-	  	@bills = @invoice.bills
+	  	@invoice = Invoice.new
+	  	@autogen = Invoice.last.id + 1
+	  	@bill = Bill.new
+      @bill.quantity = 1
 	else
 		redirect_to authenticated_root_path, :alert => 'Access Denied!'
 	end
   end
 
-  def update
-  	invoice = Invoice.find(params[:id])
+  def create
+  	invoice = Invoice.create(params[:id])
     invoice.status = 'active'
     if invoice.update(update_params)
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'

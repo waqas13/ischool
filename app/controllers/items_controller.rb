@@ -21,6 +21,25 @@ class ItemsController < ApplicationController
   	end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    # return render json: params.inspect
+    item = Item.find(params[:id])
+    if item.update(create_params)
+      redirect_to items_path(item.id), :notice => 'Information Updated successfully!'
+    else
+      redirect_to item_path(item.id), :alert => 'Could not update information!'
+    end
+  end
+
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+  end
+
   def validateItemCode
 
   	item = Item.find_by_code(params[:code])

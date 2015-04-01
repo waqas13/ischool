@@ -2,7 +2,6 @@ class BillsController < ApplicationController
 	def createBill
 		puts'-'*80
 		puts params
-		puts Item.find_by_code(params[:bill][:code]).id
 		puts '-'*80
 		@bill = Invoice.last.bills.create(create_params)
 		item = Item.find_by_code(params[:bill][:code])
