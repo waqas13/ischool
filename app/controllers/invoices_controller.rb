@@ -10,8 +10,8 @@ class InvoicesController < ApplicationController
 	end
   end
 
-  def create
-  	invoice = Invoice.create(params[:id])
+  def update
+  	invoice = Invoice.find(params[:id])
     invoice.status = 'active'
     if invoice.update(update_params)
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
@@ -51,6 +51,6 @@ class InvoicesController < ApplicationController
 
   private
     def update_params
-      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
+      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid, :code)      
     end
 end

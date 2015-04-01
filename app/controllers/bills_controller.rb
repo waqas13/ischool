@@ -1,8 +1,11 @@
 class BillsController < ApplicationController
 	def createBill
-		puts'-'*80
-		puts params
-		puts '-'*80
+		if Invoice.last.id.to_s != params[:bill][:invoice_id].to_s
+			puts'-'*80
+			puts params
+			puts '-'*80
+			Invoice.create
+		end
 		@bill = Invoice.last.bills.create(create_params)
 		item = Item.find_by_code(params[:bill][:code])
 		if item.sold.to_i > 0
@@ -61,6 +64,6 @@ class BillsController < ApplicationController
 
 	private
 	    def create_params
-	      params.require(:bill).permit(:item_id, :invoice_id, :quantity, :price)      
+	      params.require(:bill).permit(:item_id, :invoice_id, :quantity, :price, :code)      
 	    end
 end

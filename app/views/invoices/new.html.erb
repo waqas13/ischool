@@ -118,6 +118,11 @@ d.className = d.className + " active";
 	<%= form_for @bill, url: createBill_bills_path(@autogen), methoed: :post,remote: true do |bill| %>
 		<div class="row">
 	    	<div class="col-md-4">
+
+	    		<div class="form-group">
+					<%= bill.hidden_field :invoice_id, :id => 'item_code', :value => @autogen, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+
 	    		<div class="form-group">
 					<label>Product Code / رقم المنتج</label>
 					<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
