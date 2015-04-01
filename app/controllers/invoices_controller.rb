@@ -52,6 +52,7 @@ class InvoicesController < ApplicationController
   def destroy
     inv = Invoice.find(params[:id])
     inv.destroy
+    redirect_to canceled_invoices_path, :notice => 'Invoice Deleted!'
   end
 
   private
