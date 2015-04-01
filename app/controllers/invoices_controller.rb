@@ -49,6 +49,11 @@ class InvoicesController < ApplicationController
     @invoices = Invoice.where.not(bookNum: nil , status: nil)
   end
 
+  def destroy
+    inv = Invoice.find(params[:id])
+    inv.destroy
+  end
+
   private
     def update_params
       params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
