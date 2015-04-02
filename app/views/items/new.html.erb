@@ -9,7 +9,7 @@ d.className = d.className + " active";
 <div class="col-md-9">
 	<%= form_for @item do |item| %>
 		<div class="form-group">
-			<%= item.label :title %>
+			<%= item.label :Name %>
 			<%= item.text_field :title , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
 		</div>
 

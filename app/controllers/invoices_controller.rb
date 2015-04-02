@@ -14,7 +14,7 @@ class InvoicesController < ApplicationController
     invoice = Invoice.find(params[:id])
     invoice.status = 'active'
     if invoice.update(update_params)
-      redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
+      redirect_to invoices_path, :notice => 'Invoice added successfully!'
     else
       redirect_to :back, :alert => 'Could not update information!'
     end
@@ -35,6 +35,7 @@ class InvoicesController < ApplicationController
   def cancel
     invoice = Invoice.find(params[:id])
     invoice.status = 'cancelled'
+    invoice.save!
     bills = invoice.bills
     bills.each do |bill|
       item = Item.find(bill.item_id)
@@ -42,7 +43,7 @@ class InvoicesController < ApplicationController
       item.sold = item.sold - bill.quantity
       item.save!
     end
-    invoice.save!
+    redirect_to invoices_path
   end
 
   def canceled

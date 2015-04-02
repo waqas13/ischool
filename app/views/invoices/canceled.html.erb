@@ -36,7 +36,6 @@ d.className = d.className + " active";
           <th>Total</th>
           <th>Paid</th>
           <th>Credit</th>
-          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -66,9 +65,6 @@ d.className = d.className + " active";
             </td>
             <td>
               <%= inv.bills.sum("quantity * price").to_f - inv.try(:paid).to_f %>
-            </td>
-            <td>
-              <%= inv.status %>
             </td>
             <td>
               <%= link_to 'Delete Invoice', invoice_path(inv.id), method: 'delete' , class: 'btn btn-danger', :id => 'deletebtn', :name => inv.id %>

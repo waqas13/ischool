@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'students/upload'
 
+  get 'items/upload'
+
   get 'students/payment'
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
@@ -43,6 +45,7 @@ Rails.application.routes.draw do
   end
 
   resources :items do
+    collection { post :import }
     collection do
       get 'validateItemCode'
       post 'adding'

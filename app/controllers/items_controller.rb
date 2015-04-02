@@ -63,6 +63,19 @@ class ItemsController < ApplicationController
     end
   end
 
+  def upload
+    
+  end
+
+  def import
+    result = Item.import(params[:file])
+    if result=="notok"
+      redirect_to items_upload_path, :alert => "Error in file."
+    else
+      redirect_to items_upload_path, :notice => "Items imported."
+    end
+  end
+
   private
   	def create_params
       params.require(:item).permit(:code, :title, :detail, :sold, :left)     

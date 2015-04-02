@@ -127,9 +127,8 @@ d.className = d.className + " active";
           <th>Customer Name</th>
           <th>Customer Mobile</th>
           <th>Total</th>
-          <th>Paid</th>
+          <th>Cash</th>
           <th>Credit</th>
-          <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -161,10 +160,7 @@ d.className = d.className + " active";
               <%= inv.bills.sum("quantity * price").to_f - inv.try(:paid).to_f %>
             </td>
             <td>
-              <%= inv.status %>
-            </td>
-            <td>
-              <%= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+              <%= link_to 'Cancel', cancel_invoice_path(inv.id), :id => 'cancelbtn', :name => inv.id %>
             </td>
           </tr>
         <% end %>
@@ -184,8 +180,8 @@ d.className = d.className + " active";
       </div>
     <% end %>
 <script>
-  $('#cancelbtn').on('click',function(){
-    $('.'+$(this).attr("name")).remove() ;
-  });
+  // $('#cancelbtn').on('click',function(){
+  //   $('.'+$(this).attr("name")).remove() ;
+  // });
 
 </script>
