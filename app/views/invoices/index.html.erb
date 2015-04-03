@@ -39,7 +39,7 @@ d.className = d.className + " active";
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
-              $('#totalamount').text('Total Cash: '+total);
+              $('#totalamount').text('Total Amount: '+total);
 
               //total paid
               paid = api
@@ -48,7 +48,7 @@ d.className = d.className + " active";
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
-              $('#totalCash').text('Total Paid: '+paid);
+              $('#totalCash').text('Cash: '+paid);
 
 
               // Total Credit
@@ -59,7 +59,7 @@ d.className = d.className + " active";
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
-              $('#totalCredit').text('Total Credit: '+credit);
+              $('#totalCredit').text('Credit: '+credit);
 
               // Total over this page
               pageTotal = api
@@ -139,7 +139,8 @@ d.className = d.className + " active";
               <%= inv.created_at.strftime('%a, %B %e, %Y') %>
             </td>
             <td>
-              <%= link_to inv.id, credit_invoice_path(inv.id) %>
+
+              <%= link_to inv.id.to_s.rjust(4,'0'), credit_invoice_path(inv.id) %>
             </td>
             <td>
               <%= inv.bookNum %>

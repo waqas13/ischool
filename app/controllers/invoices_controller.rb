@@ -28,6 +28,7 @@ class InvoicesController < ApplicationController
 
   def credit
     @invoice = Invoice.find(params[:id])
+    @autogen = @invoice.id
     @bills = @invoice.bills
     
   end

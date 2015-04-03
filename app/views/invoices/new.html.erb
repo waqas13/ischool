@@ -9,7 +9,7 @@ d.className = d.className + " active";
 	<div class="col-md-6">
 		<div class="form-group">
 			<label>invoice ID/الرقم</label>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%= @autogen.to_s.rjust(4,'0') %>' disabled >
 		</div>
 
 		<div class="form-group">
@@ -76,7 +76,7 @@ d.className = d.className + " active";
 			</div> -->
 			<div class="row ">
 			  	<div class="col-xs-6 col-md-6"><div class="form-group">
-						<label>Cash / النقد</label>
+						<label>Cash </label>
 						<div class="col-sm-9">
 							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
 						</div>
@@ -84,7 +84,7 @@ d.className = d.className + " active";
 				</div>
 			  	<div class="col-xs-6 col-md-6">
 					<div class="form-group">
-						<label>Credit / القروض</label>
+						<label>Credit</label>
 						<div class="col-sm-9">
 							<input  id = "credit" class = "form-control" placeholder = 0 disabled >
 						</div>
