@@ -3,6 +3,7 @@
   d.className = d.className + " active";
   $(document).ready(function() {
     $('#example').dataTable({
+        "order": [[0, "desc"]],
         dom: 'T<"clear">lfrtip',
         tableTools: {
           "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",

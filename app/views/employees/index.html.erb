@@ -112,8 +112,8 @@ d.className = d.className + " active";
           <%= emp.loan %>
         </td>
         <td>
-          <%= link_to 'Pay Salalry', new_salary_path(emp.id), class: 'btn btn-info' %>
-          <%= link_to 'Pay Loan', loan_employee_path(emp.id), class: 'btn btn-danger' %>
+          <%= link_to 'Pay Salalry', new_salary_path(emp.id), class: 'btn btn-info', style: 'width:100%'%>
+          <%= link_to 'Pay Loan', loan_employee_path(emp.id), class: 'btn btn-danger', style: 'width:100%' %>
         </td>
       </tr>
     <% end %>

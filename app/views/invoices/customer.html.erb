@@ -71,10 +71,7 @@ d.className = d.className + " active";
     <tr>
       <th>Date</th>
       <th>Invoice #</th>
-      <th>Customer Name</th>
-      <th>Customer Mobile</th>
       <th>Total</th>
-      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -87,16 +84,7 @@ d.className = d.className + " active";
           <%= link_to inv.id, credit_invoice_path(inv.id) %>
         </td>
         <td>
-          <%= inv.customerName %>
-        </td>
-        <td>
-          <%= inv.customerMobile %>
-        </td>
-        <td>
-          <%= inv.bills.sum("quantity * price") %>
-        </td>
-        <td>
-          <%#= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+          <%= inv.bills.sum("(gross-tear) * price") %>
         </td>
       </tr>
     <% end %>

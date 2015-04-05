@@ -28,7 +28,7 @@ d.className = d.className + " active";
 
 		<div class="form-group">
 			<label> Company/Party  </label>
-			<%= inv.collection_select :customerName, Customer.order(:name),:name,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			<%= inv.collection_select :customer_id, Customer.order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
 			
 		</div>
 		

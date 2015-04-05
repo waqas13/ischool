@@ -15,6 +15,10 @@ class InvoicesController < ApplicationController
   	invoice = Invoice.find(params[:format])
     invoice.status = 'active'
     if invoice.update(update_params)
+      cust = Customer.find(invoice.customer_id)
+      invoice.customerName = cust.name
+      cust.credit = cust.credit + invoice.bills.sum("(gross-tear) * price")
+      cust.save
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
     else
       redirect_to :back, :alert => 'Could not update information!'
@@ -49,7 +53,7 @@ class InvoicesController < ApplicationController
   def customer
     # return render json: params
     @customer =  Customer.find(params[:id])
-    @invoices = Invoice.where(id: @customer.id)
+    @invoices = Invoice.where(customer_id: @customer.id)
   end
 
   def canceled
@@ -58,6 +62,6 @@ class InvoicesController < ApplicationController
 
   private
     def update_params
-      params.require(:invoice).permit(:id,:bookNum, :customerName, :customerMobile, :right, :left, :paid, :vehicle, :driver)      
+      params.require(:invoice).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver)      
     end
 end
