@@ -14,9 +14,9 @@ class InvoicesController < ApplicationController
     puts 'as'*40
   	invoice = Invoice.find(params[:format])
     invoice.status = 'active'
+    cust = Customer.find(params[:invoice][:customer_id])
+    invoice.customerName = cust.name
     if invoice.update(update_params)
-      cust = Customer.find(invoice.customer_id)
-      invoice.customerName = cust.name
       cust.credit = cust.credit + invoice.bills.sum("(gross-tear) * price")
       cust.save
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
