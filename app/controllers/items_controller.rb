@@ -19,6 +19,18 @@ class ItemsController < ApplicationController
     end 	
   end
 
+  def addStock
+    @item = Item.new
+    @items = Item.all
+  end
+
+  def adding
+    item = Item.find(params[:item][:id])
+    item.left = item.left.to_i - params[:item][:left].to_i
+    item.save
+    redirect_to items_path
+  end
+
   private
   	def create_params
       params.require(:item).permit(:title)     

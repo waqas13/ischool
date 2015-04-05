@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331183736) do
+ActiveRecord::Schema.define(version: 20150404200520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20150331183736) do
     t.datetime "updated_at"
     t.string   "code"
     t.string   "item_title"
+    t.integer  "gross"
+    t.integer  "tear"
   end
 
   create_table "customers", force: true do |t|
@@ -76,6 +78,9 @@ ActiveRecord::Schema.define(version: 20150331183736) do
     t.datetime "updated_at"
     t.float    "paid"
     t.string   "status"
+    t.integer  "shop"
+    t.string   "driver"
+    t.integer  "vehicle"
   end
 
   create_table "items", force: true do |t|
@@ -86,6 +91,7 @@ ActiveRecord::Schema.define(version: 20150331183736) do
     t.integer  "left"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "shop"
   end
 
   create_table "payments", force: true do |t|
@@ -139,6 +145,7 @@ ActiveRecord::Schema.define(version: 20150331183736) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_type",              default: 0
+    t.integer  "shop"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

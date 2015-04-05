@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var d = document.getElementById("employees");
+  var d = document.getElementById("customers");
 d.className = d.className + " active";
   $(document).ready(function() {
 
@@ -20,8 +20,8 @@ d.className = d.className + " active";
             ]
         },
         /////////////////////////////////////////////
-        <% if @employees.count > 0 %>
-            "footerCallback": function ( row, data, start, end, display ) {
+        <% if @invoices.count > 0 %>
+           "footerCallback": function ( row, data, start, end, display ) {
               var api = this.api(), data;
    
               // Remove the formatting to get integer data for summation
@@ -34,16 +34,16 @@ d.className = d.className + " active";
    
               // Total over all pages
               total = api
-                  .column( 5 )
+                  .column( 4 )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
-              $('#totalamount').text('Total Salaries: '+total);
+              $('#totalamount').text('Total Cash: '+total);
 
               // Total over this page
               pageTotal = api
-                  .column( 5, { page: 'current'} )
+                  .column( 4, { page: 'current'} )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -51,69 +51,52 @@ d.className = d.className + " active";
    
               // Update footer
               $('#pgamount').text('Total: '+ pageTotal);
+
           }
         <% end %>
+
+    /////////////////////////////////////////
     });
   });
 
 </script>
 
-<h2>Employees
+<h2> <%=@customer.name %>
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
-  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Salaries : 0 </span></strong>
-  <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Employees : <%= @employees.count %> </span></strong>
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
 </div>
-<br>
-<br>
-<div style="float:right">
-  <a href="<%= new_employee_path %>" class="btn btn-info pull-right" style="width:200px;"> Add an Employee</a>
-</div>
-<br>
 </h2>
 <table id="example" class="display">
   <thead>
     <tr>
-      <th>Employee Name</th>
-      <th>Mobile Number</th>
-      <th>Address Pakistan</th>
-      <th>Iqama Number</th>
-      <th>Iqama Expiry</th>
-      <th>Salary</th>
-      <th>Salary Type</th>
-      <th>Loan</th>
+      <th>Date</th>
+      <th>Invoice #</th>
+      <th>Customer Name</th>
+      <th>Customer Mobile</th>
+      <th>Total</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <% @employees.try(:each) do |emp| %>
-      <tr class ="<%= emp.id %>">
+    <% @invoices.try(:each) do |inv| %>
+      <tr class ="<%= inv.id %>">
         <td>
-          <%= link_to emp.name, edit_employee_path(emp.id) %>
+          <%= inv.created_at.strftime('%a, %B %e, %Y') %>
         </td>
         <td>
-          <%= emp.contact %>
+          <%= link_to inv.id, credit_invoice_path(inv.id) %>
         </td>
         <td>
-          <%= emp.address_home %>
+          <%= inv.customerName %>
         </td>
         <td>
-          <%= emp.iqama %>
+          <%= inv.customerMobile %>
         </td>
         <td>
-          <%= emp.expire_iqama %>
+          <%= inv.bills.sum("quantity * price") %>
         </td>
         <td>
-          <%= emp.salary %>
-        </td>
-        <td>
-          <%= emp.salary_type %>
-        </td>
-        <td>
-          <%= emp.loan %>
-        </td>
-        <td>
-          <%= link_to 'Pay Salalry', new_salary_path(emp.id), class: 'btn btn-info' %>
-          <%= link_to 'Pay Loan', loan_employee_path(emp.id), class: 'btn btn-danger' %>
+          <%#= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
         </td>
       </tr>
     <% end %>
@@ -121,4 +104,12 @@ d.className = d.className + " active";
 </table>
 <div style = "float:right; font-size: 14px">
   <strong> <span id = 'pgamount' > </span></strong><br>
+  <strong> <span id = 'pgCash' > </span></strong><br>
+  <strong> <span id = 'pgCredit' > </span></strong>
 </div>
+<script>
+  $('#cancelbtn').on('click',function(){
+    $('.'+$(this).attr("name")).remove() ;
+  });
+
+</script>

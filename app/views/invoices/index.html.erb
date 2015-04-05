@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var d = document.getElementById("invShow");
+  var d = document.getElementById("sales");
 d.className = d.className + " active";
   $(document).ready(function() {
 
@@ -34,36 +34,16 @@ d.className = d.className + " active";
    
               // Total over all pages
               total = api
-                  .column( 5 )
+                  .column( 4 )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
               $('#totalamount').text('Total Cash: '+total);
 
-              //total paid
-              paid = api
-                  .column( 6 )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  } );
-              $('#totalCash').text('Total Paid: '+paid);
-
-
-              // Total Credit
-
-              credit = api
-                  .column( 7 )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  } );
-              $('#totalCredit').text('Total Credit: '+credit);
-
               // Total over this page
               pageTotal = api
-                  .column( 5, { page: 'current'} )
+                  .column( 4, { page: 'current'} )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -72,28 +52,6 @@ d.className = d.className + " active";
               // Update footer
               $('#pgamount').text('Total: '+ pageTotal);
 
-              // Total Credit over this page
-              pgCash = api
-                  .column( 6, { page: 'current'} )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  }, 0 );
-   
-              // Update footer
-              $('#pgCash').text('Cash: '+ pgCash);
-
-              //Total Credit on page
-
-              pgCredit = api
-                  .column( 7, { page: 'current'} )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  }, 0 );
-   
-              // Update footer
-              $('#pgCredit').text('Credit: '+ pgCredit);
           }
         <% end %>
 
@@ -106,8 +64,6 @@ d.className = d.className + " active";
 <h2>Invoices
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
-  <strong> <span id = 'totalCash' style = "color: green; margin-right : 40px;"> Paid : 0 </span> </strong>
-  <strong> <span id = 'totalCredit' style = "color: red; margin-right: 20px;"> Credit : 0 </span></strong>
 </div>
 </h2>
 <table id="example" class="display">
@@ -115,13 +71,8 @@ d.className = d.className + " active";
     <tr>
       <th>Date</th>
       <th>Invoice #</th>
-      <th>Book Number</th>
-      <th>Customer Name</th>
-      <th>Customer Mobile</th>
+      <th>Customer/Party Name</th>
       <th>Total</th>
-      <th>Paid</th>
-      <th>Credit</th>
-      <th>Status</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -135,28 +86,13 @@ d.className = d.className + " active";
           <%= link_to inv.id, credit_invoice_path(inv.id) %>
         </td>
         <td>
-          <%= inv.bookNum %>
-        </td>
-        <td>
           <%= inv.customerName %>
         </td>
         <td>
-          <%= inv.customerMobile %>
+          <%= inv.bills.sum("(gross-tear) * price") %>
         </td>
         <td>
-          <%= inv.bills.sum("quantity * price") %>
-        </td>
-        <td>
-          <%= inv.try(:paid) %>
-        </td>
-        <td>
-          <%= inv.bills.sum("quantity * price").to_f - inv.try(:paid).to_f %>
-        </td>
-        <td>
-          <%= inv.status %>
-        </td>
-        <td>
-          <%= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+          <%#= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
         </td>
       </tr>
     <% end %>

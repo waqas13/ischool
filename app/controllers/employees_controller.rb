@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
 	def index
-		@employees = Employee.where('status !=? ', 'active')
+		@employees = Employee.all
 	end
 
 	def new
@@ -14,6 +14,23 @@ class EmployeesController < ApplicationController
 		if emp.save
 			redirect_to employees_path, :notice => 'Employee Added Successfully'
 		end
+	end
+
+	def edit
+		@employee = Employee.find(params[:id])
+	end
+
+	def loan
+		@employee = Employee.find(params[:id])
+	end
+
+	def update
+		emp = Employee.find(params[:id])
+	    if emp.update(create_params)
+	      redirect_to employees_path, :notice => 'Information Updated successfully!'
+	    else
+	      redirect_to :back, :alert => 'Could not update information!'
+	    end
 	end
 
 	private

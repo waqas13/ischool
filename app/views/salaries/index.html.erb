@@ -1,2 +1,61 @@
-<h1>Salaries#index</h1>
-<p>Find me in app/views/salaries/index.html.erb</p>
+<script type="text/javascript">
+  var d = document.getElementById("salary");
+d.className = d.className + " active";
+  $(document).ready(function() {
+    $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        }
+    });
+  });
+
+</script>
+
+<h2>Salary Register </h2>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Employee Name</th>
+          <th>Salary Type</th>
+          <th>Salary</th>
+          <th>Loan Deduction</th>
+          <th>Net Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @salaries.try(:each) do |sal| %>
+          <tr>
+            <td>
+              <%= sal.created_at %>
+            </td>
+            <td>
+              <%= Employee.find(sal.employee_id).name %>
+            </td>
+            <td>
+              <%= Employee.find(sal.employee_id).salary_type %>
+            </td>
+            <td>
+            	<%= Employee.find(sal.employee_id).salary %>
+            </td>
+            <td>
+            	<%= sal.loan_amount %>
+            </td>
+            <td>
+            	<%= Employee.find(sal.employee_id).salary - sal.loan_amount %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

@@ -1,25 +1,22 @@
 class BillsController < ApplicationController
 	def createBill
 		puts'-'*80
-		puts params
-		puts Item.find_by_code(params[:bill][:code]).id
-		puts '-'*80
-		@bill = Invoice.last.bills.create(create_params)
-		item = Item.find_by_code(params[:bill][:code])
-		if item.sold.to_i > 0
-			item.sold = item.sold + params[:bill][:quantity].to_i
-		else
-			item.sold = params[:bill][:quantity].to_i
+		invoice = Invoice.last
+		if !Invoice.exists?(params[:bill][:invoice_id])
+			invoice = Invoice.create
+			puts'-'*80
 		end
-		if item.left.to_i > 0
-			item.left = item.left - params[:bill][:quantity].to_i
-		else
-			item.left = 0
-		end
-		item.save!
- 		@bill.item_id = item.id
-		@bill.item_title = item.title
-		@bill.save!
+		bill = invoice.bills.create
+		item = Item.find(params[:bill][:item_id])
+
+		bill.item_id = item.id
+		bill.item_title = item.title
+		bill.gross = params[:bill][:gross]
+		bill.tear = params[:bill][:tear]
+		bill.price = params[:bill][:price]
+		bill.save
+		item.left = item.left + bill.gross - bill.tear
+		item.save
       	respond_to do |format|
       		format.json {render json: 200}
       	end
@@ -28,40 +25,27 @@ class BillsController < ApplicationController
 	end
 
 	def getbills
-		puts '='*80
-		puts params
-		puts '+'*80
-		bill = Invoice.last.bills.last
-		total = Invoice.last.bills.sum("price * quantity")
-		tit = Item.find(bill.item_id).title
+		total = Invoice.last.bills.sum("price * (gross-tear)")
 		b = Invoice.last.bills
 		respond_to do |format|
-      		format.json {render json: [totalSum: total, b: b,titl: tit,quantity: bill.quantity,price: bill.price,total: bill.quantity*bill.price]}
+      		format.json {render json: [totalSum: total, b: b]}
       	end
 	end
 
 	def removebills
 		bill = Bill.find(params[:id])
 		item = Item.find(bill.item_id)
-		item.sold = item.sold - bill.quantity
-		item.left = item.left + bill.quantity
+		item.left = item.left - (bill.gross - bill.tear)
 		item.save!
 		bill.destroy
+		total = Invoice.last.bills.sum("price * (gross-tear)")
 		respond_to do |format|
-      		format.json {render json: [id: params[:id]]}
+      		format.json {render json: [id: params[:id], total: total ]}
       	end
-	end
-
-	def validateCode
-		bill = Item.find_by_code(params[:code])
-		value = bill.present?
-	    respond_to do |format|
-	      format.json {render json: value}
-	    end
 	end
 
 	private
 	    def create_params
-	      params.require(:bill).permit(:item_id, :invoice_id, :quantity, :price)      
+	      params.require(:bill).permit(:item_id, :invoice_id, :quantity, :price, :tear , :gross)      
 	    end
 end

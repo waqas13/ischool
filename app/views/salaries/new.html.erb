@@ -1,2 +1,52 @@
-<h1>Salaries#new</h1>
-<p>Find me in app/views/salaries/new.html.erb</p>
+<script type="text/javascript">
+	var d = document.getElementById("gradeShow");
+	d.className = d.className + " active";
+</script>
+
+<h2>Pay Salary</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @salary do |sal| %>
+		<div class="form-group">
+			<label>Date </label>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		</div>
+		<%= sal.hidden_field :employee_id, value: @employee.id %>
+		<div class="form-group">
+			<%= sal.label :employee %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@employee.name%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<%= sal.label :salary %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@employee.salary%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<%= sal.label :salary_Type %>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@employee.salary_type %>' disabled >
+		</div>
+
+		<div class="form-group">
+			<%= sal.label :loan_Deduction %>
+			<%= sal.text_field :loan_amount , :id => 'loan', :style => 'width:70%;height:34px;', class: 'form-control', required: true , placeholder: 0%>
+		</div>
+
+		<div class="form-group">
+			<%= sal.label :net_Salary %>
+			<input style = 'width:70%;height:34px;' id = "netsal"  class = 'form-control' value = '<%=@employee.salary%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<%= sal.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$("#loan").on('keyup',function(){
+		$('#netsal').val(<%= @employee.salary %> - $('#loan').val()); 
+	});
+</script>

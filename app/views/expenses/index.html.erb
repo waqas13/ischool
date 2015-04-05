@@ -13,19 +13,23 @@
     <table id="example" class="display">
       <thead>
         <tr>
-          <th>Month</th>
+          <th>Date</th>
+          <th>Remarks</th>
           <th>Amount</th>
         </tr>
       </thead>
       <tbody>
         <% @expenses.try(:each) do |exp| %>
 	        <tr>
-              <td>
-                <%= exp.description %>
-              </td>
-	            <td>
-	              <%= exp.amount %>
-	            </td>
+            <td>
+              <%= exp.created_at.strftime('%a, %B %e, %Y') %>
+            </td>
+            <td>
+              <%= exp.description %>
+            </td>
+            <td>
+              <%= exp.amount %>
+            </td>
         	</tr>
         <% end %>
       </tbody>

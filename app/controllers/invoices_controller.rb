@@ -1,17 +1,18 @@
 class InvoicesController < ApplicationController
   def new
   	if current_user
-	  	@invoice = Invoice.create
-	  	@autogen = Invoice.last.id
+	  	@invoice = Invoice.new
+	  	@autogen = Invoice.last.id + 1
 	  	@bill = @invoice.bills.new
 	  	@bills = @invoice.bills
 	else
-		redirect_to authenticated_root_path, :alert => 'Access Denied!'
+		redirect_to authenticated_root_path(@autogen), :alert => 'Access Denied!'
 	end
   end
 
-  def update
-  	invoice = Invoice.find(params[:id])
+  def updateInvoice
+    puts 'as'*40
+  	invoice = Invoice.find(params[:format])
     invoice.status = 'active'
     if invoice.update(update_params)
       redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
@@ -21,13 +22,13 @@ class InvoicesController < ApplicationController
   end
 
   def index
-  	@invoices = Invoice.where.not(bookNum: nil)
-    @invoices = @invoices.where.not(status: 'cancelled')
+    @invoices = Invoice.where.not(status: 'cancelled')
     # @total = Bill.where.not(invoice_id: nil).sum('quantity * pirice')
   end
 
   def credit
   	@invoice = Invoice.find(params[:id])
+    @autogen = params[:id]
   	@bills = @invoice.bills
   	
   end
@@ -45,12 +46,18 @@ class InvoicesController < ApplicationController
     invoice.save!
   end
 
+  def customer
+    # return render json: params
+    @customer =  Customer.find(params[:id])
+    @invoices = Invoice.where(id: @customer.id)
+  end
+
   def canceled
     @invoices = Invoice.where.not(bookNum: nil , status: nil)
   end
 
   private
     def update_params
-      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
+      params.require(:invoice).permit(:id,:bookNum, :customerName, :customerMobile, :right, :left, :paid, :vehicle, :driver)      
     end
 end

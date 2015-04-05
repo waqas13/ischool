@@ -4,110 +4,41 @@ d.className = d.className + " active";
 </script>
 
 
-<%= form_for @invoice do |inv| %>
+<%= form_for @invoice, url: updateInvoice_invoices_path(@autogen), methoed: :post do |inv| %>
 	<h2>Invoice</h2>
+	<br>
+	<div class="form-group " style=" float:right; margin-right: 242px;">
+		<label>Date </label>
+		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+	</div>
+	<br><br><br><br>
 	<div class="col-md-6">
 		<div class="form-group">
-			<label>invoice ID/رقم الفاتورة</label>
+			<label>invoice ID</label>
 			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
 		</div>
 
 		<div class="form-group">
-			<label>Book NO / رقم كتاب</label>
-			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
-			<!-- <div class = "hide" id= "error_div">
-				<span style = "color:red;" id="error_text">  </span>
-			</div> -->
-		</div>
-
-		<div class="form-group">
-			<label>Contact # / رقم الاتصال</label>
-			<%= inv.text_field :customerMobile, :style => 'width:70%;height:34px;', class: 'form-control' %>
-		</div>
-
-		<div class="form-group">
-			<label>Total Amount / إجمالي مبلغ</label>
-			<input style = 'width:70%;height:34px;' id = "totalfield" class = 'form-control' placeholder = '0' disabled>
+			<label>Driver</label>
+			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
 		</div>
 
 	</div>
 	<div class="col-md-6">
 
+		<div class="form-group">
+			<label> Company/Party  </label>
+			<%= inv.collection_select :customerName, Customer.order(:name),:name,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			
+		</div>
 		
 		<div class="form-group">
-			<label>Date / تاريخ</label>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<label>Vehicle #</label>
+			<%= inv.text_field :vehicle, :style => 'width:70%;height:34px;', class: 'form-control' %>
 		</div>
 		
-		<div class="form-group">
-			<label>Customer Name / اسم العملاء</label>
-			<%= inv.text_field :customerName, :style => 'width:70%;height:34px;', class: 'form-control' %>
-		</div>
-
-		
-		<div class="size-bock">
-			<span>Size / حجم 	</span>
-			<div class="row size-bock-row">
-				<div class="col-xs-6 col-md-6">
-				 	<div class="form-group">
-						<label>Right / اليمين</label>
-						<div class="col-sm-9">
-							<%= inv.text_field :right, class: 'form-control' %>
-						</div>
-					</div>
-				</div>
-			  	<div class="col-xs-6 col-md-6">
-			  		<div class="form-group">
-						<label>Left / اليسار</label>
-						<div class="col-sm-9">
-							<%= inv.text_field :left, class: 'form-control' %>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row ">
-			  	<div class="col-xs-6 col-md-6"><div class="form-group">
-						<label>Cash / النقد</label>
-						<div class="col-sm-9">
-							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
-						</div>
-					</div>
-				</div>
-			  	<div class="col-xs-6 col-md-6">
-					<div class="form-group">
-						<label>Credit / القروض</label>
-						<div class="col-sm-9">
-							<input  id = "credit" class = "form-control" placeholder = 0 disabled >
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<%= inv.submit "Create Invoice", :class => 'btn-create btn btn-success' %>
-		</div>
-
-		
-		
-		
-		<!-- <div class="form-group">
-			<span style = "float:left;font-size:14px;margin-right:13%;">Size:</span>
-			<span style = "float:left;padding-top:0.3%;">
-				<label>
-					Right: <%#= inv.text_field :right, :style => 'width:20%;height:34px;', class: '' %>
-					Left: <%#= inv.text_field :left, :style => 'width:20%;height:34px;', class: '' %>
-				</label>
-			</span>
-		</div> -->
-		<!-- <div class="form-group">
-			<span style = "float:left;padding-top:0.3%;">
-				<label>
-					Paid: <%#= inv.text_field :paid, :style => 'width:30%;height:34px;', :id =>'paidamount', class: '' %>
-					Credit: <input style = 'width:30%;height:34px;' id = "credit" class = "form-control" placeholder = 0 disabled >
-				</label>
-			</span>
-		</div> -->
-		<!-- <div class="form-group">
-			<%#= inv.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		<!-- <div class="size-bock">
+			<%#= inv.submit "Create Invoice", :class => 'btn-create btn btn-success' %>
 		</div> -->
 	</div>
 <% end %>
@@ -117,34 +48,38 @@ d.className = d.className + " active";
 <!-- /////////////////////items form for//////////////////////////// -->
 	<%= form_for @bill, url: createBill_bills_path, methoed: :post,remote: true do |bill| %>
 		<div class="row">
-	    	<div class="col-md-4">
+			<%= bill.hidden_field :invoice_id, :value => @autogen %>
+	    	<div class="col-md-3">
 	    		<div class="form-group">
-					<label>Product Code / رقم المنتج</label>
-					<%= bill.text_field :code, :id => 'item_code', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
-				</div>
-				<div class = "hide" id= "error_div">
-					<span style = "color:red;" id="error_text">  </span>
+					<label>Qualtiy Name</label>
+					<%= bill.collection_select :item_id, Item.order(:title),:id,:title , {}, {class: "form-control", style: 'width:100%;height:34px;', id: 'item_code'} %>
 				</div>
 	    	</div>
 
-	   		<div class="col-md-4">
+	   		<div class="col-md-3">
 	   			<div class="form-group">
-					<label>Quantity / كمية</label>
-					<%= bill.text_field :quantity, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+					<label>Gross Weight (Kg)</label>
+					<%= bill.text_field :gross, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
 				</div>
 			</div>
 
-	    	<div class="col-md-4">
-	    		<div class="form-group">
-					<label>Unit Price / سعر الوحدة</label>
-					<%= bill.text_field :price, :id => 'price', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+			<div class="col-md-3">
+	   			<div class="form-group">
+					<label>Tear Weight (Kg)</label>
+					<%= bill.text_field :tear, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
 				</div>
+			</div>
 
+	    	<div class="col-md-3">
+	    		<div class="form-group">
+					<label>Rate</label>
+					<%= bill.text_field :price, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-success form-control', :style => 'width:31%; float:right;' %></span>
+			<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-info form-control', :style => 'width:31%; float:right;' %></span>
 		</div>
 
 	<% end %>
@@ -153,10 +88,12 @@ d.className = d.className + " active";
 <div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px;">
 	<table class="table">
 		<thead>
-			<th>Product Detail / تفاصيل المنتج	</th>
-			<th>Quantity / كمية</th>
-			<th>Unit Price / سعر الوحدة</th>
-			<th>Total Amount / إجمالي مبلغ</th>
+			<th>Quality Name</th>
+			<th>Gross Weight(Kg)</th>
+			<th>Tear Weight (Kg)</th>
+			<th>Net Weight</th>
+			<th>Unit Price</th>
+			<th>Total</th>
 			<th></th>
 		</thead>
 		<tbody id = 'billtable'>
@@ -165,7 +102,20 @@ d.className = d.className + " active";
 
 	</table>
 </div>
- 
+<br>
+
+<div class="" >
+	<label style = 'float:right; margin-right:22%;'>Total Amount</label>
+	<br>
+	<br>
+	<input style = 'float:right; width:31%;' id = "totalfield" class = 'form-control' placeholder = '0' disabled>
+	<br>
+	<br>
+	<input type="button" id = "submit" style="float:right; width:31%"; class = "btn-create btn btn-success" value = 'Create Invoice'>
+</div>
+
+
+
 <script type="text/javascript">
 	function abc(){
 		setTimeout(
@@ -173,7 +123,6 @@ d.className = d.className + " active";
 				$.get('/bills/getbills', {id: $('#item_code').val()})
 	       			.done(function(data){
 	       				$('#billtable').html('');
-	       				console.log(data[0].total);
 	       				$('#totalfield').val(data[0].totalSum);
 	       				data[0].b.forEach(function(bill){
 	       					var elem = document.createElement("input");
@@ -184,7 +133,7 @@ d.className = d.className + " active";
 	       					elem.onclick = function(){
 	       						$.get('/bills/removebills', {id: this.id})
 	       							.done(function(data){
-	       								console.log(data[0].id);
+	       								$('#totalfield').val(data[0].total);
 	       								$('.'+data[0].id).remove();
 	       								// var el = document.getElementByClassName(data[0].id);
 	       								// el.parentNode.removeChild(el);
@@ -197,16 +146,25 @@ d.className = d.className + " active";
 	       					var td3 = document.createElement("td");
 	       					var td4 = document.createElement("td");
 	       					var td5 = document.createElement("td");
+	       					var td6 = document.createElement("td");
+	       					var td7 = document.createElement("td");
+
 	       					td1.innerHTML = bill.item_title;
-	       					td2.innerHTML = bill.quantity;
-	       					td3.innerHTML = bill.price;
-	       					td4.innerHTML = bill.quantity*bill.price;
-	       					td5.appendChild(elem);
+	       					td2.innerHTML = bill.gross;
+	       					td3.innerHTML = bill.tear;
+	       					td4.innerHTML = bill.gross - bill.tear;
+	       					
+	       					td5.innerHTML = bill.price;
+	       					td6.innerHTML = (bill.gross - bill.tear)* bill.price;
+	       					td7.appendChild(elem);
 	       					tr.appendChild(td1);
+	       					tr.appendChild(td6);
 	       					tr.appendChild(td2);
 	       					tr.appendChild(td3);
 	       					tr.appendChild(td4);
 	       					tr.appendChild(td5);
+	       					tr.appendChild(td6);
+	       					tr.appendChild(td7);
 	       					$('#billtable').append(tr);
 	       					// $('#billtable').append('<tr><td>'+ bill.item_title +'</td><td>'+bill.quantity+'</td><td>'+bill.price+'</td><td>'+bill.quantity*bill.price+'</td> <td>'+elem+'</td></tr>');
 	       				});
@@ -216,24 +174,14 @@ d.className = d.className + " active";
 		,1000);	
 	}
 
-	$("#item_code").blur(function(){
-	  	$.get('/bills/validateCode', {code: this.value})
-  		.done(function(data){
-	  		if (data)
-	  		{
-	  			$("#error_div").addClass('hide');
-	  		}
-	  		else
-	  		{
-	  			$("#error_div").removeClass('hide');
-	  			$("#error_text").html("No Item found with "+$("#item_code").val()+" code!");
-	  			$("#item_code").val('');
-	  		}
-	  	})
-	});
-
 	$("#paidamount").on('keyup',function(){
 		$('#credit').val($('#totalfield').val() - $('#paidamount').val()); 
 	});
+
+	$("#submit").on('click',function(){
+		$('#new_invoice').submit();
+	});
+
+
 
 </script>

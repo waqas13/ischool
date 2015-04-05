@@ -32,13 +32,14 @@
           <th>Contact</th>
           <th>Credit</th>
           <th>Paid</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
         <% @customers.try(:each) do |cust| %>
           <tr>
             <td>
-              <%= cust.name %>
+              <%= link_to cust.name, customer_invoice_path(cust.id) %>
             </td>
             <td>
               <%= cust.contact %>
@@ -48,6 +49,9 @@
             </td>
             <td>
               <%= cust.paid %>
+            </td>
+            <td>
+              <%= cust.paid + cust.credit %>
             </td>
           </tr>
         <% end %>

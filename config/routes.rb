@@ -72,9 +72,12 @@ Rails.application.routes.draw do
     member do
       get 'credit'
       get 'cancel'
+      get 'customer'
     end
     collection do
       get 'canceled'
+      post 'updateInvoice'
+      
     end
   end
   
@@ -90,7 +93,16 @@ Rails.application.routes.draw do
   resources :customers
   resources :payments
   resources :expenses
-  resources :employees
+  resources :employees do
+    member do
+      get 'loan'
+      
+    end
+    collection do
+      post 'payLoan'
+    end
+  end
+  resources :salaries
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

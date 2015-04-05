@@ -10,11 +10,8 @@
 	<%= form_for :item, url: adding_items_path do |item| %>
 
 		<div class="form-group">
-			<%= item.label :product_code %>
-			<%= item.text_field :code , :id => 'title_field', :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
-			<div class = "hide" id= "error_div">
-				<span style = "color:red;" id="error_text">  </span>
-			</div>
+			<%= item.label :quality_Name %>
+			<%= item.collection_select :id, Item.order(:title),:id,:title , {}, {class: "form-control", style: 'width:70%;', :id => 'grade'} %>
 		</div>
 
 		<div class="form-group">

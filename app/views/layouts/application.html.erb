@@ -106,6 +106,14 @@
 								<span>Customers</span>
 							</a>	    				
 						</li>
+
+						<li class="" id="sales"><!-- class->active -->
+							<a href="<%= invoices_path %>">
+								<i class="fa fa-rss"></i>
+								<span>Purchases</span>
+							</a>	    				
+						</li>
+
 						<li class="" id="invoiceAdd">
 							<a href="<%= invoices_new_path %>">
 								<i class="fa fa-indent"></i>
@@ -130,6 +138,20 @@
 						<a href="<%= employees_path %>">
 							<i class="fa fa-rss"></i>
 							<span>Employees</span>
+						</a>	    				
+					</li>
+
+					<li class="" id="salary"><!-- class->active -->
+						<a href="<%= salaries_path %>">
+							<i class="fa fa-rss"></i>
+							<span>Salaries</span>
+						</a>	    				
+					</li>
+
+					<li class="" id="addStock"><!-- class->active -->
+						<a href="<%= addStock_items_path %>">
+							<i class="fa fa-rss"></i>
+							<span>Export Stock</span>
 						</a>	    				
 					</li>
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>

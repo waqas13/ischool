@@ -5,12 +5,12 @@ d.className = d.className + " active";
 
 
 <%= form_for @employee do |emp| %>
-	<h2>Add Employee</h2>
+	<h2>Pay Loan</h2>
+	<%= emp.hidden_field :id %>
 	<div class="col-md-6">
-
 		<div class="form-group">
 			<label>Full Name</label>
-			<%= emp.text_field :name , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
+			<%= emp.text_field :name , :style => 'width:70%;height:34px;', class: 'form-control', required: true, disabled: true %>
 			<!-- <div class = "hide" id= "error_div">
 				<span style = "color:red;" id="error_text">  </span>
 			</div> -->
@@ -18,17 +18,22 @@ d.className = d.className + " active";
 
 		<div class="form-group">
 			<label>Iqama Number</label>
-			<%= emp.text_field :iqama, :style => 'width:70%;height:34px;', class: 'form-control' %>
+			<%= emp.text_field :iqama, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
 		</div>
 
 		<div class="form-group">
 			<label>Iqama Expiration Date</label>
-			<%= emp.text_field :expire_iqama, :style => 'width:70%;height:34px;', class: 'form-control' %>
+			<%= emp.text_field :expire_iqama, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
 		</div>
 
 		<div class="form-group">
 			<label>Contact</label>
-			<%= emp.text_field :contact, :style => 'width:70%;height:34px;', class: 'form-control' %>
+			<%= emp.text_field :contact, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true%>
+		</div>
+
+		<div class="form-group">
+			<label>Loan Amount</label>
+			<%= emp.text_field :loan, :style => 'width:70%;height:34px;', class: 'form-control'%>
 		</div>
 
 	</div>
@@ -42,12 +47,12 @@ d.className = d.className + " active";
 		
 		<div class="form-group">
 			<label>Salary</label>
-			<%= emp.text_field :salary, :style => 'width:70%;height:34px;', class: 'form-control' %>
+			<%= emp.text_field :salary, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
 		</div>
 
 		<div class="form-group">
 			<label>Address(Home Country)</label>
-			<%= emp.text_field :address_home, :style => 'width:70%;height:34px;', class: 'form-control' %>
+			<%= emp.text_field :address_home, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
 		</div>
 		<br>
 		<div class="size-bock">
@@ -57,19 +62,19 @@ d.className = d.className + " active";
 				<div class="col-xs-6 col-md-6">
 				 	<div class="form-group">
 						<div class="col-sm-9">
-							<%= emp.radio_button :salary_type, 'Monthly', :checked => true %> Monthly
+							<%= emp.radio_button :salary_type, 'Monthly', :checked => true, disabled: true %> Monthly
 						</div>
 					</div>
 				</div>
 			  	<div class="col-xs-6 col-md-6">
 			  		<div class="form-group">
 						<div class="col-sm-9">
-							<%= emp.radio_button :salary_type, 'Weekly'%> Weekly
+							<%= emp.radio_button :salary_type, 'Weekly', disabled: true%> Weekly
 						</div>
 					</div>
 				</div>
 			</div>
-			<%= emp.submit "Add Employee", :class => 'btn-create btn btn-success' %>
+			<%= emp.submit "Pay Loan", :class => 'btn-create btn btn-success' %>
 		</div>
 	</div>
 <% end %>
