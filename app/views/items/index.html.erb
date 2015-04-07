@@ -28,6 +28,7 @@ d.className = d.className + " active";
         <tr>
           <th>Quality Title</th>
           <th>Stock Present (Kg)</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +39,9 @@ d.className = d.className + " active";
             </td>
             <td>
               <%= item.left %>
+            </td>
+            <td>
+              <%= link_to 'Delete Item', item_path(item.id), method: 'delete' , class: 'btn btn-info', :id => 'deletebtn', :name => item.id %>
             </td>
           </tr>
         <% end %>

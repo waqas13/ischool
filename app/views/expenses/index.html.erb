@@ -3,13 +3,64 @@
   var d = document.getElementById("expense");
 	d.className = d.className + " active";
   $(document).ready(function() {
-    $('#example').dataTable({
 
+    var table = $('#example').dataTable({
+        "order": [[1, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        },
+        /////////////////////////////////////////////
+        <% if @expenses.count > 0 %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+   
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+   
+              // Total over all pages
+              total = api
+                  .column( 2 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalamount').text('Total: '+total);
+
+              // Total over this page
+              pageTotal = api
+                  .column( 2, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgamount').text('Total: '+ pageTotal);
+          }
+        <% end %>
     });
   });
+
 </script>
 
 <h2>Expenses<a href="<%= new_expense_path %>" class="btn btn-info pull-right" style="width:200px;">Add an Expense</a></h2>
+    <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
     <table id="example" class="display">
       <thead>
         <tr>
@@ -34,3 +85,6 @@
         <% end %>
       </tbody>
     </table>
+  <div style = "float:right; font-size: 14px">
+    <strong> <span id = 'pgamount' > </span></strong><br>
+  </div>

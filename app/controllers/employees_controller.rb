@@ -33,6 +33,12 @@ class EmployeesController < ApplicationController
 	    end
 	end
 
+	def destroy
+	    emp = Employee.find(params[:id])
+	    emp.destroy
+	    redirect_to employees_path, :notice => 'Item Deleted!'
+	end
+
 	private
 		def create_params
 			params.require(:employee).permit(:name, :contact, :address_home, :salary_type, :salary, :iqama, :expire_iqama, :loan, :status)

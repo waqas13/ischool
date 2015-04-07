@@ -2,7 +2,7 @@ class InvoicesController < ApplicationController
   def new
   	if current_user
 	  	@invoice = Invoice.new
-	  	@autogen = Invoice.last.id + 1
+      @autogen = Invoice.last.id + 1
 	  	@bill = @invoice.bills.new
 	  	@bills = @invoice.bills
 	else
@@ -19,14 +19,19 @@ class InvoicesController < ApplicationController
     if invoice.update(update_params)
       cust.credit = cust.credit + invoice.bills.sum("(gross-tear) * price")
       cust.save
-      redirect_to invoices_new_path, :notice => 'Invoice added successfully!'
+      invoice.bills.each do |bill|
+        item = Item.find(bill.item_id)
+        item.left = item.left + (bill.gross - bill.tear)
+        item.save
+      end
+      redirect_to invoices_path, :notice => 'Invoice added successfully!'
     else
       redirect_to :back, :alert => 'Could not update information!'
     end
   end
 
   def index
-    @invoices = Invoice.where.not(status: 'cancelled')
+    @invoices = Invoice.where(status: 'active')
     # @total = Bill.where.not(invoice_id: nil).sum('quantity * pirice')
   end
 
@@ -48,6 +53,22 @@ class InvoicesController < ApplicationController
       item.save!
     end
     invoice.save!
+  end
+
+  def destroy
+    invoice = Invoice.find(params[:id])
+    cust = Customer.find(invoice.customer_id)
+    cust.credit = cust.credit - invoice.bills.sum('price * (gross-tear)')
+    cust.save
+    invoice.bills.each do |bill|
+      item = Item.find(bill.item_id)
+      item.left = item.left - (bill.gross - bill.tear)
+      item.save
+    end
+    invoice.bills.destroy_all
+    invoice.destroy
+    Invoice.create
+    redirect_to invoices_path, :alert => 'Invoice Deleted successfully'
   end
 
   def customer

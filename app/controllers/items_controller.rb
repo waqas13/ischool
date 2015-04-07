@@ -28,7 +28,22 @@ class ItemsController < ApplicationController
     item = Item.find(params[:item][:id])
     item.left = item.left.to_i - params[:item][:left].to_i
     item.save
-    redirect_to items_path
+    b = Bill.new
+    b.gross = params[:item][:left].to_i
+    b.item_id = item.id
+    b.code = 'export'
+    b.save
+    redirect_to export_items_path
+  end
+
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to items_path, :notice => 'Item Deleted!'
+  end
+
+  def export
+    @bills = Bill.where(code: 'export')
   end
 
   private

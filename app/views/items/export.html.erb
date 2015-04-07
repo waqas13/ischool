@@ -1,0 +1,51 @@
+<script type="text/javascript">
+  var d = document.getElementById("addStock");
+  d.className = d.className + " active";
+  $(document).ready(function() {
+    $('#example').dataTable({
+        "order": [[0, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+          "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+          "aButtons": [
+            {
+              "sExtends": "copy",
+              "sButtonText": "Copy to clipboard"
+            },
+            {
+              "sExtends": "csv",
+              "sButtonText": "Save to CSV"
+            }
+          ]
+        }
+    });
+  });
+
+</script>
+
+<h2>Exports<a href="<%= addStock_items_path %>" class="btn btn-info pull-right" style="width:200px;"> Export</a></h2>
+<table id="example" class="display">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Quality Name</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bills.try(:each) do |bill| %>
+      <tr>
+        <td>
+          <%= bill.created_at %>
+        </td>
+        <td>
+          <%= Item.find(bill.item_id).title %>
+        </td>
+        <td>
+        	<%= bill.gross %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

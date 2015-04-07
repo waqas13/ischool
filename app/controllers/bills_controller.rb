@@ -1,10 +1,12 @@
 class BillsController < ApplicationController
 	def createBill
 		puts'-'*80
-		invoice = Invoice.last
+		invoice = Invoice.new
 		if !Invoice.exists?(params[:bill][:invoice_id])
 			invoice = Invoice.create
 			puts'-'*80
+		else
+			invoice = Invoice.find(params[:bill][:invoice_id])
 		end
 		bill = invoice.bills.create
 		item = Item.find(params[:bill][:item_id])
@@ -15,8 +17,6 @@ class BillsController < ApplicationController
 		bill.tear = params[:bill][:tear]
 		bill.price = params[:bill][:price]
 		bill.save
-		item.left = item.left + bill.gross - bill.tear
-		item.save
       	respond_to do |format|
       		format.json {render json: 200}
       	end
@@ -38,7 +38,7 @@ class BillsController < ApplicationController
 		item.left = item.left - (bill.gross - bill.tear)
 		item.save!
 		bill.destroy
-		total = Invoice.last.bills.sum("price * (gross-tear)")
+		total = bill.invoice.bills.sum("price * (gross-tear)")
 		respond_to do |format|
       		format.json {render json: [id: params[:id], total: total ]}
       	end

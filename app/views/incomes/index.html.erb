@@ -24,41 +24,32 @@
 
 </script>
 
-<h2>Customers<a href="<%= new_customer_path %>" class="btn btn-info pull-right" style="width:200px;">Add a Customer</a></h2>
+<h2>Income Register<a href="<%= new_income_path %>" class="btn btn-info pull-right" style="width:200px;">Add Fund</a></h2>
     <table id="example" class="display">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Contact</th>
-          <th>Credit</th>
-          <th>Paid</th>
-          <th>Total</th>
-          <th>Actions</th>
+          <th>Date</th>
+          <th>Added By</th>
+          <th>Amount</th>
+          <th>Remarks</th>
         </tr>
       </thead>
       <tbody>
-        <% @customers.try(:each) do |cust| %>
+        <% @incomes.try(:each) do |inc| %>
           <tr>
             <td>
-              <%= link_to cust.name, customer_invoice_path(cust.id) %>
+              <%= inc.created_at %>
             </td>
             <td>
-              <%= cust.contact %>
+              <%= User.find(inc.user_id).email %>
             </td>
             <td>
-              <%= cust.credit %>
+              <%= inc.amount %>
             </td>
             <td>
-              <%= cust.paid %>
-            </td>
-            <td>
-              <%= cust.paid + cust.credit %>
-            </td>
-            <td>
-              <%= link_to 'Delete', customer_path(cust.id), method: 'delete' , class: 'btn btn-info' %>
+              <%= inc.ramark %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
-

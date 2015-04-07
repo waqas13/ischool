@@ -19,6 +19,12 @@ class CustomersController < ApplicationController
   	@customers = Customer.all
   end
 
+  def destroy
+    cust = Customer.find(params[:id])
+    cust.destroy
+    redirect_to customers_path, :notice => 'Customer Deleted!'
+  end
+
   private
     def create_params
       params.require(:customer).permit(:name, :contact)      

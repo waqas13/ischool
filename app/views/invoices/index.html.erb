@@ -34,16 +34,16 @@ d.className = d.className + " active";
    
               // Total over all pages
               total = api
-                  .column( 4 )
+                  .column( 3 )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
                   } );
-              $('#totalamount').text('Total Cash: '+total);
+              $('#totalamount').text('Total: '+total);
 
               // Total over this page
               pageTotal = api
-                  .column( 4, { page: 'current'} )
+                  .column( 3, { page: 'current'} )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -51,11 +51,8 @@ d.className = d.className + " active";
    
               // Update footer
               $('#pgamount').text('Total: '+ pageTotal);
-
           }
         <% end %>
-
-    /////////////////////////////////////////
     });
   });
 
@@ -92,7 +89,7 @@ d.className = d.className + " active";
           <%= inv.bills.sum("(gross-tear) * price") %>
         </td>
         <td>
-          <%#= link_to 'Cancel', cancel_invoice_path(inv.id), remote: true, :id => 'cancelbtn', :name => inv.id %>
+          <%= link_to 'Delete', invoice_path(inv.id), :method => :delete %>
         </td>
       </tr>
     <% end %>

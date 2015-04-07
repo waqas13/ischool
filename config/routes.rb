@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'incomes/index'
+
+  get 'incomes/new'
+
   get 'salaries/index'
 
   get 'salaries/new'
@@ -65,6 +69,7 @@ Rails.application.routes.draw do
       get 'validateItemCode'
       post 'adding'
       get 'addStock'
+      get 'export'
     end
   end
 
@@ -103,6 +108,7 @@ Rails.application.routes.draw do
     end
   end
   resources :salaries
+  resources :incomes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

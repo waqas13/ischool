@@ -9,7 +9,7 @@ d.className = d.className + " active";
 	<br>
 	<div class="form-group " style=" float:right; margin-right: 242px;">
 		<label>Date </label>
-		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=@invoice.created_at.strftime('%a, %B %e, %Y')%>' disabled >
 	</div>
 	<br><br><br><br>
 	<div class="col-md-6">
