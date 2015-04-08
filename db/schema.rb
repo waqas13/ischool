@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408115038) do
+ActiveRecord::Schema.define(version: 20150408172756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(version: 20150408115038) do
     t.datetime "updated_at"
   end
 
+  create_table "funds", force: true do |t|
+    t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "grades", force: true do |t|
     t.string   "title"
     t.integer  "fee"
@@ -87,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150408115038) do
     t.datetime "updated_at"
     t.float    "paid"
     t.string   "status"
+    t.integer  "shop"
     t.string   "driver"
     t.integer  "customer_id"
     t.string   "vehicle"
@@ -100,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150408115038) do
     t.integer  "left"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "shop"
     t.string   "status"
   end
 
@@ -154,6 +162,7 @@ ActiveRecord::Schema.define(version: 20150408115038) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_type",              default: 0
+    t.integer  "shop"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

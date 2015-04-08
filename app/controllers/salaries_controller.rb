@@ -13,6 +13,9 @@ class SalariesController < ApplicationController
     emp = Employee.find(salary.employee_id)
     emp.loan = emp.loan - salary.loan_amount
     emp.save!
+    fund = Fund.first
+    fund.amount = fund.amount + salary.loan_amount - emp.salary
+    fund.save
   	if salary.save!
       redirect_to salaries_path, :notice => 'Salary Paid successfully!'
     else

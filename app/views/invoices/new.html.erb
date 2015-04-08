@@ -28,7 +28,7 @@ d.className = d.className + " active";
 
 		<div class="form-group">
 			<label> Company/Party  </label>
-			<%= inv.collection_select :customer_id, Customer.order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			<%= inv.collection_select :customer_id, Customer.where.not(status: 'delete').order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
 			
 		</div>
 		
@@ -52,7 +52,7 @@ d.className = d.className + " active";
 	    	<div class="col-md-3">
 	    		<div class="form-group">
 					<label>Qualtiy Name</label>
-					<%= bill.collection_select :item_id, Item.order(:title),:id,:title , {}, {class: "form-control", style: 'width:100%;height:34px;', id: 'item_code'} %>
+					<%= bill.collection_select :item_id, Item.where.not(status: 'delete').order(:title),:id,:title , {}, {class: "form-control", style: 'width:100%;height:34px;', id: 'item_code'} %>
 				</div>
 	    	</div>
 

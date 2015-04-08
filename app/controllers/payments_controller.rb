@@ -9,7 +9,10 @@ class PaymentsController < ApplicationController
   	customer = Customer.find(params[:payment][:customer_id])
   	customer.credit = customer.credit - @payment.total
   	customer.paid = customer.paid + @payment.total
-  	customer.save  	
+  	customer.save
+    fund = Fund.first
+    fund.amount = fund.amount - @payment.total
+    fund.save	
   	if @payment.save
   		redirect_to payments_path, :notice => 'Payment Paid Successfully...!!!'
   	end

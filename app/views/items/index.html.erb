@@ -35,7 +35,7 @@ d.className = d.className + " active";
         <% @items.try(:each) do |item| %>
           <tr>
             <td>
-              <%= item.title %>
+              <%= link_to item.title, item_path(item.id) %>
             </td>
             <td>
               <%= item.left %>

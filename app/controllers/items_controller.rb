@@ -20,6 +20,11 @@ class ItemsController < ApplicationController
     end 	
   end
 
+  def show
+    @item = Item.find(params[:id])
+    @bills = @item.bills
+  end
+
   def addStock
     @item = Item.new
     @items = Item.all

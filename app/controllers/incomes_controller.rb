@@ -1,6 +1,7 @@
 class IncomesController < ApplicationController
   def index
   	@incomes = Income.all
+  	@total = Fund.first.amount
   end
 
   def new
@@ -11,6 +12,9 @@ class IncomesController < ApplicationController
   	income = Income.create(create_params)
   	income.user_id = current_user.id
   	income.save
+  	fund = Fund.first
+  	fund.amount = fund.amount + income.amount
+  	fund.save
   	redirect_to incomes_path, :notice => 'Funds added successfully'
   end
 
