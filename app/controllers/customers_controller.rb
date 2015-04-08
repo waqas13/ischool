@@ -7,6 +7,7 @@ class CustomersController < ApplicationController
   	@customer = Customer.create(create_params)
   	@customer.total = 0
   	@customer.credit = 0
+    @customer.status = 'active'
   	@customer.paid = 0
   	if @customer.save!
       redirect_to customers_path, :notice => 'Customer added successfully!'
@@ -16,12 +17,13 @@ class CustomersController < ApplicationController
   end
 
   def index
-  	@customers = Customer.all
+  	@customers = Customer.where.not(status: 'delete')
   end
 
   def destroy
     cust = Customer.find(params[:id])
-    cust.destroy
+    cust.status = 'delete'
+    cust.save
     redirect_to customers_path, :notice => 'Customer Deleted!'
   end
 

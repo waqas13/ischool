@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   def index
   	if current_user && current_user.user_type == 0
-  		@items = Item.all
+  		@items = Item.where.not(status: 'delete')
   	else
   		redirect_to authenticated_root_path, :alert => 'Access Denied!'
   	end
@@ -14,6 +14,7 @@ class ItemsController < ApplicationController
   def create
   	@item = Item.new(create_params)
     @item.left = 0
+    @item.status = 'active'
     if @item.save
       redirect_to new_item_path :notice => "Item Added Successfully!!"
     end 	
@@ -38,7 +39,8 @@ class ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    item.destroy
+    item.status = 'delete'
+    item.save
     redirect_to items_path, :notice => 'Item Deleted!'
   end
 

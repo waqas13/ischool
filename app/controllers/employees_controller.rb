@@ -1,6 +1,6 @@
 class EmployeesController < ApplicationController
 	def index
-		@employees = Employee.all
+		@employees = Employee.where.not(status: 'delete')
 	end
 
 	def new
@@ -35,7 +35,8 @@ class EmployeesController < ApplicationController
 
 	def destroy
 	    emp = Employee.find(params[:id])
-	    emp.destroy
+	    emp.status = 'delete'
+	    emp.save
 	    redirect_to employees_path, :notice => 'Item Deleted!'
 	end
 
