@@ -16,4 +16,6 @@
 # user for optics POS system (pos branch on git)
 User.create!(email: "admin@optics.com", password: "optics", user_type: 0, password_confirmation: "optics")
 User.create!(email: "sale@optics.com", password: "optics", user_type: 1, password_confirmation: "optics")
+Invoice.create!
+Fund.create!(amount: 0)
 
