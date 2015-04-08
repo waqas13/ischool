@@ -38,16 +38,16 @@
         <% @incomes.try(:each) do |inc| %>
           <tr>
             <td>
-              <%= inc.try.created_at %>
+              <%= inc.created_at %>
             </td>
             <td>
               <%= User.find(inc.user_id).email %>
             </td>
             <td>
-              <%= inc.try.amount %>
+              <%= inc.amount %>
             </td>
             <td>
-              <%= inc.try.ramark %>
+              <%= inc.ramark %>
             </td>
           </tr>
         <% end %>
