@@ -25,6 +25,6 @@ class SalariesController < ApplicationController
 
   private
     def create_params
-      params.require(:salary).permit(:employee_id, :loan_amount)      
+      params.require(:salary).permit(:employee_id, :loan_amount, :status)      
     end
 end

@@ -55,6 +55,6 @@ class ItemsController < ApplicationController
 
   private
   	def create_params
-      params.require(:item).permit(:title)     
+      params.require(:item).permit(:title, :status, :left)     
     end
 end
