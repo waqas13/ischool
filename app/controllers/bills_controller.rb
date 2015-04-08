@@ -47,8 +47,9 @@ class BillsController < ApplicationController
 		item.left = item.left + bill.quantity
 		item.save!
 		bill.destroy
+		total = Invoice.last.bills.sum("price * quantity")
 		respond_to do |format|
-      		format.json {render json: [id: params[:id]]}
+      		format.json {render json: [id: params[:id], total: total]}
       	end
 	end
 

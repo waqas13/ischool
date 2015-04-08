@@ -36,7 +36,7 @@
 		
 		<div class="form-group">
 			<%= inv.label :date %>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@invoice.strftime('%a, %B %e, %Y')%>' disabled >
 		</div>
 		
 		<div class="form-group">

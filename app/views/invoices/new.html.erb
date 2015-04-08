@@ -195,6 +195,7 @@ d.className = d.className + " active";
 	       						$.get('/bills/removebills', {id: this.id})
 	       							.done(function(data){
 	       								console.log(data[0].id);
+	       								$('#totalfield').val(data[0].total);
 	       								$('.'+data[0].id).remove();
 	       								// var el = document.getElementByClassName(data[0].id);
 	       								// el.parentNode.removeChild(el);
