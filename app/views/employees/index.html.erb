@@ -4,7 +4,7 @@ d.className = d.className + " active";
   $(document).ready(function() {
 
     var table = $('#example').dataTable({
-        "order": [[1, "desc"]],
+        "order": [[0, "asc"]],
         dom: 'T<"clear">lfrtip',
         tableTools: {
             "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
@@ -31,16 +31,6 @@ d.className = d.className + " active";
                       typeof i === 'number' ?
                           i : 0;
               };
-   
-              // Total over all pages
-              total = api
-                  .column( 5 )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  } );
-              $('#totalamount').text('Total Salaries: '+total);
-
               // Total over this page
               pageTotal = api
                   .column( 5, { page: 'current'} )
@@ -60,7 +50,8 @@ d.className = d.className + " active";
 
 <h2>Employees
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
-  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Salaries : 0 </span></strong>
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">   Monthly Salaries : <%= Employee.where(salary_type: 'Monthly').sum('salary') %> </span></strong>
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">   Weekly Salaries : <%= Employee.where(salary_type: 'Weekly').sum('salary') %> </span></strong>
   <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Employees : <%= @employees.count %> </span></strong>
   <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total Loan : <%= @employees.sum('loan') %> </span></strong>
 </div>

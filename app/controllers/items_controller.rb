@@ -16,7 +16,9 @@ class ItemsController < ApplicationController
     @item.left = 0
     @item.status = 'active'
     if @item.save
-      redirect_to new_item_path :notice => "Item Added Successfully!!"
+      redirect_to items_path :notice => "Item Added Successfully!!"
+    else
+      redirect_to :back, alert: 'Item with this name Already Exist'
     end 	
   end
 
