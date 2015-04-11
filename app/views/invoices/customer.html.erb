@@ -34,7 +34,7 @@ d.className = d.className + " active";
    
               // Total over all pages
               total = api
-                  .column( 4 )
+                  .column( 2 )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -43,7 +43,7 @@ d.className = d.className + " active";
 
               // Total over this page
               pageTotal = api
-                  .column( 4, { page: 'current'} )
+                  .column( 2, { page: 'current'} )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -61,7 +61,7 @@ d.className = d.className + " active";
 
 </script>
 
-<h2> <%=@customer.name %>
+<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> <%=@customer.name %>
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
 </div>

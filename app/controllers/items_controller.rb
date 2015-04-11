@@ -22,6 +22,17 @@ class ItemsController < ApplicationController
     end 	
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    @item.title = params[:item][:title]
+    @item.save
+    redirect_to items_path, :alert => 'Item Updated'
+  end
+
   def show
     @item = Item.find(params[:id])
     @bills = @item.bills

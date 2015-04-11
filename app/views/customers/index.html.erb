@@ -25,7 +25,7 @@
 
 </script>
 
-<h2>Customers<a href="<%= new_customer_path %>" class="btn btn-info pull-right" style="width:200px;">Add a Customer</a></h2>
+<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" />Customers<a href="<%= new_customer_path %>" class="btn btn-info pull-right" style="width:200px;">Add a Customer</a></h2>
     <table id="example" class="display">
       <thead>
         <tr>
@@ -57,6 +57,7 @@
             </td>
             <td>
               <%= link_to 'Delete', customer_path(cust.id), method: 'delete' , class: 'btn btn-danger' %>
+              <%= link_to 'Edit', edit_customer_path(cust.id) , class: 'btn btn-default' %>
             </td>
           </tr>
         <% end %>

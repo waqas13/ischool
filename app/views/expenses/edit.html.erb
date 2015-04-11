@@ -10,7 +10,7 @@ d.className = d.className + " active";
 	<%= form_for @expense do |exp| %>
 		<div class="form-group">
 			<label>Date</label>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@expense.created_at.strftime('%a, %B %e, %Y')%>' disabled >
 			<br>
 			<%= exp.label :description %>
 			<%= exp.text_field :description , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>

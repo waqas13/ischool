@@ -55,7 +55,7 @@
 
 </script>
 
-<h2>Payments<a href="<%= payments_new_path %>" class="btn btn-info pull-right" style="width:200px;"> Pay Cash</a></h2>
+<h2>Payments <img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /><a href="<%= payments_new_path %>" class="btn btn-info pull-right" style="width:200px;"> Pay Cash</a></h2>
 <span id="totalpaid" style="background : #0040FF; border-radius: 10px;padding: 10px;color: white;margin-left: 35%;">Total Paid: 0 SAR</span>
 <table id="example" class="display">
   <thead>
@@ -64,6 +64,7 @@
       <th>Company/Party</th>
       <th>Amount</th>
       <th>Remarks</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -80,6 +81,10 @@
         </td>
         <td>
           <%= pay.remarks %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_payment_path(pay.id) , class: 'btn btn-default'%>
+              <%= link_to 'Delete', payment_path(pay.id), method: 'delete' , class: 'btn btn-danger'%>
         </td>
       </tr>
     <% end %>

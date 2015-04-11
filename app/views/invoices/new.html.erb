@@ -5,7 +5,7 @@ d.className = d.className + " active";
 
 
 <%= form_for @invoice, url: updateInvoice_invoices_path(@autogen), methoed: :post do |inv| %>
-	<h2>Invoice</h2>
+	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> Purchase Invoice</h2>
 	<br>
 	<div class="form-group " style=" float:right; margin-right: 242px;">
 		<label>Date </label>

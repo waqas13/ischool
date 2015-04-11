@@ -20,6 +20,18 @@ class CustomersController < ApplicationController
   	@customers = Customer.where.not(status: 'delete')
   end
 
+  def edit
+    @customer = Customer.find(params[:id])
+  end
+
+  def update
+    cust = Customer.find(params[:id])
+    cust.name = params[:customer][:name]
+    cust.contact = params[:customer][:contact]
+    cust.save
+    redirect_to customers_path, :notice => 'Customer Updated successfully'
+  end
+
   def destroy
     cust = Customer.find(params[:id])
     cust.status = 'delete'

@@ -26,7 +26,11 @@ class EmployeesController < ApplicationController
 
 	def update
 		emp = Employee.find(params[:id])
+		f = Fund.first
+		f.amount = f.amount + emp.loan
 	    if emp.update(create_params)
+	    	f.amount = f.amount - emp.loan
+	    	f.save
 	      redirect_to employees_path, :notice => 'Information Updated successfully!'
 	    else
 	      redirect_to :back, :alert => 'Could not update information!'

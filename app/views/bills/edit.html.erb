@@ -5,7 +5,7 @@ d.className = d.className + " active";
 
 
 <%= form_for @invoice, url: updateInvoice_invoices_path(@autogen), methoed: :post do |inv| %>
-	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" />Purchase Invoice</h2>
+	<h2>Invoice</h2>
 	<br>
 	<div class="form-group " style=" float:right; margin-right: 242px;">
 		<label>Date </label>
@@ -46,29 +46,45 @@ d.className = d.className + " active";
 <div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
 </div>
 
-<div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px; overflow:hidden;">
-	<table class="table">
-		<thead>
-			<th>Quality Name</th>
-			<th>Gross Weight(Kg)</th>
-			<th>Tear Weight (Kg)</th>
-			<th>Net Weight</th>
-			<th>Rate</th>
-			<th>Total</th>
-		</thead>
-		<tbody id = 'billtable'>
-			<% @bills.each do |bill| %>
-				<tr>
-					<td> <%= Item.find(bill.item_id).title %></td>
-					<td><%= bill.gross %></td>
-					<td><%= bill.tear %></td>
-					<td><%= bill.gross - bill.tear %></td>
-					<td><%= bill.price %></td>
-					<td><%= (bill.gross - bill.tear) * bill.price %></td>
-				</tr>
-			<% end %>
-			
-		</tbody>
+<% @bills.each do |bills|%>
+<div>
+	<%= form_for bills  do |bill| %>
+		<div class="row">
+			<%= bill.hidden_field :invoice_id, :value => @autogen %>
+	    	<div class="col-md-3">
+	    		<div class="form-group">
+					<label>Qualtiy Name</label>
+					<%= bill.collection_select :item_id, Item.where.not(status: 'delete').order(:title),:id,:title , {}, {class: "form-control", style: 'width:100%;height:34px;', id: 'item_code', disabled: true} %>
+				</div>
+	    	</div>
 
-	</table>
+	   		<div class="col-md-3">
+	   			<div class="form-group">
+					<label>Gross Weight (Kg)</label>
+					<%= bill.text_field :gross, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+	   			<div class="form-group">
+					<label>Tear Weight (Kg)</label>
+					<%= bill.text_field :tear, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+
+	    	<div class="col-md-3">
+	    		<div class="form-group">
+					<label>Rate</label>
+					<%= bill.text_field :price, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<span onclick="abc()"><%= bill.submit "Update", :id => "billbutton", :class => 'btn btn-block btn-info form-control', :style => 'width:31%; float:right;' %></span>
+		</div>
+		<br>
+
+	<% end %>
 </div>
+<% end %>

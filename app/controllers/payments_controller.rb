@@ -22,6 +22,37 @@ class PaymentsController < ApplicationController
   	@payments = Payment.all
   end
 
+  def edit
+    @payment = Payment.find(params[:id])
+  end
+
+  def update
+    pay = Payment.find(params[:id])
+    cust = Customer.find(pay.customer_id)
+    cust.paid = cust.paid - pay.total
+    cust.credit = cust.credit + pay.total
+    f = Fund.first
+    f.amount = f.amount + pay.total
+    pay.total = params[:payment][:total]
+    pay.save
+    f.amount = f.amount - pay.total
+    f.save
+    cust.paid = cust.paid + pay.total
+    cust.credit = cust.credit - pay.total
+    cust.save
+    redirect_to payments_path
+  end
+
+  def destroy
+    pay = Payment.find(params[:id])
+    cust = Customer.find(pay.customer_id)
+    cust.paid = cust.paid - pay.total
+    cust.credit = cust.credit + pay.total
+    cust.save
+    pay.destroy
+    redirect_to payments_path
+  end
+
     private
 	    def create_params
 	      params.require(:payment).permit(:customer_id, :total, :remarks)      

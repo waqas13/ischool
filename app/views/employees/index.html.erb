@@ -48,7 +48,7 @@ d.className = d.className + " active";
 
 </script>
 
-<h2>Employees
+<h2>Employees <img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" />
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">   Monthly Salaries : <%= Employee.where(salary_type: 'Monthly').sum('salary') %> </span></strong>
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">   Weekly Salaries : <%= Employee.where(salary_type: 'Weekly').sum('salary') %> </span></strong>
@@ -106,6 +106,7 @@ d.className = d.className + " active";
         <td>
           <%= link_to 'Pay Salalry', new_salary_path(emp.id), class: 'btn btn-info', style: 'width:100%'%>
           <%= link_to 'Pay Loan', loan_employee_path(emp.id), class: 'btn btn-default', style: 'width:100%' %>
+          <%= link_to 'Edit', edit_employee_path(emp.id), class: 'btn btn-default', style: 'width:100%' %>
           <%= link_to 'Delete', employee_path(emp.id), method: 'delete' , class: 'btn btn-danger', style: 'width:100%' %>
         </td>
       </tr>

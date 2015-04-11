@@ -23,7 +23,7 @@ d.className = d.className + " active";
 
 </script>
 
-<h2>Items<a href="<%= items_new_path %>" class="btn btn-info pull-right" style="width:200px;">Add an Item</a></h2>
+<h2>Items<img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /><a href="<%= items_new_path %>" class="btn btn-info pull-right" style="width:200px;">Add an Item</a></h2>
     <table id="example" class="display">
       <thead>
         <tr>
@@ -42,7 +42,9 @@ d.className = d.className + " active";
               <%= item.left %>
             </td>
             <td>
+              <%= link_to 'Edit Item', edit_item_path(item.id) , class: 'btn btn-default'%>
               <%= link_to 'Delete Item', item_path(item.id), method: 'delete' , class: 'btn btn-danger', :id => 'deletebtn', :name => item.id %>
+
             </td>
           </tr>
         <% end %>
