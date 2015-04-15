@@ -73,8 +73,33 @@ class InvoicesController < ApplicationController
 
   def customer
     # return render json: params
-    @customer =  Customer.find(params[:id])
-    @invoices = Invoice.where(customer_id: @customer.id)
+    customer =  Customer.find(params[:id])
+    @name = customer.name
+    invoices = Invoice.where(customer_id: customer.id)
+    @customer = []
+    invoices.each do |inv|
+      @customer.push(inv)
+    end
+    payments = Payment.where(customer_id: customer.id)
+    payments.each do |pay|
+      @customer.push(pay)
+    end
+    sales = Sale.where(customer_id: customer.id)
+    sales.each do |sale|
+      @customer.push(sale)
+    end    
+    @customer = @customer.sort_by &:created_at
+    total = 0
+    @customer.each do |cust|
+      if cust.instance_of? Invoice
+        total = total + cust.bills.sum("(gross-tear) * price")
+      elsif cust.instance_of? Payment
+        total = total - cust.total
+      elsif cust.instance_of? Sale
+        total = total - cust.lines.sum("(gross-tear) * price")
+      end
+    end
+    @total = 0
   end
 
   def canceled

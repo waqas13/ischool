@@ -1,0 +1,187 @@
+<script type="text/javascript">
+  var d = document.getElementById("salesinv");
+d.className = d.className + " active";
+</script>
+
+
+<%= form_for @invoice, url: updateInvoice_sales_path(@autogen), methoed: :post do |inv| %>
+	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> Purchase Invoice</h2>
+	<br>
+	<div class="form-group " style=" float:right; margin-right: 242px;">
+		<label>Date </label>
+		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+	</div>
+	<br><br><br><br>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>invoice ID</label>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<label>Driver</label>
+			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label> Company/Party  </label>
+			<%= inv.collection_select :customer_id, Customer.where.not(status: 'delete').order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			
+		</div>
+		
+		<div class="form-group">
+			<label>Vehicle #</label>
+			<%= inv.text_field :vehicle, :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+		
+		<!-- <div class="size-bock">
+			<%#= inv.submit "Create Invoice", :class => 'btn-create btn btn-success' %>
+		</div> -->
+	</div>
+<% end %>
+<div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
+</div>
+<div class = "billform">
+<!-- /////////////////////items form for//////////////////////////// -->
+	<%= form_for @bill, url: createBill_lines_path, methoed: :post,remote: true do |bill| %>
+		<div class="row">
+			<%= bill.hidden_field :invoice_id, :value => @autogen %>
+	    	<div class="col-md-3">
+	    		<div class="form-group">
+					<label>Qualtiy Name</label>
+					<%= bill.collection_select :item_id, Item.where.not(status: 'delete').order(:title),:id,:title , {}, {class: "form-control", style: 'width:100%;height:34px;', id: 'item_code'} %>
+				</div>
+	    	</div>
+
+	   		<div class="col-md-3">
+	   			<div class="form-group">
+					<label>Gross Weight (Kg)</label>
+					<%= bill.text_field :gross, :id => 'quantity', :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+
+			<div class="col-md-3">
+	   			<div class="form-group">
+					<label>Tear Weight (Kg)</label>
+					<%= bill.text_field :tear, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+
+	    	<div class="col-md-3">
+	    		<div class="form-group">
+					<label>Rate</label>
+					<%= bill.text_field :price, :style => 'width:100%;height:34px;', class: 'form-control', required: true %>
+				</div>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<span onclick="abc()"><%= bill.submit "Add Item", :id => "billbutton", :class => 'btn btn-block btn-info form-control', :style => 'width:31%; float:right;' %></span>
+		</div>
+
+	<% end %>
+</div>
+
+<div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px;">
+	<table class="table">
+		<thead>
+			<th>Quality Name</th>
+			<th>Gross Weight(Kg)</th>
+			<th>Tear Weight (Kg)</th>
+			<th>Net Weight</th>
+			<th>Rate</th>
+			<th>Total</th>
+			<th></th>
+		</thead>
+		<tbody id = 'billtable'>
+			
+		</tbody>
+
+	</table>
+</div>
+<br>
+
+<div class="" >
+	<label style = 'float:right; margin-right:22%;'>Total Amount</label>
+	<br>
+	<br>
+	<input style = 'float:right; width:31%;' id = "totalfield" class = 'form-control' placeholder = '0' disabled>
+	<br>
+	<br>
+	<input type="button" id = "submit" style="float:right; width:31%"; class = "btn-create btn btn-success" value = 'Create Invoice'>
+</div>
+
+
+
+<script type="text/javascript">
+	function abc(){
+		setTimeout(
+			function(){
+				$.get('/lines/getbills', {id: $('#item_code').val()})
+	       			.done(function(data){
+	       				$('#billtable').html('');
+	       				$('#totalfield').val(data[0].totalSum);
+	       				data[0].b.forEach(function(bill){
+	       					var elem = document.createElement("input");
+	       					elem.type = "button";
+	       					elem.value = "Remove";
+	       					elem.className = 'btn btn-danger';
+	       					elem.setAttribute("id", bill.id);
+	       					elem.onclick = function(){
+	       						$.get('/lines/removebills', {id: this.id})
+	       							.done(function(data){
+	       								$('#totalfield').val(data[0].total);
+	       								$('.'+data[0].id).remove();
+	       								// var el = document.getElementByClassName(data[0].id);
+	       								// el.parentNode.removeChild(el);
+	       							})
+	       					};
+	       					var tr = document.createElement("tr");
+	       					tr.className = ''+bill.id;
+	       					var td1 = document.createElement("td");
+	       					var td2 = document.createElement("td");
+	       					var td3 = document.createElement("td");
+	       					var td4 = document.createElement("td");
+	       					var td5 = document.createElement("td");
+	       					var td6 = document.createElement("td");
+	       					var td7 = document.createElement("td");
+
+	       					td1.innerHTML = bill.item_title;
+	       					td2.innerHTML = bill.gross;
+	       					td3.innerHTML = bill.tear;
+	       					td4.innerHTML = bill.gross - bill.tear;
+	       					
+	       					td5.innerHTML = bill.price;
+	       					td6.innerHTML = (bill.gross - bill.tear)* bill.price;
+	       					td7.appendChild(elem);
+	       					tr.appendChild(td1);
+	       					tr.appendChild(td6);
+	       					tr.appendChild(td2);
+	       					tr.appendChild(td3);
+	       					tr.appendChild(td4);
+	       					tr.appendChild(td5);
+	       					tr.appendChild(td6);
+	       					tr.appendChild(td7);
+	       					$('#billtable').append(tr);
+	       					// $('#billtable').append('<tr><td>'+ bill.item_title +'</td><td>'+bill.quantity+'</td><td>'+bill.price+'</td><td>'+bill.quantity*bill.price+'</td> <td>'+elem+'</td></tr>');
+	       				});
+	       			})
+				$('#new_line').closest('form').find("input[type=text], textarea").val("");
+			}
+		,1000);	
+	}
+
+	$("#paidamount").on('keyup',function(){
+		$('#credit').val($('#totalfield').val() - $('#paidamount').val()); 
+	});
+
+	$("#submit").on('click',function(){
+		$('#new_sale').submit();
+	});
+
+
+
+</script>

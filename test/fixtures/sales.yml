@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bookNum: MyString
+  customerName: MyString
+  customerMobile: MyString
+  paid: 1.5
+  status: MyString
+  driver: MyString
+  customer_id: 1
+  vehicle: MyString
+
+two:
+  bookNum: MyString
+  customerName: MyString
+  customerMobile: MyString
+  paid: 1.5
+  status: MyString
+  driver: MyString
+  customer_id: 1
+  vehicle: MyString

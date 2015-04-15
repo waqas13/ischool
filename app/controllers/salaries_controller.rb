@@ -23,6 +23,15 @@ class SalariesController < ApplicationController
     end
   end
 
+  def destroy
+    sal = Salary.find(params[:id])
+    f = Fund.first
+    f.amount = f.amount + (sal.employee.salary - sal.loan_amount)
+    f.save
+    sal.destroy
+    redirect_to salaries_path, alert: 'Salary Deleted'
+  end
+
   private
     def create_params
       params.require(:salary).permit(:employee_id, :loan_amount, :status)      

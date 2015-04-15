@@ -117,7 +117,7 @@
 						<li class="" id="invoiceAdd">
 							<a href="<%= invoices_new_path %>">
 								<i class="fa fa-indent"></i>
-								<span>Invoice</span>
+								<span>Purchase Invoice</span>
 							</a>	    				
 						</li>
 					<% end %>
@@ -159,6 +159,12 @@
 						<a href="<%= incomes_path %>">
 							<i class="fa fa-cloud-download"></i>
 							<span>Income</span>
+						</a>	    				
+					</li>
+					<li class="" id="saless"><!-- class->active -->
+						<a href="<%= sales_path %>">
+							<i class="fa fa-cloud-download"></i>
+							<span>Sales</span>
 						</a>	    				
 					</li>
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>

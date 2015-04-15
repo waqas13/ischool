@@ -1,0 +1,74 @@
+<script type="text/javascript">
+  var d = document.getElementById("saless");
+d.className = d.className + " active";
+</script>
+
+
+<%= form_for @invoice, url: updateInvoice_invoices_path(@autogen), methoed: :post do |inv| %>
+	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" />Sales Invoice</h2>
+	<br>
+	<div class="form-group " style=" float:right; margin-right: 242px;">
+		<label>Date </label>
+		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=@invoice.created_at.strftime('%a, %B %e, %Y')%>' disabled >
+	</div>
+	<br><br><br><br>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label>invoice ID</label>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=@autogen%>' disabled >
+		</div>
+
+		<div class="form-group">
+			<label>Driver</label>
+			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control', required: true,  disabled: true%>
+		</div>
+
+	</div>
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label> Company/Party  </label>
+			<%= inv.collection_select :customerName, Customer.order(:name),:name,:name , {}, {class: "form-control", style: 'width:70%;' , disabled: true} %>
+			
+		</div>
+		
+		<div class="form-group">
+			<label>Vehicle #</label>
+			<%= inv.text_field :vehicle, :style => 'width:70%;height:34px;', class: 'form-control' , disabled: true%>
+		</div>
+
+		<div class="form-group">
+			<label>Total Amount</label>
+			<input style = 'width:70%;height:34px;' id = "totalfield" class = 'form-control' placeholder = '0' disabled , value="<%= @bills.sum("(gross-tear) * price") %>">
+		</div>
+	</div>
+<% end %>
+<div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
+</div>
+
+<div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px; overflow:hidden;">
+	<table class="table">
+		<thead>
+			<th>Quality Name</th>
+			<th>Gross Weight(Kg)</th>
+			<th>Tear Weight (Kg)</th>
+			<th>Net Weight</th>
+			<th>Rate</th>
+			<th>Total</th>
+		</thead>
+		<tbody id = 'billtable'>
+			<% @bills.each do |bill| %>
+				<tr>
+					<td> <%= Item.find(bill.item_id).title %></td>
+					<td><%= bill.gross %></td>
+					<td><%= bill.tear %></td>
+					<td><%= bill.gross - bill.tear %></td>
+					<td><%= bill.price %></td>
+					<td><%= (bill.gross - bill.tear) * bill.price %></td>
+				</tr>
+			<% end %>
+			
+		</tbody>
+
+	</table>
+</div>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_id: 1
+  invoice_id: 1
+  quantity: 1
+  price: 1.5
+  code: MyString
+  item_title: MyString
+  gross: 1
+  tear: 1
+
+two:
+  item_id: 1
+  invoice_id: 1
+  quantity: 1
+  price: 1.5
+  code: MyString
+  item_title: MyString
+  gross: 1
+  tear: 1

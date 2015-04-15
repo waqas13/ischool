@@ -4,7 +4,6 @@ d.className = d.className + " active";
   $(document).ready(function() {
 
     var table = $('#example').dataTable({
-        "order": [[1, "desc"]],
         dom: 'T<"clear">lfrtip',
         tableTools: {
             "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
@@ -20,7 +19,7 @@ d.className = d.className + " active";
             ]
         },
         /////////////////////////////////////////////
-        <% if @invoices.count > 0 %>
+        <% if @customer.count > 0 %>
            "footerCallback": function ( row, data, start, end, display ) {
               var api = this.api(), data;
    
@@ -31,26 +30,6 @@ d.className = d.className + " active";
                       typeof i === 'number' ?
                           i : 0;
               };
-   
-              // Total over all pages
-              total = api
-                  .column( 2 )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  } );
-              $('#totalamount').text('Total Cash: '+total);
-
-              // Total over this page
-              pageTotal = api
-                  .column( 2, { page: 'current'} )
-                  .data()
-                  .reduce( function (a, b) {
-                      return intVal(a) + intVal(b);
-                  }, 0 );
-   
-              // Update footer
-              $('#pgamount').text('Total: '+ pageTotal);
 
           }
         <% end %>
@@ -61,32 +40,86 @@ d.className = d.className + " active";
 
 </script>
 
-<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> <%=@customer.name %>
-<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
-  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
-</div>
+<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> <%=@name %>'s Ledger
 </h2>
 <table id="example" class="display">
   <thead>
     <tr>
       <th>Date</th>
       <th>Invoice #</th>
-      <th>Total</th>
+      <th>Description</th>
+      <th>Credit</th>
+      <th>Debit</th>
+      <th>Balance</th>
     </tr>
   </thead>
   <tbody>
-    <% @invoices.try(:each) do |inv| %>
-      <tr class ="<%= inv.id %>">
-        <td>
-          <%= inv.created_at.strftime('%a, %B %e, %Y') %>
-        </td>
-        <td>
-          <%= link_to inv.id, credit_invoice_path(inv.id) %>
-        </td>
-        <td>
-          <%= inv.bills.sum("(gross-tear) * price") %>
-        </td>
-      </tr>
+    <% @customer.try(:each) do |inv| %>
+      <% if inv.instance_of? Invoice %>    
+        <tr class ="<%= inv.id %>">
+          <td>
+            <%= inv.created_at.strftime('%a, %B %e, %Y') %>
+          </td>
+          <td>
+            <%= inv.id %>
+          </td>
+          <td>
+            "Purchase Invoice"
+          </td>
+          <td>
+            <%= inv.bills.sum('price * (gross-tear)') %>
+          </td>
+          <td> </td>
+          <td>
+            <% @total = @total + inv.bills.sum('price * (gross-tear)') %>
+            <%= @total %>
+          </td>
+        </tr>
+      <% elsif inv.instance_of? Payment %>
+        <tr class ="<%= inv.id %>">
+          <td>
+            <%= inv.created_at.strftime('%a, %B %e, %Y') %>
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            Payment: <%= inv.remarks %>
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            <%= inv.total %>
+          </td>
+          <td>
+            <% @total = @total - inv.total %>
+            <%= @total %>
+          </td>
+        </tr>
+      <% elsif inv.instance_of? Sale %>
+        <tr class ="<%= inv.id %>">
+          <td>
+            <%= inv.created_at.strftime('%a, %B %e, %Y') %>
+          </td>
+          <td>
+            <%= inv.id %>
+          </td>
+          <td>
+            "Sales Invoice"
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            <%= inv.lines.sum('price * (gross-tear)') %>
+          </td>
+          <td>
+            <% @total = @total - inv.lines.sum('price * (gross-tear)') %>
+            <%= @total %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

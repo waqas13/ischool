@@ -61,6 +61,9 @@ d.className = d.className + " active";
             <td>
             	<%= Employee.find(sal.employee_id).salary - sal.loan_amount %>
             </td>
+            <td>
+              <%= link_to 'Delete', salary_path(sal.id), method: 'delete' %>
+            </td>
           </tr>
         <% end %>
       </tbody>
