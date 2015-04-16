@@ -1,6 +1,8 @@
 class LinesController < ApplicationController
 	def createBill
 		puts'-'*80
+		puts params
+		puts'-'*80
 		invoice = Sale.new
 		if !Sale.exists?(params[:line][:sale_id])
 			invoice = Sale.create
@@ -17,9 +19,9 @@ class LinesController < ApplicationController
 		bill.tear = params[:line][:tear]
 		bill.price = params[:line][:price]
 		bill.save
-  	respond_to do |format|
-  		format.json {render json: 200}
-  	end
+	  	respond_to do |format|
+	  		format.json {render json: 200}
+	  	end
   	# redirect_to invoices_new_path
 
 	end

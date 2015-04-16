@@ -1,11 +1,11 @@
 <script type="text/javascript">
-  var d = document.getElementById("salesinv");
+  var d = document.getElementById("saless");
 d.className = d.className + " active";
 </script>
 
 
 <%= form_for @invoice, url: updateInvoice_sales_path(@autogen), methoed: :post do |inv| %>
-	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> Purchase Invoice</h2>
+	<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> Sales Invoice</h2>
 	<br>
 	<div class="form-group " style=" float:right; margin-right: 242px;">
 		<label>Date </label>
@@ -51,7 +51,7 @@ d.className = d.className + " active";
 <!-- /////////////////////items form for//////////////////////////// -->
 	<%= form_for @bill, url: createBill_lines_path, methoed: :post,remote: true do |bill| %>
 		<div class="row">
-			<%= bill.hidden_field :invoice_id, :value => @autogen %>
+			<%= bill.hidden_field :sale_id, :value => @autogen %>
 	    	<div class="col-md-3">
 	    		<div class="form-group">
 					<label>Qualtiy Name</label>
