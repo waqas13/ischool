@@ -17,8 +17,8 @@ class BillsController < ApplicationController
 		bill.tear = params[:bill][:tear]
 		bill.price = params[:bill][:price]
 		bill.save
-  	respond_to do |format|
-  		format.json {render json: 200}
+	  	respond_to do |format|
+	  		format.json {render json: 200}
   	end
   	# redirect_to invoices_new_path
 
@@ -28,8 +28,8 @@ class BillsController < ApplicationController
 		total = Invoice.last.bills.sum("price * (gross-tear)")
 		b = Invoice.last.bills
 		respond_to do |format|
-  		format.json {render json: [totalSum: total, b: b]}
-  	end
+  			format.json {render json: [totalSum: total, b: b]}
+  		end
 	end
 
 	def removebills

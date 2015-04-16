@@ -41,6 +41,9 @@ d.className = d.className + " active";
 </script>
 
 <h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /> <%=@name %>'s Ledger
+<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Balance : <%= @credit %> </span></strong>
+</div>
 </h2>
 <table id="example" class="display">
   <thead>

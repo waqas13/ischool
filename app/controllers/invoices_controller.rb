@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   def new
+    @credit = Customer.where.not(status: 'delete').order(:name).first.credit
   	if current_user
 	  	@invoice = Invoice.new
       @autogen = Invoice.last.id + 1
@@ -75,6 +76,7 @@ class InvoicesController < ApplicationController
     # return render json: params
     customer =  Customer.find(params[:id])
     @name = customer.name
+    @credit = customer.credit
     invoices = Invoice.where(customer_id: customer.id)
     @customer = []
     invoices.each do |inv|
@@ -104,6 +106,13 @@ class InvoicesController < ApplicationController
 
   def canceled
     @invoices = Invoice.where.not(bookNum: nil , status: nil)
+  end
+
+  def getCredit
+    credit = Customer.find(params[:id]).credit
+    respond_to do |format|
+      format.json {render json: [credit: credit]}
+    end
   end
 
   private

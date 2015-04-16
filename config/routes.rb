@@ -82,7 +82,7 @@ Rails.application.routes.draw do
     collection do
       get 'canceled'
       post 'updateInvoice'
-      
+      get 'getCredit'
     end
   end
 

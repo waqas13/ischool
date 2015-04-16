@@ -19,8 +19,13 @@ d.className = d.className + " active";
 		</div>
 
 		<div class="form-group">
+			<label>invoice #</label>
+			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control',  required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
 			<label>Driver</label>
-			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control', required: true, autofocus: true %>
+			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control'%>
 		</div>
 
 	</div>
@@ -29,6 +34,9 @@ d.className = d.className + " active";
 		<div class="form-group">
 			<label> Company/Party  </label>
 			<%= inv.collection_select :customer_id, Customer.where.not(status: 'delete').order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			<div>
+				<span id = "credits" style = "color: red">Credit: <%= @credit %></span>
+			</div>
 			
 		</div>
 		
@@ -180,6 +188,13 @@ d.className = d.className + " active";
 
 	$("#submit").on('click',function(){
 		$('#new_invoice').submit();
+	});
+
+	$( "#invoice_customer_id" ).change(function() {
+	  $.get('/invoices/getCredit', {id: $('#invoice_customer_id').val()})
+	    .done(function(data){
+	    	$('#credits').text('Credit: '+ data[0].credit)
+	    });
 	});
 
 

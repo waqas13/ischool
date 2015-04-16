@@ -19,6 +19,11 @@ d.className = d.className + " active";
 		</div>
 
 		<div class="form-group">
+			<label>invoice #</label>
+			<%= inv.text_field :bookNum , :style => 'width:70%;height:34px;', class: 'form-control',  required: true, disabled: true %>
+		</div>
+
+		<div class="form-group">
 			<label>Driver</label>
 			<%= inv.text_field :driver , :style => 'width:70%;height:34px;', class: 'form-control', required: true,  disabled: true%>
 		</div>

@@ -1,6 +1,7 @@
 class SalesController < ApplicationController
   def new
   	if current_user
+      @credit = Customer.where.not(status: 'delete').order(:name).first.credit
 	  	@invoice = Sale.new
       @autogen = Sale.last.id + 1
 	  	@bill = @invoice.lines.new

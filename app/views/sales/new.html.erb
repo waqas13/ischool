@@ -29,6 +29,9 @@ d.className = d.className + " active";
 		<div class="form-group">
 			<label> Company/Party  </label>
 			<%= inv.collection_select :customer_id, Customer.where.not(status: 'delete').order(:name),:id,:name , {}, {class: "form-control", style: 'width:70%;'} %>
+			<div>
+				<span id = "credits" style = "color: red">Credit: <%= @credit %></span>
+			</div>
 			
 		</div>
 		
@@ -181,7 +184,11 @@ d.className = d.className + " active";
 	$("#submit").on('click',function(){
 		$('#new_sale').submit();
 	});
-
-
+	$( "#sale_customer_id" ).change(function() {
+	  $.get('/invoices/getCredit', {id: $('#sale_customer_id').val()})
+	    .done(function(data){
+	    	$('#credits').text('Credit: '+ data[0].credit)
+	    });
+	});
 
 </script>
