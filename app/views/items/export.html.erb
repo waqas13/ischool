@@ -44,6 +44,10 @@
         <td>
         	<%= bill.gross %>
         </td>
+        <td>
+          <%= link_to 'Edit Export', editExport_bill_path(bill.id) , class: 'btn btn-default'%>
+          <%= link_to 'Delete Export', bill_path(bill.id), method: 'delete' , class: 'btn btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

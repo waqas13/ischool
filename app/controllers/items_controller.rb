@@ -50,6 +50,7 @@ class ItemsController < ApplicationController
     b = Bill.new
     b.gross = params[:item][:left].to_i
     b.item_id = item.id
+    b.item_title = item.title
     b.code = 'export'
     b.save
     redirect_to export_items_path

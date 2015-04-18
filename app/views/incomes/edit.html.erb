@@ -1,0 +1,26 @@
+<script type="text/javascript">
+  var d = document.getElementById("income");
+  d.className = d.className + " active";
+</script>
+
+<h2>Add Fund</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @income do |inc| %>
+		<div class="form-group">
+			<%= inc.label :amount %>
+			<%= inc.text_field :amount , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
+			<%= inc.label :remarks %>
+			<%= inc.text_field :ramark , :style => 'width:70%;height:34px;', class: 'form-control' %>
+		</div>
+
+		<div class="form-group">
+			<%= inc.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+		
+	<% end %>
+</div>

@@ -25,7 +25,7 @@ class InvoicesController < ApplicationController
         item.left = item.left + (bill.gross - bill.tear)
         item.save
       end
-      redirect_to invoices_path, :notice => 'Invoice added successfully!'
+      redirect_to credit_invoice_path(invoice.id), :notice => 'Invoice added successfully!'
     else
       redirect_to :back, :alert => 'Could not update information!'
     end

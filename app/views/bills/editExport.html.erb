@@ -1,0 +1,27 @@
+<script type="text/javascript">
+    var d = document.getElementById("addStock");
+	d.className = d.className + " active";
+</script>
+
+<h2>Edit Export</h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @bill, url: updateExport_bill_path do |bill| %>
+
+		<div class="form-group">
+			<%= bill.label :quality_Name %>
+			<%= bill.text_field :item_title, :style => 'width:70%;height:34px;', class: 'form-control', disabled: true %>
+		</div>
+
+		<div class="form-group">
+			<%= bill.label :quantity %>
+			<%= bill.text_field :gross, :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
+		</div>
+
+		<div class="form-group">
+			<%= bill.submit 'Update Export', :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>

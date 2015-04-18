@@ -44,7 +44,6 @@ d.className = d.className + " active";
             <td>
               <%= link_to 'Edit Item', edit_item_path(item.id) , class: 'btn btn-default'%>
               <%= link_to 'Delete Item', item_path(item.id), method: 'delete' , class: 'btn btn-danger', :id => 'deletebtn', :name => item.id %>
-
             </td>
           </tr>
         <% end %>

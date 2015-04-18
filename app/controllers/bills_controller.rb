@@ -66,6 +66,32 @@ class BillsController < ApplicationController
 		redirect_to edit_bill_path(bill.invoice_id)
 	end
 
+  def editExport
+    @bill = Bill.find(params[:id])
+  end
+
+  def updateExport
+    bill = Bill.find(params[:id])
+    item = Item.find(bill.item_id)
+    item.left = item.left.to_i + bill.gross.to_i
+    bill.gross = params[:bill][:gross]
+    bill.save
+    item.left = item.left.to_i - bill.gross
+    if item.save
+    	redirect_to export_items_path, notice: 'Export Updated Successfully'
+    end
+  end
+
+  def destroy
+  	bill = Bill.find(params[:id])
+    item = Item.find(bill.item_id)
+    item.left = item.left.to_i + bill.gross.to_i
+    item.save
+    if bill.destroy
+    	redirect_to export_items_path, notice: 'Export Deleted Successfully'
+    end
+  end
+
 	private
     def create_params
       params.require(:bill).permit(:item_id, :invoice_id, :quantity, :price, :tear , :gross)      

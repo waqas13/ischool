@@ -51,6 +51,10 @@
         <td>
           <%= inc.ramark %>
         </td>
+        <td>
+          <%= link_to 'Edit', edit_income_path(inc.id), class: 'btn btn-default', style: 'width:100%' %>
+          <%= link_to 'Delete', income_path(inc.id), method: 'delete' , class: 'btn btn-danger', style: 'width:100%' %>
+        </td>
       </tr>
     <% end %>
   </tbody>

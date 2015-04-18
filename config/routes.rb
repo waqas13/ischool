@@ -106,6 +106,10 @@ Rails.application.routes.draw do
       get 'removebills'
       get 'validateCode'
     end
+    member do
+      get 'editExport'
+      patch 'updateExport'
+    end
   end
 
   resources :customers
