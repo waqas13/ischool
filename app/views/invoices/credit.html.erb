@@ -46,29 +46,47 @@
 
 		
 		<div class="size-bock">
-			<span>Size</span>
-			<div class="row size-bock-row">
-				<div class="col-xs-6 col-md-6">
-				 	<div class="form-group">
-						<%= inv.label :right %>
-						<div class="col-sm-9">
-							<%= inv.text_field :right, class: 'form-control' , disabled: true%>
-						</div>
+			<div class="form-group">
+					<label>Right</label>
+					<div style="float:left ; width: 21%;margin-right: 11px;">
+						<label>Cylinder</label>
+						<%= inv.text_field :rc, :style => 'height:34px;', class: 'form-control' %>
+						
+					</div>
+					<div style="float:left;width: 21%;margin-right: 11px;">
+						<label>Sphere</label>
+						<%= inv.text_field :rs, :style => 'height:34px;', class: 'form-control' %>
+						
+					</div>
+					<div style="float:left;width: 21%;margin-right: 11px;">
+						<label>Axis</label>
+						<%= inv.text_field :ra, :style => 'height:34px;', class: 'form-control' %>	
 					</div>
 				</div>
-			  	<div class="col-xs-6 col-md-6">
-			  		<div class="form-group">
-						<%= inv.label :left %>
-						<div class="col-sm-9">
-							<%= inv.text_field :left, class: 'form-control' , disabled: true%>
-						</div>
+				<br>
+				<div class="form-group" style="margin-top: 39px">
+					<label>Left</label>
+					
+					<div style="float:left ; width: 21%;margin-right: 11px;">
+						<label>Cylinder</label>
+						<%= inv.text_field :lc, :style => 'height:34px;', class: 'form-control' %>
+						
+					</div>
+					<div style="float:left;width: 21%;margin-right: 11px;">
+						<label>Sphere</label>
+						<%= inv.text_field :ls, :style => 'height:34px;', class: 'form-control' %>
+						
+					</div>
+					<div style="float:left;width: 21%;margin-right: 11px;">
+						<label>Axis</label>
+						<%= inv.text_field :la, :style => 'height:34px;', class: 'form-control' %>	
 					</div>
 				</div>
-			</div>
+		
 			<div class="row ">
 			  	<div class="col-xs-6 col-md-6"><div class="form-group">
 						<%= inv.label :paid %>
-						<div class="col-sm-9">
+							<div class="col-sm-9">
 							<%= inv.text_field :paid,  :id =>'paidamount', class: 'form-control' %>
 						</div>
 					</div>
@@ -137,6 +155,7 @@
 </div>
  
 <script type="text/javascript">
+	$('#credit').val($('#totalfield').val() - $('#paidamount').val());
 	$("#paidamount").on('keyup',function(){
 		console.log($('#totalfield').val());
 		$('#credit').val($('#totalfield').val() - $('#paidamount').val()); 

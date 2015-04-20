@@ -52,6 +52,17 @@ Rails.application.routes.draw do
       get 'addStock'
     end
   end
+  resources :expenses
+  resources :employees do
+    member do
+      get 'loan'
+      
+    end
+    collection do
+      post 'payLoan'
+    end
+  end
+  resources :salaries
 
   resources :invoices do
     member do
@@ -69,7 +80,6 @@ Rails.application.routes.draw do
       get 'removebills'
       get 'validateCode'
     end
-
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

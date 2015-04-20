@@ -59,6 +59,6 @@ class InvoicesController < ApplicationController
 
   private
     def update_params
-      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid)      
+      params.require(:invoice).permit(:bookNum, :customerName, :customerMobile, :right, :left, :paid, :lc, :la, :ls,:rc, :ra, :rs )      
     end
 end

@@ -1,0 +1,29 @@
+<script type="text/javascript">
+  var d = document.getElementById("expense");
+d.className = d.className + " active";
+</script>
+
+<h2>Submit Expense <img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /></h2>
+</br>
+<div class="col-md-3"></div>
+<div class="col-md-9">
+	<%= form_for @expense do |exp| %>
+		<div class="form-group">
+			<label>Date</label>
+			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<br>
+			<%= exp.label :description %>
+			<%= exp.text_field :description , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
+			<%= exp.label :amount %>
+			<%= exp.text_field :amount , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
+		</div>
+
+		<div class="form-group">
+			<%= exp.submit :class => 'btn btn-block btn-success form-control', :style => 'width:70%' %>
+		</div>
+
+	<% end %>
+</div>

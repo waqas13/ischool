@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Optics POS</title>
+  <title>Optical Solutions</title>
   
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 <script src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/f2c75b7247b/api/sum().js"></script>
 <script src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/jqueryui/dataTables.jqueryui.js"></script>
+<script src="http://autotab.mathachew.com/js/jquery.autotab.js"></script>
 <script src="//cdn.datatables.net/tabletools/2.2.0/js/dataTables.tableTools.min.js"></script>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />
@@ -86,7 +87,7 @@
 					<li class="" id="home"><!-- class->active -->
 						<a href="<%= authenticated_root_path %>">
 							<i class="icon-home"></i>
-							<span>Style 2</span>
+							<span>Optics Solutions</span>
 						</a>	    				
 					</li>
 
@@ -94,35 +95,34 @@
 						<li class="" id="items">
 							<a href="<%= items_path %>">
 								<i class="fa fa-th-large"></i>
-								<span>Items / البنود</span>
+								<span>Items/البنود</span>
 							</a>	    				
 						</li>
 						<li class="" id="cancelled">
 						<a href="<%= canceled_invoices_path %>">
 							<i class="fa fa-minus-circle"></i>
-							<span>Cancelled Invoices / ألغي الفواتير</span>
+							<span>Cancelled/ألغي الفواتير</span>
 						</a>	    				
 					</li>
 					<% end %>
 
-					<% if current_user  %>
 						<li class="" id="itemsAdd">
 							<a href="<%= items_new_path %>">
 								<i class="fa fa-file-text-o"></i>
-								<span>Add Items / إضافة عناصر</span>
+								<span>Add Items/إضافة عناصر</span>
 							</a>	    				
 						</li>
 						<li class="" id="invoiceAdd">
 							<a href="<%= invoices_new_path %>">
 								<i class="fa fa-indent"></i>
-								<span>Invoice / فاتورة</span>
+								<span>Invoice/فاتورة</span>
 							</a>	    				
 						</li>
 					<% end %>
 					<li class="" id="invShow">
 						<a href="<%= invoices_path %>">
 							<i class="fa fa-money"></i>
-							<span>Sales / مبيعات</span>
+							<span>Sales/مبيعات</span>
 						</a>	    				
 					</li>
 					
@@ -130,9 +130,28 @@
 					<li class="" id="addStock"><!-- class->active -->
 						<a href="<%= addStock_items_path %>">
 							<i class="fa fa-rss"></i>
-							<span>Add Stock / إضافة أسهم</span>
+							<span>Add Stock/إضافة أسهم</span>
 						</a>	    				
 					</li>
+					<li class="" id="expense"><!-- class->active -->
+						<a href="<%= expenses_path %>">
+							<i class="fa fa-rss"></i>
+							<span>Expenses</span>
+						</a>	    				
+					</li>
+					<li class="" id="employees"><!-- class->active -->
+						<a href="<%= employees_path %>">
+							<i class="fa fa-rss"></i>
+							<span>Employees</span>
+						</a>	    				
+					</li>
+					<li class="" id="salary"><!-- class->active -->
+						<a href="<%= salaries_path %>">
+							<i class="fa fa-rss"></i>
+							<span>Salaries</span>
+						</a>	    				
+					</li>
+
 <!-- 					<%# if current_user && current_user.user_type == 2  || current_user.user_type == 0 %>
 					<li class="" id="uploadcsv">
 						<a href="javascript:void(0);">

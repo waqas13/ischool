@@ -1,0 +1,70 @@
+<script type="text/javascript">
+  var d = document.getElementById("salary");
+d.className = d.className + " active";
+  $(document).ready(function() {
+    $('#example').dataTable({
+        "order": [[0, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        }
+    });
+  });
+
+</script>
+
+<h2>Salary Register <img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /></h2>
+<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
+  <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Weekly Salaries : <%= Employee.where(salary_type: 'Weekly', status: 'active').sum('salary') %> </span></strong>
+  <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Monthly Salaries : <%= Employee.where(salary_type: 'Monthly', status: 'active').sum('salary') %> </span></strong>
+  <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Loan Deductions : <%= Salary.sum('loan_amount') %> </span></strong>
+</div>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Employee Name</th>
+          <th>Salary Type</th>
+          <th>Salary</th>
+          <th>Loan Deduction</th>
+          <th>Net Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @salaries.try(:each) do |sal| %>
+          <tr>
+            <td>
+              <%= sal.created_at %>
+            </td>
+            <td>
+              <%= Employee.find(sal.employee_id).name %>
+            </td>
+            <td>
+              <%= Employee.find(sal.employee_id).salary_type %>
+            </td>
+            <td>
+            	<%= Employee.find(sal.employee_id).salary %>
+            </td>
+            <td>
+            	<%= sal.loan_amount %>
+            </td>
+            <td>
+            	<%= Employee.find(sal.employee_id).salary - sal.loan_amount %>
+            </td>
+            <td>
+              <%= link_to 'Delete', salary_path(sal.id), method: 'delete' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>

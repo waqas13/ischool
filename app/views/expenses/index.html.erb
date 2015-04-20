@@ -1,0 +1,95 @@
+
+<script type="text/javascript">
+  var d = document.getElementById("expense");
+	d.className = d.className + " active";
+  $(document).ready(function() {
+
+    var table = $('#example').dataTable({
+        "order": [[0, "desc"]],
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        },
+        /////////////////////////////////////////////
+        <% if @expenses.count > 0 %>
+           "footerCallback": function ( row, data, start, end, display ) {
+              var api = this.api(), data;
+   
+              // Remove the formatting to get integer data for summation
+              var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                      i.replace(/[\$,]/g, '')*1 :
+                      typeof i === 'number' ?
+                          i : 0;
+              };
+   
+              // Total over all pages
+              total = api
+                  .column( 2 )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  } );
+              $('#totalamount').text('Total Expenses: '+total);
+
+              // Total over this page
+              pageTotal = api
+                  .column( 2, { page: 'current'} )
+                  .data()
+                  .reduce( function (a, b) {
+                      return intVal(a) + intVal(b);
+                  }, 0 );
+   
+              // Update footer
+              $('#pgamount').text('Total: '+ pageTotal);
+          }
+        <% end %>
+    });
+  });
+
+</script>
+
+<h2>Expenses<img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /><a href="<%= new_expense_path %>" class="btn btn-info pull-right" style="width:200px;">Add an Expense</a></h2>
+    <span id="totalamount" style="background : #0040FF; border-radius: 10px;padding: 10px;color: white;margin-left: 35%;">Total Expenses: 0 SAR</span>
+    <table id="example" class="display">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Remarks</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @expenses.try(:each) do |exp| %>
+	        <tr>
+            <td>
+              <%= exp.created_at.strftime('%a, %B %e, %Y') %>
+            </td>
+            <td>
+              <%= exp.description %>
+            </td>
+            <td>
+              <%= exp.amount %>
+            </td>
+            <td>
+              <%= link_to 'Edit', edit_expense_path(exp.id), class: 'btn btn-default', style: 'width:100%' %>
+              <%= link_to 'Delete', expense_path(exp.id), method: 'delete' , class: 'btn btn-danger', style: 'width:100%' %>
+            </td>
+        	</tr>
+        <% end %>
+      </tbody>
+    </table>
+  <div style = "float:right; font-size: 14px">
+    <strong> <span id = 'pgamount' > </span></strong><br>
+  </div>
