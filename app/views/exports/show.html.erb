@@ -1,0 +1,88 @@
+<p id="notice"><%= notice %></p>
+
+<div style="background-color: white; padding: 40px; border-radius:40px">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <strong>Item:</strong>
+        </td>
+        <td>
+          <%= Item.find(@export.item_id).title %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Container:</strong>
+        </td>
+        <td>
+          <%= @export.container %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Booking Date</strong>
+        </td>
+        <td>
+          <%= @export.booking %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Loading Date</strong>
+        </td>
+        <td>
+          <%= @export.loading %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Port</strong>
+        </td>
+        <td>
+          <%= @export.port %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Party</strong>
+        </td>
+        <td>
+          <%= @export.party %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Agent</strong>
+        </td>
+        <td>
+          <%= @export.agent %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Remarks</strong>
+        </td>
+        <td>
+          <%= @export.remarks %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Net Weight</strong>
+        </td>
+        <td>
+          <%= @export.weight %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

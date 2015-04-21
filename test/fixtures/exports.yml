@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  item_id: 1
+  container: MyString
+  booking: MyString
+  loading: MyString
+  port: MyString
+  party: MyString
+  agent: MyString
+  remarks: MyString
+  weight: MyString
+
+two:
+  item_id: 1
+  container: MyString
+  booking: MyString
+  loading: MyString
+  port: MyString
+  party: MyString
+  agent: MyString
+  remarks: MyString
+  weight: MyString

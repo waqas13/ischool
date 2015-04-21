@@ -1,0 +1,54 @@
+<%= form_for(@export) do |f| %>
+  <% if @export.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@export.errors.count, "error") %> prohibited this export from being saved:</h2>
+
+      <ul>
+      <% @export.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div style="margin-left:17%;">
+    <div class="form-group">
+      <%= f.label :item %>
+      <%= f.collection_select :item_id, Item.where.not(status: 'delete').order(:title),:id,:title , {}, {class: "form-control", style: 'width:50%;height:34px;', id: 'item_code'} %>
+    </div>
+    <div class="form-group">
+      <%= f.label :container %>
+      <%= f.text_field :container, :style => 'width:50%;height:34px;', class: 'form-control', required: true%>
+    </div>
+    <div class="form-group">
+      <%= f.label :booking %>
+      <%= f.text_field :booking, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :loading %>
+      <%= f.text_field :loading, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :port %>
+      <%= f.text_field :port, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :party %>
+      <%= f.text_field :party, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :agent %>
+      <%= f.text_field :agent, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :remarks %>
+      <%= f.text_field :remarks, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div class="form-group">
+      <%= f.label :weight %>
+      <%= f.number_field :weight, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+    </div>
+    <div style="float:right">
+      <%= f.submit :class => "btn btn-success" %>
+    </div>
+  </div>
+<% end %>

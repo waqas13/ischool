@@ -4,44 +4,53 @@ d.className = d.className + " active";
 </script>
 
 
-<h2><img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" />Purchase Invoice </h2> <a href="#" style = " float: right;" class="btn btn-info" onclick="window.print();return false;">Print</a>
+<div>
+	<img src="<%= asset_path "img/logo/yard.png"%>" style="width:9%;float:left; margin-right:2%" />
+	<span style="float:left;padding-top:2.5%;font-size:30px; font-weight:bold">Ali Fawad Ali Abu Al Hammayen Est</span>
+</div>
+<div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
+</div>
+<br><br><br><br>
+<h2>Purchase Invoice </h2> <a href="#" style = " float: right;" class="btn btn-info" onclick="window.print();return false;">Print</a>
 <br>
 <br>
-<table class="table">		
-	<tbody>
-		<tr>
-			<th>Invoice ID</th>
-			<td> <%= @invoice.id %></td>
-		</tr>
-		<tr>
-			<th>Date</th>
-			<td><%= @invoice.created_at %></td>
-		</tr>
-		<tr>
-			<th>invoice #</th>
-			<td><%= @invoice.bookNum %></td>
-		</tr>
-		<tr>
-			<th>Customer/Party Name</th>
-			<td><%= @invoice.customerName %></td>
-		</tr>
-		<tr>
-			<th>Deiver</th>
-			<td><%= @invoice.driver %></td>
-			
-		</tr>
-		<tr>
-			<th>Vehicle</th>
-			<td><%= @invoice.vehicle %></td>
-		</tr>		
-	</tbody>
+<div style="width:50%;">
+	<table class="table">		
+		<tbody>
+			<tr>
+				<th>Invoice ID</th>
+				<td> <%= @invoice.id %></td>
+			</tr>
+			<tr>
+				<th>Date</th>
+				<td><%= @invoice.created_at %></td>
+			</tr>
+			<tr>
+				<th>invoice #</th>
+				<td><%= @invoice.bookNum %></td>
+			</tr>
+			<tr>
+				<th>Customer/Party Name</th>
+				<td><%= @invoice.customerName %></td>
+			</tr>
+			<tr>
+				<th>Deiver</th>
+				<td><%= @invoice.driver %></td>
+				
+			</tr>
+			<tr>
+				<th>Vehicle</th>
+				<td><%= @invoice.vehicle %></td>
+			</tr>		
+		</tbody>
 
-</table>
+	</table>
+</div>
 <div class = "col-md-12" style="background-color:black; margin-bottom:20px;margin-top:20px;">	
 </div>
 
 <div style="padding:10px;border-radius:5px;background-color:white;margin-top:60px; overflow:hidden;">
-	<table class="table">
+	<table class="table table-bordered">
 		<thead>
 			<th>Quality Name</th>
 			<th>Gross Weight(Kg)</th>

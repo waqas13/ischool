@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413202058) do
+ActiveRecord::Schema.define(version: 20150421212003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,20 @@ ActiveRecord::Schema.define(version: 20150413202058) do
     t.datetime "updated_at"
   end
 
+  create_table "exports", force: true do |t|
+    t.integer  "item_id"
+    t.string   "container"
+    t.string   "booking"
+    t.string   "loading"
+    t.string   "port"
+    t.string   "party"
+    t.string   "agent"
+    t.string   "remarks"
+    t.string   "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "funds", force: true do |t|
     t.integer  "amount"
     t.datetime "created_at"
@@ -97,6 +111,12 @@ ActiveRecord::Schema.define(version: 20150413202058) do
     t.string   "driver"
     t.integer  "customer_id"
     t.string   "vehicle"
+    t.string   "rc"
+    t.string   "rs"
+    t.string   "ra"
+    t.string   "la"
+    t.string   "lc"
+    t.string   "ls"
   end
 
   create_table "items", force: true do |t|

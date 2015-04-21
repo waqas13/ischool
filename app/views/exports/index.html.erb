@@ -1,0 +1,64 @@
+<script type="text/javascript">
+  var d = document.getElementById("addStock");
+  d.className = d.className + " active";
+  $(document).ready(function() {
+
+    var table = $('#example').dataTable({
+        dom: 'T<"clear">lfrtip',
+        tableTools: {
+            "sSwfPath": "//cdn.datatables.net/tabletools/2.1.5/swf/copy_csv_xls_pdf.swf",
+            "aButtons": [
+                {
+                    "sExtends": "copy",
+                    "sButtonText": "Copy to clipboard"
+                },
+                {
+                    "sExtends": "csv",
+                    "sButtonText": "Save to CSV"
+                }
+            ]
+        }
+    });
+  });
+
+</script>
+
+<h1>Exports</h1>
+
+<table id="example" class="display">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Container</th>
+      <th>Booking</th>
+      <th>Loading</th>
+      <th>Port</th>
+      <th>Party</th>
+      <th>Agent</th>
+      <th>Remarks</th>
+      <th>Weight</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exports.each do |export| %>
+      <tr>
+        <td><%= export.item_id %></td>
+        <td><%= export.container %></td>
+        <td><%= export.booking %></td>
+        <td><%= export.loading %></td>
+        <td><%= export.port %></td>
+        <td><%= export.party %></td>
+        <td><%= export.agent %></td>
+        <td><%= export.remarks %></td>
+        <td><%= export.weight %></td>
+        <td><%= link_to 'Show', export %></td>
+        <td><%= link_to 'Edit', edit_export_path(export) %></td>
+        <td><%= link_to 'Destroy', export, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

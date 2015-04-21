@@ -35,7 +35,7 @@
 }
 
 @media print{
-	div.subnavbar-inner, div.billform, .btn{
+	div.dataTables_filter ,div.subnavbar-inner, div.billform, .btn, .DTTT_container, .dataTables_length{
 		display: none;
 	}
 }

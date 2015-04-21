@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :exports
+
   get 'incomes/index'
 
   get 'incomes/new'
