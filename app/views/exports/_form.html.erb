@@ -20,12 +20,12 @@
       <%= f.text_field :container, :style => 'width:50%;height:34px;', class: 'form-control', required: true%>
     </div>
     <div class="form-group">
-      <%= f.label :booking %>
-      <%= f.text_field :booking, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+      <%= f.label :booking_Date %>
+      <%= f.text_field :booking, :id => 'datepicker', :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
     </div>
     <div class="form-group">
-      <%= f.label :loading %>
-      <%= f.text_field :loading, :style => 'width:50%;height:34px;', class: 'form-control', required: true %>
+      <%= f.label :loading_Date %>
+      <%= f.text_field :loading, :id => 'datepicker1' ,:style => 'width:50%;height:34px;', class: 'form-control', required: true %>
     </div>
     <div class="form-group">
       <%= f.label :port %>
@@ -52,3 +52,8 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $( "#datepicker" ).datepicker();
+  $( "#datepicker1" ).datepicker();
+</script>
