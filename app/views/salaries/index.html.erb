@@ -23,7 +23,7 @@ d.className = d.className + " active";
 
 </script>
 
-<h2>Salary Register <img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /></h2>
+<h2>Salary Register</h2>
 <div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Weekly Salaries : <%= Employee.where(salary_type: 'Weekly', status: 'active').sum('salary') %> </span></strong>
   <strong> <span  style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Monthly Salaries : <%= Employee.where(salary_type: 'Monthly', status: 'active').sum('salary') %> </span></strong>
@@ -44,7 +44,7 @@ d.className = d.className + " active";
         <% @salaries.try(:each) do |sal| %>
           <tr>
             <td>
-              <%= sal.created_at %>
+              <%= sal.created_at.strftime('%a, %B %e, %Y') %>
             </td>
             <td>
               <%= Employee.find(sal.employee_id).name %>

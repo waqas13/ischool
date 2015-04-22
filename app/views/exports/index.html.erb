@@ -31,6 +31,7 @@ d.className = d.className + " active";
 <table id="example" class="display">
   <thead>
     <tr>
+      <td>Date</td>
       <th>Item</th>
       <th>Container</th>
       <th>Booking</th>
@@ -47,7 +48,8 @@ d.className = d.className + " active";
   <tbody>
     <% @exports.each do |export| %>
       <tr>
-        <td><%= export.item_id %></td>
+        <td><%= export.created_at.strftime('%a, %B %e, %Y') %></td>
+        <td><%= Item.find(export.item_id).title %></td>
         <td><%= export.container %></td>
         <td><%= export.booking %></td>
         <td><%= export.loading %></td>

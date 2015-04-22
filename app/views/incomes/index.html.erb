@@ -25,7 +25,7 @@
 
 </script>
 
-<h2>Income Register<img src="<%= asset_path "img/logo/yard.png"%>" style="width:5%;float:left; margin-right:2%" /><a href="<%= new_income_path %>" class="btn btn-info pull-right" style="width:200px;">Add Fund</a></h2>
+<h2>Income Register<a href="<%= new_income_path %>" class="btn btn-info pull-right" style="width:200px;">Add Fund</a></h2>
 <span id="totalpaid" style="background : #0040FF; border-radius: 10px;padding: 10px;color: white;margin-left: 35%;">Available Fund : <%= Fund.first.amount %></span>
 <table id="example" class="display">
   <thead>
@@ -40,7 +40,7 @@
     <% @incomes.try(:each) do |inc| %>
       <tr>
         <td>
-          <%= inc.created_at %>
+          <%= inc.created_at.strftime('%a, %B %e, %Y') %>
         </td>
         <td>
           <%= User.find(inc.user_id).email %>

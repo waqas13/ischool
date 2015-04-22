@@ -33,9 +33,15 @@
 	height: 34px;
 	margin-top: 10px;
 }
+.headers {
+	display: none;
+}
 
 @media print{
-	div.dataTables_filter ,div.subnavbar-inner, div.billform, .btn, .DTTT_container, .dataTables_length{
+	div.dataTables_filter ,div.subnavbar-inner, div.billform, .btn, .DTTT_container, .dataTables_length, .dataTables_info, .dataTables_paginate{
 		display: none;
+	}
+	.headers {
+		display: block;
 	}
 }
