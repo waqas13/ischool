@@ -1,0 +1,44 @@
+
+<h2>Payment </h2>
+<div style="background-color: white; padding: 40px; border-radius:40px">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>
+          <strong>Date</strong>
+        </td>
+        <td>
+          <%= @payment.created_at.strftime('%a, %B %e, %Y') %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Company/Party</strong>
+        </td>
+        <td>
+          <%= Customer.find(@payment.customer_id) %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Amount</strong>
+        </td>
+        <td>
+          <%= @payment.total %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <strong>Remarks</strong>
+        </td>
+        <td>
+          <%= @payment.remarks %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<a href="#" style = " float: right; margin-top:10px; width: 199px" class="btn btn-info btn-lg" onclick="window.print();return false;">Print</a>

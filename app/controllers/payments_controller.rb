@@ -14,7 +14,7 @@ class PaymentsController < ApplicationController
     fund.amount = fund.amount - @payment.total
     fund.save	
   	if @payment.save
-  		redirect_to payments_path, :notice => 'Payment Paid Successfully...!!!'
+  		redirect_to payment_path(@payment.id)
   	end
   end
 
@@ -43,6 +43,10 @@ class PaymentsController < ApplicationController
     redirect_to payments_path
   end
 
+  def show
+    @payment = Payment.find(params[:id])
+  end
+
   def destroy
     pay = Payment.find(params[:id])
     cust = Customer.find(pay.customer_id)
@@ -55,6 +59,6 @@ class PaymentsController < ApplicationController
 
     private
 	    def create_params
-	      params.require(:payment).permit(:customer_id, :total, :remarks)      
+	      params.require(:payment).permit(:customer_id, :total, :remarks, :created_at)      
 	    end
 end

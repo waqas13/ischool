@@ -5,7 +5,7 @@ class ExportsController < ApplicationController
 
   def index
     @exports = Export.all
-    respond_with(@exports)
+    # respond_with(@exports)
   end
 
   def show

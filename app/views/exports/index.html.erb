@@ -30,21 +30,18 @@ d.className = d.className + " active";
 
 <table id="example" class="display">
   <thead>
-    <tr>
-      <td>Date</td>
-      <th>Item</th>
-      <th>Container</th>
-      <th>Booking</th>
-      <th>Loading</th>
-      <th>Port</th>
-      <th>Party</th>
-      <th>Agent</th>
-      <th>Remarks</th>
-      <th>Weight</th>
-      <th colspan="3">Actions</th>
-    </tr>
+    <th>Date</th>
+    <th>Item</th>
+    <th>Container</th>
+    <th>Booking</th>
+    <th>Loading</th>
+    <th>Port</th>
+    <th>Party</th>
+    <th>Agent</th>
+    <th>Remarks</th>
+    <th>Weight</th>
+    <th>Actions</th>
   </thead>
-
   <tbody>
     <% @exports.each do |export| %>
       <tr>
@@ -58,13 +55,13 @@ d.className = d.className + " active";
         <td><%= export.agent %></td>
         <td><%= export.remarks %></td>
         <td><%= export.weight %></td>
-        <td><%= link_to 'Show', export %></td>
-        <td><%= link_to 'Edit', edit_export_path(export) %></td>
-        <td><%= link_to 'Destroy', export, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', export %><br>
+          <%= link_to 'Edit', edit_export_path(export) %><br>
+          <%= link_to 'Destroy', export, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
 
