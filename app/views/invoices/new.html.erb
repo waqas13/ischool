@@ -6,12 +6,6 @@ d.className = d.className + " active";
 
 <%= form_for @invoice, url: updateInvoice_invoices_path(@autogen), methoed: :post do |inv| %>
 	<h2> Purchase Invoice</h2>
-	<br>
-	<div class="form-group " style=" float:right; margin-right: 242px;">
-		<label>Date </label>
-		<%= inv.text_field :created_at, id: 'datepicker' , :style => 'width:70%;height:34px;', class: 'form-control',  required: true, autofocus: true %>
-		
-	</div>
 	<br><br><br><br>
 	<div class="col-md-6">
 		<div class="form-group">
@@ -31,6 +25,10 @@ d.className = d.className + " active";
 
 	</div>
 	<div class="col-md-6">
+		<div class="form-group ">
+			<label>Date </label>
+			<%= inv.text_field :created_at, id: 'datepicker' , :style => 'width:70%;height:34px;', class: 'form-control',  required: true, autofocus: true %>
+		</div>
 
 		<div class="form-group">
 			<label> Company/Party  </label>
@@ -198,7 +196,8 @@ d.className = d.className + " active";
 	    });
 	});
 
-	$("#datepicker").datepicker({format: 'yyyy-mm-dd'} );
-
+	function(){
+		$("#datepicker").datepicker({format: 'yyyy-mm-dd'} );
+	}
 
 </script>
