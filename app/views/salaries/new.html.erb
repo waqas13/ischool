@@ -10,7 +10,7 @@
 	<%= form_for @salary do |sal| %>
 		<div class="form-group">
 			<label>Date </label>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<%= sal.text_field :created_at , :id => 'datepicker', :style => 'width:70%;height:34px;', class: 'form-control', required: true %>
 		</div>
 		<%= sal.hidden_field :employee_id, value: @employee.id %>
 		<div class="form-group">
@@ -49,4 +49,6 @@
 	$("#loan").on('keyup',function(){
 		$('#netsal').val(<%= @employee.salary %> - $('#loan').val()); 
 	});
+	$( "#datepicker" ).datepicker({format: 'yyyy-mm-dd'} );
+	
 </script>

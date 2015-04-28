@@ -45,6 +45,6 @@ class IncomesController < ApplicationController
 
   private
 	def create_params
-    params.require(:income).permit(:amount, :ramark, :user_id)     
+    params.require(:income).permit(:amount, :ramark, :user_id, :created_at)     
   end
 end

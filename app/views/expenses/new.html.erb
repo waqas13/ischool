@@ -10,7 +10,7 @@ d.className = d.className + " active";
 	<%= form_for @expense do |exp| %>
 		<div class="form-group">
 			<label>Date</label>
-			<input style = 'width:70%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+			<%= exp.text_field :created_at, id: 'datepicker' , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
 			<br>
 			<%= exp.label :description %>
 			<%= exp.text_field :description , :style => 'width:70%;height:34px;',  class: 'form-control', required: true, autofocus: true %>
@@ -27,3 +27,7 @@ d.className = d.className + " active";
 
 	<% end %>
 </div>
+
+<script type="text/javascript">
+	$( "#datepicker" ).datepicker({format: 'yyyy-mm-dd'} );;
+</script>

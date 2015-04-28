@@ -17,7 +17,7 @@
           <strong>Company/Party</strong>
         </td>
         <td>
-          <%= Customer.find(@payment.customer_id) %>
+          <%= Customer.find(@payment.customer_id).name %>
         </td>
       </tr>
 

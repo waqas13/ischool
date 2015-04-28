@@ -86,6 +86,6 @@ class SalesController < ApplicationController
 
   private
     def update_params
-      params.require(:sale).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver)      
+      params.require(:sale).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver, :created_at)      
     end
 end

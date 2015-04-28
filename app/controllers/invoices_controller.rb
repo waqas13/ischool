@@ -117,6 +117,6 @@ class InvoicesController < ApplicationController
 
   private
     def update_params
-      params.require(:invoice).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver)      
+      params.require(:invoice).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver, :created_at)      
     end
 end

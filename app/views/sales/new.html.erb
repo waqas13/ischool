@@ -9,7 +9,7 @@ d.className = d.className + " active";
 	<br>
 	<div class="form-group " style=" float:right; margin-right: 242px;">
 		<label>Date </label>
-		<input style = 'width:151%;height:34px;'  class = 'form-control' value = '<%=DateTime.now.strftime('%a, %B %e, %Y')%>' disabled >
+		<%= inv.text_field :created_at, id: 'datepicker' , :style => 'width:70%;height:34px;', class: 'form-control',  required: true, autofocus: true %>
 	</div>
 	<br><br><br><br>
 	<div class="col-md-6">
@@ -190,5 +190,6 @@ d.className = d.className + " active";
 	    	$('#credits').text('Credit: '+ data[0].credit)
 	    });
 	});
+	$( "#datepicker" ).datepicker({format: 'yyyy-mm-dd'} );
 
 </script>
