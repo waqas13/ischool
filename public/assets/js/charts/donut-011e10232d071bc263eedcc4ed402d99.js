@@ -1,0 +1,1 @@
+$(function(){for(var o=[],a=3,r=0;a>r;r++)o[r]={label:"Series "+(r+1),data:Math.floor(100*Math.random())+1};$.plot($("#donut-chart"),o,{colors:["#F90","#222","#777","#AAA"],series:{pie:{innerRadius:.5,show:!0}}})});
