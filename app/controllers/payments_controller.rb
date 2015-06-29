@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
   def new
   	@payment = Payment.new
+    @credit = Customer.where.not(status: 'delete').order(:name).first.credit
   end
 
   def create

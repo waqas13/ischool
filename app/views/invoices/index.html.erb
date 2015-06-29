@@ -86,7 +86,7 @@ d.className = d.className + " active";
           <%= inv.customerName %>
         </td>
         <td>
-          <%= inv.bills.sum("(gross-tear) * price") %>
+          <%= inv.bills.sum("(gross-tear) * price").round(1) %>
         </td>
         <td>
           <%= link_to 'Delete', invoice_path(inv.id), :method => :delete %>

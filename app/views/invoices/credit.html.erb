@@ -62,7 +62,7 @@ d.className = d.className + " active";
 					<td><%= bill.tear %></td>
 					<td><%= bill.gross - bill.tear %></td>
 					<td><%= bill.price %></td>
-					<td><%= (bill.gross - bill.tear) * bill.price %></td>
+					<td><%= ((bill.gross - bill.tear) * bill.price).round(1) %></td>
 				</tr>
 			<% end %>
 			
@@ -70,5 +70,5 @@ d.className = d.className + " active";
 	</table>
 </div>
 	<div style = "float: right; font-size: large; ">
-		Grand Total: <input type="text" value="<%= @invoice.bills.sum('(gross-tear)*price') %>" style = "height: 30px" disabled>
+		Grand Total: <input type="text" value="<%= @invoice.bills.sum('(gross-tear)*price').round(1) %>" style = "height: 30px" disabled>
 	</div>

@@ -84,7 +84,7 @@ d.className = d.className + " active";
           <%= link_to inv.id, credit_invoice_path(inv.id) %>
         </td>
         <td>
-          <%= inv.bills.sum("(gross-tear) * price") %>
+          <%= (inv.bills.sum("(gross-tear) * price")).round(1) %>
         </td>
       </tr>
     <% end %>

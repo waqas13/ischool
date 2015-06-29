@@ -46,7 +46,7 @@
           <%= User.find(inc.user_id).email %>
         </td>
         <td>
-          <%= inc.amount %>
+          <%= inc.amount.round(1) %>
         </td>
         <td>
           <%= inc.ramark %>

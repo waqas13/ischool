@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
   get 'students/payment'
 
+  get 'home/reports'
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"}
 
   devise_scope :user do
@@ -72,6 +74,7 @@ Rails.application.routes.draw do
       post 'adding'
       get 'addStock'
       get 'export'
+      get 'report'
     end
   end
 
@@ -85,6 +88,7 @@ Rails.application.routes.draw do
       get 'canceled'
       post 'updateInvoice'
       get 'getCredit'
+      get 'report'
     end
   end
 

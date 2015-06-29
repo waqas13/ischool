@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427192420) do
+ActiveRecord::Schema.define(version: 20150604171250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.integer  "paid"
     t.integer  "total"
     t.string   "status"
+  end
+
+  create_table "documents", force: true do |t|
+    t.string   "description"
+    t.string   "attachment"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "employees", force: true do |t|
@@ -107,16 +115,9 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.datetime "updated_at"
     t.float    "paid"
     t.string   "status"
-    t.integer  "shop"
     t.string   "driver"
     t.integer  "customer_id"
     t.string   "vehicle"
-    t.string   "rc"
-    t.string   "rs"
-    t.string   "ra"
-    t.string   "la"
-    t.string   "lc"
-    t.string   "ls"
     t.datetime "date"
   end
 
@@ -128,7 +129,6 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.integer  "left"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "shop"
     t.string   "status"
   end
 
@@ -144,6 +144,27 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sale_id"
+  end
+
+  create_table "parents", force: true do |t|
+    t.string   "relation"
+    t.string   "firstName"
+    t.string   "lastName"
+    t.string   "dob"
+    t.string   "education"
+    t.string   "occupation"
+    t.integer  "income"
+    t.string   "email"
+    t.string   "officePhone1"
+    t.string   "officePhone2"
+    t.string   "cellPhone"
+    t.string   "officeAddress1"
+    t.string   "officeAddress2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "payments", force: true do |t|
@@ -183,7 +204,7 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.string   "branch"
     t.string   "grade"
     t.integer  "amount"
-    t.integer  "paid",       default: 0
+    t.integer  "paid",                default: 0
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -196,6 +217,31 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.string   "dob"
     t.string   "gender"
     t.string   "staus"
+    t.string   "middleName"
+    t.string   "lastName"
+    t.string   "batch"
+    t.string   "blood"
+    t.string   "birthPlace"
+    t.string   "nationality"
+    t.string   "language"
+    t.string   "religion"
+    t.string   "category"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.string   "phone"
+    t.string   "address2"
+    t.string   "pinCode"
+    t.string   "image"
+    t.integer  "fee"
+    t.string   "term"
+    t.string   "dueDate"
+    t.string   "previousInstitute"
+    t.string   "year"
+    t.string   "totalMarks"
+    t.string   "obtainedMarks"
+    t.integer  "parent_id"
+    t.integer  "emergency_parent_id"
   end
 
   create_table "users", force: true do |t|
@@ -212,7 +258,6 @@ ActiveRecord::Schema.define(version: 20150427192420) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_type",              default: 0
-    t.integer  "shop"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
     @item.left = 0
     @item.status = 'active'
     if @item.save
-      redirect_to items_path :notice => "Item Added Successfully!!"
+      redirect_to items_path, :notice => "Item Added Successfully!!"
     else
       redirect_to :back, alert: 'Item with this name Already Exist'
     end 	
@@ -65,6 +65,11 @@ class ItemsController < ApplicationController
 
   def export
     @bills = Bill.where(code: 'export')
+  end
+
+  def report
+    @item = Item.find(params[:items])
+    @bills = @item.bills.where(:created_at => params[:istart_date]..params[:iend_date])
   end
 
   private

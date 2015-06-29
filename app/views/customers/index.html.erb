@@ -47,13 +47,13 @@
               <%= cust.contact %>
             </td>
             <td>
-              <%= cust.credit %>
+              <%= cust.credit.round(1) %>
             </td>
             <td>
-              <%= cust.paid %>
+              <%= cust.paid.round(1) %>
             </td>
             <td>
-              <%= cust.paid + cust.credit %>
+              <%= (cust.paid + cust.credit).round(1) %>
             </td>
             <td>
               <%= link_to 'Delete', customer_path(cust.id), method: 'delete' , class: 'btn btn-danger' %>

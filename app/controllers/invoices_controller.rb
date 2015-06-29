@@ -115,6 +115,18 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def report
+    @customer = Customer.find(params[:customers])
+
+    invoices = Customer.find(params[:customers]).invoices.where(:created_at => params[:start_date]..params[:end_date])
+    @bills = []
+    invoices.try(:each) do |inv|
+      @bills.concat(inv.bills)
+    end
+    # return render json: @bills
+
+  end
+
   private
     def update_params
       params.require(:invoice).permit(:id,:bookNum, :customerName,:customer_id, :customerMobile, :right, :left, :paid, :vehicle, :driver, :created_at)      

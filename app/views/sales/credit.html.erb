@@ -58,7 +58,7 @@ d.className = d.className + " active";
 					<td><%= bill.tear %></td>
 					<td><%= bill.gross - bill.tear %></td>
 					<td><%= bill.price %></td>
-					<td><%= (bill.gross - bill.tear) * bill.price %></td>
+					<td><%= ((bill.gross - bill.tear) * bill.price).round(1) %></td>
 				</tr>
 			<% end %>
 			

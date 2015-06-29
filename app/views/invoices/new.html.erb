@@ -130,7 +130,7 @@ d.className = d.className + " active";
 				$.get('/bills/getbills', {id: $('#item_code').val()})
 	       			.done(function(data){
 	       				$('#billtable').html('');
-	       				$('#totalfield').val(data[0].totalSum);
+	       				$('#totalfield').val(data[0].totalSum.toFixed(1));
 	       				data[0].b.forEach(function(bill){
 	       					var elem = document.createElement("input");
 	       					elem.type = "button";
@@ -162,7 +162,7 @@ d.className = d.className + " active";
 	       					td4.innerHTML = bill.gross - bill.tear;
 	       					
 	       					td5.innerHTML = bill.price;
-	       					td6.innerHTML = (bill.gross - bill.tear)* bill.price;
+	       					td6.innerHTML = Math.round(((bill.gross - bill.tear)*bill.price));
 	       					td7.appendChild(elem);
 	       					tr.appendChild(td1);
 	       					tr.appendChild(td6);

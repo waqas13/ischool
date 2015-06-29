@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  var d = document.getElementById("saless");
+  var d = document.getElementById("home");
 d.className = d.className + " active";
   $(document).ready(function() {
 
@@ -20,7 +20,7 @@ d.className = d.className + " active";
             ]
         },
         /////////////////////////////////////////////
-        <% if @invoices.count > 0 %>
+        <% if @bills.count > 0 %>
            "footerCallback": function ( row, data, start, end, display ) {
               var api = this.api(), data;
    
@@ -34,7 +34,7 @@ d.className = d.className + " active";
    
               // Total over all pages
               total = api
-                  .column( 3 )
+                  .column( 7 )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -43,7 +43,7 @@ d.className = d.className + " active";
 
               // Total over this page
               pageTotal = api
-                  .column( 3, { page: 'current'} )
+                  .column( 7, { page: 'current'} )
                   .data()
                   .reduce( function (a, b) {
                       return intVal(a) + intVal(b);
@@ -58,44 +58,36 @@ d.className = d.className + " active";
 
 </script>
 
-<h2>Invoices
-<a href="<%= new_sale_path %>" class="btn btn-info pull-right" style="width:200px;">Create Sale</a> <br>
-<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;width:200px; background-color: white;margin-bottom:10px;">
-
+<h2> <%= @customer.name %>
+<div style = "float: right;font-size: 14px;border-radius: 10px;padding: 5px;background-color: white;margin-bottom:10px;">
   <strong> <span id = 'totalamount' style = "color: Blue;margin-right : 40px; margin-left: 20px;">  Total : 0 </span></strong>
 </div>
 </h2>
 <table id="example" class="display">
   <thead>
-    <tr>
-      <th>Date</th>
-      <th>Invoice ID</th>
-      <th>Customer/Party Name</th>
-      <th>Total</th>
-      <th>Actions</th>
-    </tr>
+    <th>Date</th>
+    <th>Invoice ID</th>
+    <th>Quality Name</th>
+    <th>Gross Weight(Kg)</th>
+    <th>Tear Weight (Kg)</th>
+    <th>Net Weight</th>
+    <th>Rate</th>
+    <th>Total</th>
   </thead>
-  <tbody>
-    <% @invoices.try(:each) do |inv| %>
-      <tr class ="<%= inv.id %>">
-        <td>
-          <%= inv.created_at.strftime('%a, %B %e, %Y') %>
-        </td>
-        <td>
-          <%= link_to inv.id, credit_sale_path(inv.id) %>
-        </td>
-        <td>
-          <%= inv.customerName %>
-        </td>
-        <td>
-          <%= inv.lines.sum("(gross-tear) * price").round(1) %>
-        </td>
-        <td>
-          <%= link_to 'Delete', sale_path(inv.id), :method => :delete %>
-          <%= link_to 'Edit', edit_line_path(inv.id) %>
-        </td>
+  <tbody id = 'billtable'>
+    <% @bills.each do |bill| %>
+      <tr>
+        <td> <%= bill.invoice.created_at %></td>
+        <td> <%= bill.invoice.id %></td>
+        <td> <%= bill.item_title %></td>
+        <td><%= bill.gross %></td>
+        <td><%= bill.tear %></td>
+        <td><%= bill.gross - bill.tear %></td>
+        <td><%= bill.price %></td>
+        <td><%= ((bill.gross - bill.tear) * bill.price).round(1) %></td>
       </tr>
     <% end %>
+    
   </tbody>
 </table>
 <div style = "float:right; font-size: 14px">

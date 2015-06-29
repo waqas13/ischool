@@ -70,12 +70,12 @@ d.className = d.className + " active";
             "Purchase Invoice"
           </td>
           <td>
-            <%= inv.bills.sum('price * (gross-tear)') %>
+            <%= inv.bills.sum('price * (gross-tear)').round(2) %>
           </td>
           <td> </td>
           <td>
             <% @total = @total + inv.bills.sum('price * (gross-tear)') %>
-            <%= @total %>
+            <%= @total.round(2) %>
           </td>
         </tr>
       <% elsif inv.instance_of? Payment %>
@@ -93,11 +93,11 @@ d.className = d.className + " active";
             
           </td>
           <td>
-            <%= inv.total %>
+            <%= inv.total.round(2) %>
           </td>
           <td>
             <% @total = @total - inv.total %>
-            <%= @total %>
+            <%= @total.round(2) %>
           </td>
         </tr>
       <% elsif inv.instance_of? Sale %>
@@ -119,7 +119,7 @@ d.className = d.className + " active";
           </td>
           <td>
             <% @total = @total - inv.lines.sum('price * (gross-tear)') %>
-            <%= @total %>
+            <%= @total.round(2) %>
           </td>
         </tr>
       <% end %>

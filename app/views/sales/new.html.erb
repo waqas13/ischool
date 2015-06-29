@@ -126,7 +126,7 @@ d.className = d.className + " active";
 				$.get('/lines/getbills', {id: $('#item_code').val()})
 	       			.done(function(data){
 	       				$('#billtable').html('');
-	       				$('#totalfield').val(data[0].totalSum);
+	       				$('#totalfield').val(data[0].totalSum.toFixed(1));
 	       				data[0].b.forEach(function(bill){
 	       					var elem = document.createElement("input");
 	       					elem.type = "button";
@@ -136,7 +136,9 @@ d.className = d.className + " active";
 	       					elem.onclick = function(){
 	       						$.get('/lines/removebills', {id: this.id})
 	       							.done(function(data){
-	       								$('#totalfield').val(data[0].total);
+	       								var v = Math.round((data[0].total));
+	       								console.log(v);
+	       								$('#totalfield').val(v);
 	       								$('.'+data[0].id).remove();
 	       								// var el = document.getElementByClassName(data[0].id);
 	       								// el.parentNode.removeChild(el);
@@ -158,7 +160,7 @@ d.className = d.className + " active";
 	       					td4.innerHTML = bill.gross - bill.tear;
 	       					
 	       					td5.innerHTML = bill.price;
-	       					td6.innerHTML = (bill.gross - bill.tear)* bill.price;
+	       					td6.innerHTML = ((bill.gross - bill.tear)* bill.price).toFixed(1);
 	       					td7.appendChild(elem);
 	       					tr.appendChild(td1);
 	       					tr.appendChild(td6);
